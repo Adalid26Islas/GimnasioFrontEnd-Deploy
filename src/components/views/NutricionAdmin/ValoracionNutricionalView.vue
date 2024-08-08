@@ -2,7 +2,7 @@
     <ValoracionNutricional></ValoracionNutricional>
 </template>
 <script>
-    import ValoracionNutricional from '../../components/ValoracionNutricional.vue'
+    import ValoracionNutricional from '../../NutricionAdmin/ValoracionNutricional.vue';
     
     export default{
         components:

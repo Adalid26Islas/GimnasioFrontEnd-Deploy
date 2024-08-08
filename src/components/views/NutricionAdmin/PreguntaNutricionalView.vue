@@ -2,7 +2,7 @@
     <PreguntaNutricional></PreguntaNutricional>
 </template>
 <script>
-    import PreguntaNutricional from '../../components/PreguntaNutricional.vue'
+    import PreguntaNutricional from '../../NutricionAdmin/PreguntaNutricional.vue'
     
     export default{
         components:

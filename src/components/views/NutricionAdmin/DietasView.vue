@@ -2,7 +2,7 @@
     <Dietas></Dietas>
 </template>
 <script>
-    import Dietas from '../../components/Dietas.vue'
+    import Dietas from '../NutricionAdmin/Dietas.vue'
     
     export default{
         components:

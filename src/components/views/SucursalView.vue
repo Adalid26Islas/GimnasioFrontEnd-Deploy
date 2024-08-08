@@ -10,12 +10,10 @@
 </template>
 <script>
     import Sucursal from '../../components/Sucursal.vue'
-    import Footer from '../Footer.vue';
     export default{
         components:
             {
-                Sucursal,
-                Footer
+                Sucursal
             }
     }
 </script>
