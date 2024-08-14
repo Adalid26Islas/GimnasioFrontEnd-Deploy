@@ -1,6 +1,6 @@
 <template>  
   <aside id="sidebar-multi-level-sidebar" class="fixed top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-     <div class="h-screen px-3 py-4 overflow-y-auto bg-gray-400 dark:bg-gray-800 rounded-[20px]">
+     <div class="h-screen px-3 py-4 overflow-y-auto bg-gray-300 dark:bg-gray-500">
         <ul class="space-y-2 font-medium">
            <li>
             <RouterLink to="/dashboard">
@@ -51,7 +51,7 @@
               </ul>
            </li>
            <li>
-              <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example7" data-collapse-toggle="dropdown-example7">
+              <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example10" data-collapse-toggle="dropdown-example10">
                   <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" aria-hidden="true" viewBox="0 0 448 512">
                      <path d="M224 0a80 80 0 1 1 0 160A80 80 0 1 1 224 0zM436.8 382.8L373.5 462c-16.6 20.7-46.8 24.1-67.5 7.5c-17.6-14.1-22.7-38.1-13.5-57.7l-.8-.1c-38.9-5.6-74.3-25.1-99.7-54.8V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v48c0 .8 0 1.6 .1 2.4l101.4 50.7c23.7 11.9 33.3 40.7 21.5 64.4s-40.7 33.3-64.4 21.5L27.2 427.3c-1.1-.5-2.2-1.1-3.3-1.7c-4.9-2.8-9.2-6.4-12.6-10.6c-4.6-5.4-7.8-11.7-9.6-18.4c-3.3-12-1.9-25.2 4.8-36.6c.6-1.1 1.3-2.2 2-3.2L75.6 256.1c26.7-40.1 71.7-64.1 119.8-64.1h75.2c46.5 0 90.1 22.5 117.2 60.3l50.7 70.9c2.2 3 4 6.1 5.5 9.4c2.9 6.7 4.3 13.8 4 20.8c-.3 10.6-4.2 21-11.2 29.4zM320 332a44 44 0 1 0 -88 0 44 44 0 1 0 88 0z"/>
                   </svg>
@@ -60,7 +60,7 @@
                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                   </svg>
               </button>
-              <ul id="dropdown-example7" class="hidden py-2 space-y-2">
+              <ul id="dropdown-example10" class="hidden py-2 space-y-2">
                     <li>
                         <RouterLink to="/dietasCliente">
                            <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Dietas</a>
@@ -303,21 +303,21 @@
            </li>
         </ul>
      </div>
-  </aside>
-  
-  
-  <div class="p-4 ml-64 h-[100vh] w-[86%]">
+   </aside>
+   <div class="p-4 ml-64 h-[100vh] w-[86%]">
       <router-view/>
-  </div>
-
+      <Footer></Footer>
+   </div>
 </template>
+
 <script>
    import Home from '../components/Home.vue'
-
+   import Footer from './Footer.vue';
    export default {
       components:
          {
-            Home
+            Home,
+            Footer
          }
    }
 </script>
