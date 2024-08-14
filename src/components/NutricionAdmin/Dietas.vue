@@ -1,4 +1,5 @@
 <template>
+    <h1 class="title-gym">BULL'S GYM</h1>
     <main class="w-[100%] h-auto ml-2">
         <section>
             <div class="mx-auto p-4">

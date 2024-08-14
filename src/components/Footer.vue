@@ -1,32 +1,36 @@
 <template>
-    <footer class="flex flex-col space-y-5 ml-[30%] fixed bottom-0">
+    <footer class="bg-gray-400 ml-2 bottom-0 w-[100%]">
+        <div class="container flex flex-col items-center justify-between px-8 py-8 mx-auto lg:flex-row">
+            <a href="#">
+                <img class="w-auto h-7" src="https://merakiui.com/images/full-logo.svg" alt="">
+            </a>
 
-<nav class="flex justify-center flex-wrap gap-6 text-gray-500 font-medium">
-    <a class="hover:text-gray-900" href="#">Home</a>
-    <a class="hover:text-gray-900" href="#">About</a>
-    <a class="hover:text-gray-900" href="#">Services</a>
-    <a class="hover:text-gray-900" href="#">Media</a>
-    <a class="hover:text-gray-900" href="#">Gallery</a>
-    <a class="hover:text-gray-900" href="#">Contact</a>
-</nav>
+            <div class="flex flex-wrap items-center justify-center gap-4 mt-6 lg:gap-6 lg:mt-0">
+                <a href="#" class="text-sm text-gray-900 transition-colors duration-300 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
+                    Overview    
+                </a>
 
-<div class="flex justify-center space-x-5">
-    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.icons8.com/fluent/30/000000/facebook-new.png" />
-    </a>
-    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.icons8.com/fluent/30/000000/linkedin-2.png" />
-    </a>
-    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.icons8.com/fluent/30/000000/instagram-new.png" />
-    </a>
-    <a href="https://messenger.com" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.icons8.com/fluent/30/000000/facebook-messenger--v2.png" />
-    </a>
-    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.icons8.com/fluent/30/000000/twitter.png" />
-    </a>
-</div>
-<p class="text-center text-gray-700 font-medium">&copy; 2022 Company Ltd. All rights reservered.</p>
-</footer>
+                <a href="#" class="text-sm text-gray-900 transition-colors duration-300 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
+                    Features
+                </a>
+
+                <a href="#" class="text-sm text-gray-900 transition-colors duration-300 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
+                    Pricing
+                </a>
+                <a href="#" class="text-sm text-gray-900 transition-colors duration-300 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
+                    Careers
+                </a>
+
+                <a href="#" class="text-sm text-gray-900 transition-colors duration-300 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
+                    Help
+                </a>
+
+                <a href="#" class="text-sm text-gray-900 transition-colors duration-300 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
+                    Privacy
+                </a>
+            </div>
+
+            <p class="mt-6 text-sm text-gray-100 lg:mt-0 dark:text-gray-100">© Copyright 2024 UTXJ. </p>
+        </div>
+    </footer>
 </template>
