@@ -1,5 +1,6 @@
 <template>
   <main class="bg-red-200 min-h-[87vh] ml-2 w-full">
+    
     <table class="w-full bg-white text-left text-sm text-gray-900 rounded ">
                 <thead class="bg-gray-50 text-center">
                     <tr>
