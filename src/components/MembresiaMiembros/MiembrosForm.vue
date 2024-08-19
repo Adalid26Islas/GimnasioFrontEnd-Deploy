@@ -4,8 +4,8 @@
         <section>
             <div class="mx-auto p-4">
                 <div class="bg-white-900 white:bg-white-700 shadow rounded-lg p-6">
-                    <h1 class="text-xl font-semibold mb-4 text-dark-100 dark:text-dark-100">Crear nueva membresía</h1>
-                    <p class="text-dark-100 dark:text-dark-100 mb-6">Ingresa la información correspondiente para crear una nueva membresía.</p>
+                    <h1 class="text-xl font-semibold mb-4 text-dark-100 dark:text-dark-100">Crear nueva meimbro</h1>
+                    <p class="text-dark-100 dark:text-dark-100 mb-6">Ingresa la información correspondiente para crear una nueva meimbro.</p>
                     <form>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             <input type="number" placeholder="Miembro ID" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
@@ -31,7 +31,7 @@
                             <input type="date" placeholder="Fecha de Registro" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                         </div>
                         <button type="button" id="membresia" class="px-4 py-2 w-[20%] rounded bg-red-600 text-white hover:bg-gray-600 focus:outline-none transition-colors">
-                            Crear membresía
+                            Crear meimbro
                         </button>
                     </form>
                 </div>
@@ -82,7 +82,7 @@
             <table class="w-full bg-white text-left text-sm text-gray-900 rounded ">
                 <thead class="bg-gray-50 text-center">
                     <tr>
-                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-l-md">Membresía ID</th>
+                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-l-md">meimbro ID</th>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Usuario ID</th>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Tipo</th>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Estatus</th>
