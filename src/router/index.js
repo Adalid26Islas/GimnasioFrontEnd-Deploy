@@ -14,8 +14,9 @@ import ProgramaSaludableView from '@/components/views/ProgramaSaludableView.vue'
 import DetalleProgramaView from '@/components/views/DetalleProgramaView.vue'
 import EquipamientoView from '@/components/views/EquipamientoView.vue'
 import PrestamosView from '@/components/views/PrestamosView.vue'
-import MembresiasView from '@/components/views/MembresiasView.vue'
+import MembresiasView from '@/components/views/MembresiaMiembros/MembresiasView.vue'
 import MiembrosView from '@/components/views/MembresiaMiembros/MiembrosView.vue'
+import TransaccionesView from '@/components/views/MembresiaMiembros/TransaccionesView.vue'
 import PersonasView from '@/components/views/PersonasView.vue'
 import AreasView from '@/components/views/AreasView.vue'
 import PuestosView from '@/components/views/PuestosView.vue'
@@ -91,6 +92,9 @@ const router = createRouter({
           },
           {
             path:'/miembros', name:'miembros', component: MiembrosView
+          },
+          {
+            path:'/transacciones', name:'transacciones', component: TransaccionesView
           },
           {
             path:'/personas', name:'personas', component: PersonasView
