@@ -31,6 +31,8 @@ import DetallePedidosView from '@/components/views/DetallePedidosView.vue'
 import PagosView from '@/components/views/PagosView.vue'
 import PromocionesView from '@/components/views/PromocionesView.vue'
 import DetalleProductosView from '@/components/views/DetalleProductosView.vue'
+import DIetasCliente from '@/components/NutricionCliente/DIetasCliente.vue'
+import ValoracionNutricionalCliente from '@/components/NutricionCliente/ValoracionNutricionalCliente.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -64,6 +66,12 @@ const router = createRouter({
           },
           {
             path:'/valoracionNutricional', name:'valoracionNutricional', component: ValoracionNutricionalView
+          },
+          {
+            path:'/dietasCliente', name:'dietasCliente', component: DIetasCliente
+          },
+          {
+            path:'/valoracionNutricionalCliente', name:'valoracionNutricionalCliente', component: ValoracionNutricionalCliente
           },
           {
             path:'/ejercicios', name:'ejercicios', component: EjerciciosView
