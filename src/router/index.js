@@ -25,6 +25,15 @@ import InstructoresView from '@/components/views/InstructoresView.vue'
 import HorariosView from '@/components/views/HorariosView.vue'
 import InstalacionesView from '@/components/views/InstalacionesView.vue'
 import MantenimientoView from '@/components/views/MantenimientoView.vue'
+import ProductosView from '@/components/views/ProductosView.vue'
+import DetallePromocionesView from '@/components/views/DetallePromocionesView.vue'
+import PedidoView from '@/components/views/PedidoView.vue'
+import DetallePedidosView from '@/components/views/DetallePedidosView.vue'
+import PagosView from '@/components/views/PagosView.vue'
+import PromocionesView from '@/components/views/PromocionesView.vue'
+import DetalleProductosView from '@/components/views/DetalleProductosView.vue'
+import DIetasCliente from '@/components/NutricionCliente/DIetasCliente.vue'
+import ValoracionNutricionalCliente from '@/components/NutricionCliente/ValoracionNutricionalCliente.vue'
 import ProductosView from '@/components/views/Ventas/ProductosView.vue'
 import DetallePromocionesView from '@/components/views/Ventas/DetallePromocionesView.vue'
 import PedidoView from '@/components/views/Ventas/PedidoView.vue'
@@ -65,6 +74,12 @@ const router = createRouter({
           },
           {
             path:'/valoracionNutricional', name:'valoracionNutricional', component: ValoracionNutricionalView
+          },
+          {
+            path:'/dietasCliente', name:'dietasCliente', component: DIetasCliente
+          },
+          {
+            path:'/valoracionNutricionalCliente', name:'valoracionNutricionalCliente', component: ValoracionNutricionalCliente
           },
           {
             path:'/ejercicios', name:'ejercicios', component: EjerciciosView
