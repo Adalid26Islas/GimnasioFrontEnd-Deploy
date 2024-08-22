@@ -22,7 +22,7 @@ import AreasView from '@/components/RH/Areas.vue'
 import PuestosView from '@/components/RH/Puestos.vue'
 import EmpleadosView from '@/components/RH/Empleados.vue'
 import InstructoresView from '@/components/views/InstructoresView.vue'
-import HorariosView from '@/components/RH/Horarios.vue'
+import HorariosView from '@/components/RH/Horarios.vue' 
 import InstalacionesView from '@/components/views/InstalacionesView.vue'
 import MantenimientoView from '@/components/views/MantenimientoView.vue'
 
