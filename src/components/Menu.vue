@@ -174,11 +174,11 @@
                     </svg>
               </button>
               <ul id="dropdown-example6" class="hidden py-2 space-y-2">
-                    <li>
+                    <!--<li>
                      <RouterLink to="/personas">
                        <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Personas</a>
                      </RouterLink>
-                    </li>
+                    </li>-->
                     <li>
                      <RouterLink to="/areas">
                        <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Áreas</a>
@@ -194,14 +194,19 @@
                        <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Empleados</a>
                      </RouterLink>
                     </li>
-                    <li>
+                    <!--<li>
                      <RouterLink to="/instructores">
                        <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Instructores</a>
                      </RouterLink>
-                    </li>
+                    </li>-->
                     <li>
                      <RouterLink to="/horarios">
                        <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Horarios</a>
+                     </RouterLink>
+                    </li>
+                    <li>
+                     <RouterLink to="/serviciosclientes">
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Servicios Clientes</a>
                      </RouterLink>
                     </li>
               </ul>

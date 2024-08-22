@@ -17,11 +17,11 @@ import PrestamosView from '@/components/views/PrestamosView.vue'
 import MembresiasView from '@/components/views/MembresiasView.vue'
 import MiembrosView from '@/components/views/MiembrosView.vue'
 import PersonasView from '@/components/views/PersonasView.vue'
-import AreasView from '@/components/views/AreasView.vue'
-import PuestosView from '@/components/views/PuestosView.vue'
-import EmpleadosView from '@/components/views/EmpleadosView.vue'
+import AreasView from '@/components/RH/Areas.vue'
+import PuestosView from '@/components/RH/Puestos.vue'
+import EmpleadosView from '@/components/RH/Empleados.vue'
 import InstructoresView from '@/components/views/InstructoresView.vue'
-import HorariosView from '@/components/views/HorariosView.vue'
+import HorariosView from '@/components/RH/Horarios.vue'
 import InstalacionesView from '@/components/views/InstalacionesView.vue'
 import MantenimientoView from '@/components/views/MantenimientoView.vue'
 import ProductosView from '@/components/views/ProductosView.vue'
@@ -31,6 +31,8 @@ import DetallePedidosView from '@/components/views/DetallePedidosView.vue'
 import PagosView from '@/components/views/PagosView.vue'
 import PromocionesView from '@/components/views/PromocionesView.vue'
 import DetalleProductosView from '@/components/views/DetalleProductosView.vue'
+import ServiciosClientesView from '@/components/RH/ServiciosClientes.vue'
+import UserView from '@/components/User.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +47,9 @@ const router = createRouter({
       name: 'signup',
       component: Register
     },
+    {
+      path:'/User', name:'User', component: UserView
+    },  
     {
       path: '/home',
       name: 'home',
@@ -109,6 +114,13 @@ const router = createRouter({
           },
           {
             path:'/horarios', name:'horarios', component: HorariosView
+          },
+          {
+            path:'/horarios/:horarioId',name:'editarHorario', component: HorariosView,
+            props: true  // Esto permite pasar el horarioId como prop al componente
+          },          
+          {
+            path:'/serviciosclientes', name:'serviciosclientes', component: ServiciosClientesView
           },
           {
             path:'/instalaciones', name:'instalaciones', component: InstalacionesView
