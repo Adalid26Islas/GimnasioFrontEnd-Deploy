@@ -37,7 +37,7 @@
                             <input type="datetime-local" v-model="this.miembroData.Fecha_Registro" placeholder="Fecha de Registro"
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                         </div>
-                        <button type="button" @click="submitForm" id="membresia"
+                        <button type="button" @click="submitForm" id="miembro"
                             class="px-4 py-2 w-[20%] rounded bg-red-600 text-white hover:bg-gray-600 focus:outline-none transition-colors">
                             Crear miembro
                         </button>
@@ -321,16 +321,16 @@ export default {
         }
     },
     methods: {
-        submitForm() {
+        async submitForm() {
             this.miembroData.Estatus = this.miembroData.Estatus === 'true' ? true : false;
             console.log(JSON.stringify(this.miembroData))
-            const url = "http://127.0.0.1:8000/miembro/"
+            const url = "https://gimnasio-deploy.onrender.com/miembro/"
             const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6IkFsZGFpciIsIkNvcnJlb19FbGVjdHJvbmljbyI6InN0cmluZyIsIkNvbnRyYXNlbmEiOiIxMjMiLCJOdW1lcm9fVGVsZWZvbmljb19Nb3ZpbCI6InN0cmluZyJ9.5EsBwNW9FIyMzd3jqJOA-vvdhvFrMvNL2bWhfnliFKQ"
-            fetch(url, {
+            await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` // Agrega el token en el encabezado de autorización
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(this.miembroData)
             })
@@ -338,7 +338,7 @@ export default {
                     if (!response.ok) {
                         throw new Error('Error en la solicitud: ' + response.statusText);
                     }
-                    return response.json(); // Parsea la respuesta JSON
+                    return response.json();
                 })
                 .then(data => {
                     console.log('Respuesta de la API:', data);

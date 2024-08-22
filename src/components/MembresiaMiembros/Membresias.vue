@@ -9,9 +9,9 @@
                         una nueva membresía.</p>
                     <form>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <input type="text" placeholder="Código"
+                            <input type="text" v-model="this.membresiaData.Codigo" placeholder="Código"
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                            <select
+                            <select v-model="this.membresiaData.Tipo"
                                 class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                                 <option value="">Tipo</option>
                                 <option value="Individual">Individual</option>
@@ -20,7 +20,7 @@
                             </select>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <select
+                            <select v-model="this.membresiaData.Tipo_Servicios"
                                 class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                                 <option value="">Tipo de servicios</option>
                                 <option value="Basicos">Básicos</option>
@@ -28,7 +28,7 @@
                                 <option value="Coaching">Coaching</option>
                                 <option value="Nutrilogo">Nutriólogo</option>
                             </select>
-                            <select
+                            <select v-model="this.membresiaData.Tipo_Plan"
                                 class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                                 <option value="">Tipo de plan</option>
                                 <option value="Anual">Anual</option>
@@ -41,7 +41,7 @@
                             </select>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <select
+                            <select v-model="this.membresiaData.Nivel"
                                 class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                                 <option value="">Nivel</option>
                                 <option value="Nuevo">Nuevo</option>
@@ -49,13 +49,13 @@
                                 <option value="Oro">Oro</option>
                                 <option value="Diamante">Diamante</option>
                             </select>
-                            <input id="fecha_inicio" type="date" placeholder="Fecha de Inicio"
+                            <input id="fecha_inicio" type="date" v-model="this.membresiaData.Fecha_Inicio" placeholder="Fecha de Inicio"
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <input type="date" placeholder="Fecha de Fin"
+                            <input type="date" v-model="this.membresiaData.Fecha_Fin" placeholder="Fecha de Fin"
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                            <select
+                            <select v-model="this.membresiaData.Estatus"
                                 class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                                 <option value="">Estatus</option>
                                 <option value="true">Activo</option>
@@ -63,10 +63,10 @@
                             </select>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <input type="date" placeholder="Fecha de Registro"
+                            <input type="date" v-model="this.membresiaData.Fecha_Registro" placeholder="Fecha de Registro"
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                         </div>
-                        <button type="button" id="membresia"
+                        <button type="button" @click="submitForm" id="membresia"
                             class="px-4 py-2 w-[20%] rounded bg-red-600 text-white hover:bg-gray-600 focus:outline-none transition-colors">
                             Crear membresía
                         </button>
@@ -188,16 +188,16 @@ export default {
         }
     },
     methods: {
-        submitForm() {
+        async submitForm() {
             this.membresiaData.Estatus = this.membresiaData.Estatus === 'true' ? true : false;
             console.log(JSON.stringify(this.membresiaData))
-            const url = "http://127.0.0.1:8000/membresia/"
+            const url = "https://gimnasio-deploy.onrender.com/membresia/"
             const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6IkFsZGFpciIsIkNvcnJlb19FbGVjdHJvbmljbyI6InN0cmluZyIsIkNvbnRyYXNlbmEiOiIxMjMiLCJOdW1lcm9fVGVsZWZvbmljb19Nb3ZpbCI6InN0cmluZyJ9.5EsBwNW9FIyMzd3jqJOA-vvdhvFrMvNL2bWhfnliFKQ"
-            fetch(url, {
+            await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` // Agrega el token en el encabezado de autorización
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(this.membresiaData)
             })
@@ -205,7 +205,7 @@ export default {
                     if (!response.ok) {
                         throw new Error('Error en la solicitud: ' + response.statusText);
                     }
-                    return response.json(); // Parsea la respuesta JSON
+                    return response.json();
                 })
                 .then(data => {
                     console.log('Respuesta de la API:', data);
