@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Crea una instancia de Axios con la configuración necesaria
 const apiClient = axios.create({
-  baseURL: 'https://gimnasio-deploy.onrender.com/login/', // Cambia esto a la URL correcta de tu API
+  baseURL: 'https://gimnasio-deploy.onrender.com/', // Cambia esto a la URL correcta de tu API
   headers: {
     'Content-Type': 'application/json',
   },
