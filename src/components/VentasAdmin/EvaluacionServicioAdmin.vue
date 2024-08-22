@@ -105,69 +105,105 @@
   </template>
   
   <script>
+
+  import axios from 'axios';
+
   export default {
-    data() {
-      return {
-        form: {
-          id: null,
-          usuarioId: null,
-          calificacion: '',
-          criterio: '',
-          servicios: '',
-          estatus: '',
-          fechaRegistro: ''
-        },
-        evaluaciones: [
-          // Ejemplo de datos, debes reemplazar con datos reales o dinámicos
-          {
-            id: 1,
-            usuarioId: 101,
-            calificacion: 5,
-            criterio: 'Excelente',
-            servicios: 'Servicio 1',
-            estatus: 'Atendida',
-            fechaRegistro: '2024-08-19'
-          },
-          // Más evaluaciones...
-        ],
-        isEditing: false
-      };
+  data() {
+    return {
+      form: {
+        id: null,
+        usuarioId: null,
+        calificacion: '',
+        criterio: '',
+        servicios: '',
+        estatus: '',
+        fechaRegistro: ''
+      },
+      evaluaciones: [], // Inicia con una lista vacía
+      isEditing: false
+    };
+  },
+  methods: {
+    async getEvaluaciones() {
+      try {
+        const response = await axios.get('https://gimnasio-deploy.onrender.com/docs/evaluaciones_serv', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}` // Token de autenticación si es necesario
+          }
+        });
+        this.evaluaciones = response.data;
+      } catch (error) {
+        console.error('Error al cargar evaluaciones:', error);
+      }
     },
-    methods: {
-      crearOeditarEvaluacion() {
-        if (this.isEditing) {
-          // Lógica para actualizar evaluación
+    async crearOeditarEvaluacion() {
+      if (this.isEditing) {
+        // Lógica para actualizar evaluación
+        try {
+          await axios.put(`https://gimnasio-deploy.onrender.com/evaluaciones_serv/${this.form.id}`, this.form, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          });
           const index = this.evaluaciones.findIndex(e => e.id === this.form.id);
           if (index !== -1) {
             this.$set(this.evaluaciones, index, { ...this.form });
           }
           this.isEditing = false;
-        } else {
-          // Lógica para crear nueva evaluación
-          this.evaluaciones.push({ ...this.form, id: this.evaluaciones.length + 1 });
+        } catch (error) {
+          console.error('Error al actualizar evaluación:', error);
         }
-        // Limpiar formulario
-        this.form = {
-          id: null,
-          usuarioId: null,
-          calificacion: '',
-          criterio: '',
-          servicios: '',
-          estatus: '',
-          fechaRegistro: ''
-        };
-      },
-      editarEvaluacion(evaluacion) {
-        this.form = { ...evaluacion };
-        this.isEditing = true;
-      },
-      eliminarEvaluacion(id) {
-        this.evaluaciones = this.evaluaciones.filter(e => e.id !== id);
+      } else {
+        // Lógica para crear nueva evaluación
+        try {
+          const response = await axios.post('https://gimnasio-deploy.onrender.com/evaluaciones_serv', this.form, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          });
+          this.evaluaciones.push(response.data);
+        } catch (error) {
+          console.error('Error al crear evaluación:', error);
+        }
+      }
+      // Limpiar formulario
+      this.form = {
+        id: null,
+        usuarioId: null,
+        calificacion: '',
+        criterio: '',
+        servicios: '',
+        estatus: '',
+        fechaRegistro: ''
+      };
+    },
+    editarEvaluacion(evaluacion) {
+      this.form = { ...evaluacion };
+      this.isEditing = true;
+    },
+    async eliminarEvaluacion(id) {
+      if (confirm('¿Estás seguro de que deseas eliminar esta evaluación?')) {
+        try {
+          await axios.delete(`https://gimnasio-deploy.onrender.com/evaluaciones_serv/${id}`, {
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          });
+          this.evaluaciones = this.evaluaciones.filter(e => e.id !== id);
+        } catch (error) {
+          console.error('Error al eliminar evaluación:', error);
+        }
       }
     }
-  };
-  </script>
-  
+  },
+  mounted() {
+    this.getEvaluaciones(); // Cargar las evaluaciones al montar el componente
+  }
+};
+</script>
   <style scoped>
   /* Estilos personalizados */
   </style>
