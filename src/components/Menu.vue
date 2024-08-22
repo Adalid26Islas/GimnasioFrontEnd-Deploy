@@ -249,12 +249,13 @@
                     </li>
               </ul>
            </li>
+
            <li>
               <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example2" data-collapse-toggle="dropdown-example2">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" aria-hidden="true">
                      <path d="M160 112c0-35.3 28.7-64 64-64s64 28.7 64 64v48H160V112zm-48 48H48c-26.5 0-48 21.5-48 48V416c0 53 43 96 96 96H352c53 0 96-43 96-96V208c0-26.5-21.5-48-48-48H336V112C336 50.1 285.9 0 224 0S112 50.1 112 112v48zm24 48a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm152 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/>
                   </svg>
-                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Ventas</span>
+                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Ventas Admin</span>
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                     </svg>
@@ -262,42 +263,93 @@
               </button>
               <ul id="dropdown-example2" class="hidden py-2 space-y-2">
                     <li>
-                     <RouterLink to="productos">
+                     <RouterLink to="/ProductosAdmin">
                        <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Productos</a>
                      </RouterLink>
                     </li>
                     <li>
-                     <RouterLink to="detalleProductos">
-                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Detalle de Productos</a>
+                     <RouterLink to="/Opiniones_clientes_Admin">
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Opiniones De clientes</a>
                      </RouterLink>
                     </li>
                     <li>
-                     <RouterLink to="/promociones">
+                     <RouterLink to="/PromocionesAdmin">
                        <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Promociones</a>
                      </RouterLink>
                     </li>
                     <li>
-                     <RouterLink to="/detallePromociones">
-                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Detalles de Promociones</a>
+                     <RouterLink to="/PreguntasAdmin">
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Preguntas</a>
                      </RouterLink>
                     </li>
                     <li>
-                     <RouterLink to="/pedidos">
+                     <RouterLink to="/PedidosAdmin">
                        <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Pedidos</a>
                      </RouterLink>
                     </li>
                     <li>
-                     <RouterLink to="/detallePedidos">
-                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Detalle de Pedidos</a>
+                     <RouterLink to="/EvaluacionServicioAdmin">
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Evaluaciones de Servicios</a>
                      </RouterLink>
                     </li>
                     <li>
-                     <RouterLink to="/pagos">
+                     <RouterLink to="/PagosAdmin">
                        <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Transacción Pagos</a>
                      </RouterLink>
                     </li>
               </ul>
            </li>
+           <li>
+              <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example11" data-collapse-toggle="dropdown-example11">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" aria-hidden="true">
+                     <path d="M160 112c0-35.3 28.7-64 64-64s64 28.7 64 64v48H160V112zm-48 48H48c-26.5 0-48 21.5-48 48V416c0 53 43 96 96 96H352c53 0 96-43 96-96V208c0-26.5-21.5-48-48-48H336V112C336 50.1 285.9 0 224 0S112 50.1 112 112v48zm24 48a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm152 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"/>
+                  </svg>
+                    <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Ventas Clientes</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                    </svg>
+
+              </button>
+              <ul id="dropdown-example11" class="hidden py-2 space-y-2">
+                    <li>
+                     <RouterLink to="/Productos_Cliente">
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Productos</a>
+                     </RouterLink>
+                    </li>
+                    <li>
+                     <RouterLink to="Opiniones_clientes_Cliente">
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Opiniones De clientes</a>
+                     </RouterLink>
+                    </li>
+                    <li>
+                     <RouterLink to="/Promociones_Cliente">
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Promociones</a>
+                     </RouterLink>
+                    </li>
+                    <li>
+                     <RouterLink to="/Preguntas_Cliente">
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Preguntas</a>
+                     </RouterLink>
+                    </li>
+                    <li>
+                     <RouterLink to="/Pedidos_Cliente">
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Pedidos</a>
+                     </RouterLink>
+                    </li>
+                    <li>
+                     <RouterLink to="/EvaluacionServicio_Cliente">
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Evaluaciones de Servicios</a>
+                     </RouterLink>
+                    </li>
+                    <li>
+                     <RouterLink to="/Pagos_Cliente">
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Transacción Pagos</a>
+                     </RouterLink>
+                    </li>
+              </ul>
+           </li>
+
+
            <li>
               <a href="/" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"  class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true">
