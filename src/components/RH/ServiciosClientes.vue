@@ -129,7 +129,7 @@ export default {
     async submitForm() {
       try {
         if (this.isEditing) {
-          const response = await axios.put(`http://127.0.0.1:8000/servicio_cliente/${this.formData.ID}`, this.formData, {
+          const response = await axios.put(`https://gimnasio-deploy.onrender.com/servicio_cliente/${this.formData.ID}`, this.formData, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -138,7 +138,7 @@ export default {
           const index = this.servicios.findIndex(s => s.ID === this.formData.ID);
           this.servicios.splice(index, 1, response.data); // Actualiza el servicio en la lista
         } else {
-          const response = await axios.post('http://127.0.0.1:8000/servicios_clientes/', this.formData, {
+          const response = await axios.post('https://gimnasio-deploy.onrender.com/servicios_clientes/', this.formData, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -159,7 +159,7 @@ export default {
     async deleteServicio(id, personaID) {
       if (confirm(`¿Estás seguro de que deseas eliminar el servicio con Persona_ID ${personaID}?`)) {
         try {
-          await axios.delete(`http://127.0.0.1:8000/servicio_cliente/${id}`, {
+          await axios.delete(`https://gimnasio-deploy.onrender.com/servicio_cliente/${id}`, {
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
@@ -177,7 +177,7 @@ export default {
     },
     async getServicios() {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/servicios_clientes/', {
+        const response = await axios.get('https://gimnasio-deploy.onrender.com/servicios_clientes/', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           },

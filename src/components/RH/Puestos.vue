@@ -130,7 +130,7 @@ export default {
     async submitForm() {
       try {
         if (this.isEditing) {
-          const response = await axios.put(`http://127.0.0.1:8000/puesto/${this.formData.ID}`, this.formData, {
+          const response = await axios.put(`https://gimnasio-deploy.onrender.com/puesto/${this.formData.ID}`, this.formData, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -139,7 +139,7 @@ export default {
           const index = this.puestos.findIndex(p => p.ID === this.formData.ID);
           this.puestos.splice(index, 1, response.data); // Actualiza el puesto en la lista
         } else {
-          const response = await axios.post('http://127.0.0.1:8000/puestos/', this.formData, {
+          const response = await axios.post('https://gimnasio-deploy.onrender.com/puestos/', this.formData, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -160,7 +160,7 @@ export default {
     async deletePuesto(id, nombre) {
       if (confirm(`¿Estás seguro de que deseas eliminar el puesto "${nombre}"?`)) {
         try {
-          await axios.delete(`http://127.0.0.1:8000/puesto/${id}`, {
+          await axios.delete(`https://gimnasio-deploy.onrender.com/puesto/${id}`, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -193,7 +193,7 @@ export default {
     },
     async fetchPuestos() {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/puestos/', {
+        const response = await axios.get('https://gimnasio-deploy.onrender.com/puestos/', {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`

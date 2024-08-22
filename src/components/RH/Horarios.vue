@@ -135,7 +135,7 @@ export default {
       try {
         if (this.isEditing) {
           // Lógica para actualizar un horario existente
-          const response = await axios.put(`http://127.0.0.1:8000/schedules/${this.horario.ID}`, this.horario, {
+          const response = await axios.put(`https://gimnasio-deploy.onrender.com/schedules/${this.horario.ID}`, this.horario, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -147,7 +147,7 @@ export default {
           this.horarios.splice(index, 1, response.data);
         } else {
           // Lógica para crear un nuevo horario
-          const response = await axios.post('http://127.0.0.1:8000/schedules/', this.horario, {
+          const response = await axios.post('https://gimnasio-deploy.onrender.com/schedules/', this.horario, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -199,7 +199,7 @@ export default {
 
     async eliminar(horarioID) {
       try {
-        await axios.delete(`http://127.0.0.1:8000/schedules/${horarioID}`, {
+        await axios.delete(`https://gimnasio-deploy.onrender.com/schedules/${horarioID}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
@@ -214,7 +214,7 @@ export default {
 
     async fetchHorarios() {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/schedules/', {
+        const response = await axios.get('https://gimnasio-deploy.onrender.com/schedules/', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
