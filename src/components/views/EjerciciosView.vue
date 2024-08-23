@@ -7,6 +7,7 @@
       </button>
     </section>
 
+    
     <div class="bg-gray-900 dark:bg-gray-700 shadow rounded-lg p-6">
       <!-- Formulario para agregar nuevo Ejercicio (se muestra/oculta al hacer clic en el botón) -->
       <h1 class="text-xl font-semibold mb-4 text-gray-900">{{ isEditing ? 'Editar Ejercicio' : 'Crear nuevo Ejercicio' }}</h1>
