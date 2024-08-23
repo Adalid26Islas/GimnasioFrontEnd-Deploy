@@ -22,7 +22,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             <select v-model="this.membresiaData.Tipo_Servicios"
                                 class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                                <option value="" selected >Tipo de servicios</option>
+                                <option value="" selected>Tipo de servicios</option>
                                 <option value="Basicos">Básicos</option>
                                 <option value="Completa">Completa</option>
                                 <option value="Coaching">Coaching</option>
@@ -43,27 +43,30 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             <select v-model="this.membresiaData.Nivel"
                                 class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                                <option value=""selected>Nivel</option>
+                                <option value="" selected>Nivel</option>
                                 <option value="Nuevo">Nuevo</option>
                                 <option value="Plata">Plata</option>
                                 <option value="Oro">Oro</option>
                                 <option value="Diamante">Diamante</option>
                             </select>
-                            <input id="fecha_inicio" type="datetime-local" v-model="this.membresiaData.Fecha_Inicio" placeholder="Fecha de Inicio"
+                            <input id="fecha_inicio" type="datetime-local" v-model="this.membresiaData.Fecha_Inicio"
+                                placeholder="Fecha de Inicio"
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <input type="datetime-local" v-model="this.membresiaData.Fecha_Fin" placeholder="Fecha de Fin"
+                            <input type="datetime-local" v-model="this.membresiaData.Fecha_Fin"
+                                placeholder="Fecha de Fin"
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                             <select v-model="this.membresiaData.Estatus"
                                 class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                                <option value=""selected>Estatus</option>
+                                <option value="" selected>Estatus</option>
                                 <option value="true">Activo</option>
                                 <option value="false">Inactivo</option>
                             </select>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <input type="datetime-local" v-model="this.membresiaData.Fecha_Registro" placeholder="Fecha de Registro"
+                            <input type="datetime-local" v-model="this.membresiaData.Fecha_Registro"
+                                placeholder="Fecha de Registro"
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                         </div>
                         <button type="button" @click="submitForm" id="membresia"
@@ -147,7 +150,8 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200" v-for="membresia in this.membresiasTable" :key="membresia.ID">
+                <tbody class="bg-white divide-y divide-gray-200" v-for="membresia in this.membresiasTable"
+                    :key="membresia.ID">
                     <tr>
                         <td class="px-6 py-4 text-center font-medium text-gray-900">{{ membresia.ID }}</td>
                         <td class="px-6 py-4 text-center text-gray-700">{{ membresia.Codigo }}</td>
@@ -157,7 +161,8 @@
                         <td class="px-6 py-4 text-center text-gray-700">{{ membresia.Nivel }}</td>
                         <td class="px-6 py-4 text-center text-gray-700">{{ membresia.Fecha_Inicio }}</td>
                         <td class="px-6 py-4 text-center text-gray-700">{{ membresia.Fecha_Fin }}</td>
-                        <td class="px-6 py-4 text-center text-gray-700">{{ membresia.Estatus ? 'Activo' : 'Inactivo' }}</td>
+                        <td class="px-6 py-4 text-center text-gray-700">{{ membresia.Estatus ? 'Activo' : 'Inactivo' }}
+                        </td>
                         <td class="px-6 py-4 text-center text-gray-700">
                             <button class="text-blue-600 hover:underline">Editar</button>
                             <button class="text-red-600 hover:underline">Eliminar</button>
@@ -170,6 +175,10 @@
     </main>
 </template>
 <script>
+import { Doughnut } from 'vue-chartjs'
+import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale } from 'chart.js'
+ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale)
+
 export default {
     data() {
         return {
@@ -185,7 +194,7 @@ export default {
                 Fecha_Registro: null,
                 Fecha_Actualizacion: (new Date(Date.now())).toISOString()
             },
-            membresiasTable:[]
+            membresiasTable: []
         }
     },
     methods: {
@@ -207,7 +216,7 @@ export default {
             this.membresiaData.Estatus = this.membresiaData.Estatus === 'true' ? true : false;
             console.log(JSON.stringify(this.membresiaData))
             const url = "http://127.0.0.1:8000/membresia/"
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6IkFsZGFpciIsIkNvcnJlb19FbGVjdHJvbmljbyI6InN0cmluZyIsIkNvbnRyYXNlbmEiOiIxMjMiLCJOdW1lcm9fVGVsZWZvbmljb19Nb3ZpbCI6InN0cmluZyJ9.5EsBwNW9FIyMzd3jqJOA-vvdhvFrMvNL2bWhfnliFKQ"
+            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6Ikh1Z28iLCJDb3JyZW9fRWxlY3Ryb25pY28iOiJzdHJpbmciLCJDb250cmFzZW5hIjoiMTIzIiwiTnVtZXJvX1RlbGVmb25pY29fTW92aWwiOiJzdHJpbmcifQ.YMBusRBKyHAWmwUSlgTr8c1_qOuU-lf9hp1en5O_CF8"
             await fetch(url, {
                 method: 'POST',
                 headers: {
@@ -233,7 +242,7 @@ export default {
         },
         async updateTable() {
             const url = "http://127.0.0.1:8000/membresias/"
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6IkFsZGFpciIsIkNvcnJlb19FbGVjdHJvbmljbyI6InN0cmluZyIsIkNvbnRyYXNlbmEiOiIxMjMiLCJOdW1lcm9fVGVsZWZvbmljb19Nb3ZpbCI6InN0cmluZyJ9.5EsBwNW9FIyMzd3jqJOA-vvdhvFrMvNL2bWhfnliFKQ"
+            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6Ikh1Z28iLCJDb3JyZW9fRWxlY3Ryb25pY28iOiJzdHJpbmciLCJDb250cmFzZW5hIjoiMTIzIiwiTnVtZXJvX1RlbGVmb25pY29fTW92aWwiOiJzdHJpbmcifQ.YMBusRBKyHAWmwUSlgTr8c1_qOuU-lf9hp1en5O_CF8"
 
             const response = await fetch(url, {
                 headers: {
@@ -241,14 +250,14 @@ export default {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            
+
             if (!response.ok) {
                 throw new Error('Error en la solicitud: ' + response.statusText);
             }
 
             const data = await response.json();
             console.log('Respuesta de la API:', data);
-            
+
             this.membresiasTable = data.map(item => ({ ...item }));
             console.log('Table:', this.membresiasTable);
         }
@@ -257,5 +266,5 @@ export default {
         this.updateTable()
     }
 }
-   
+
 </script>
