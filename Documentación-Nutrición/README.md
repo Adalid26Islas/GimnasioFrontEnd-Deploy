@@ -17,22 +17,28 @@ GymBull es una aplicación innovadora diseñada para la gestión integral de gim
 El frontend de GymBull tiene como objetivo ofrecer una experiencia de usuario fluida y eficiente, que integre de manera efectiva la gestión de gimnasio con las funcionalidades de nutrición. Proporciona una plataforma visual y funcional que apoya tanto en la administración del gimnasio como en el seguimiento y planificación nutricional.
 
 # ORGANIGRAMA
-![Organigrama](../Imagenes/organigrama.jpg)
+![Organigrama](<../Imagenes/Organigrama (2).jpg>)
 # PASOS PARA CORRER EL REPOSITORIO
 
 # ESTRUCTURA DEL PROYECTO
 
-src/: Contiene los archivos fuente de la aplicación, incluyendo componentes, servicios y lógica de negocio.
-
-components/: Componentes reutilizables de React organizados por funcionalidad.
-
-pages/: Vistas principales o páginas de la aplicación.
-
-services/: Servicios para la interacción con APIs y otros recursos externos.
-
-styles/: Archivos de estilo CSS.
-
-utils/: Utilidades y funciones auxiliares.
+- **.vscode/**: Configuraciones del editor.
+- **dist/**: Archivos de construcción para producción.
+- **Documentación-Nutrición/**: Documentación específica sobre la nutrición.
+- **Imagenes/**: Archivos de imágenes utilizados en la aplicación y la documentación.
+- **node_modules/**: Dependencias del proyecto.
+- **public/**: Archivos públicos como `index.html`.
+- **src/**: Código fuente de la aplicación.
+  - **assets/**: Archivos estáticos.
+  - **components/**: Componentes Vue reutilizables.
+  - **router/**: Configuración de rutas de la aplicación.
+  - **styles/**: Estilos globales.
+- **apiClient.js**: Configuración y gestión de peticiones a la API.
+- **App.vue**: Componente raíz de Vue.
+- **main.js**: Punto de entrada principal de la aplicación.
+- **.gitignore**: Configuración de exclusiones para Git.
+- **index.html**: Plantilla HTML principal.
+- **jsconfig.json**: Configuración de JavaScript para el editor.
 
 
 ## Clonar el repositorio
