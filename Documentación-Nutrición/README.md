@@ -41,8 +41,6 @@ utils/: Utilidades y funciones auxiliares.
 1.- git clone https://github.com/Adalid26Islas/GimnasioFrontEnd-Deploy.git
 ```
 
-![Clonar proyecto](../Imagenes/clon.png)
-
 ## Ubicarse en la carpeta de GimnasioFrontend-Deploy para instalar todas las dependecias
 
 ```sh
