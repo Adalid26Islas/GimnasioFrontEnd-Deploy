@@ -8,32 +8,30 @@
                     <p class="text-dark-100 dark:text-dark-100 mb-6">Ingresa la información correspondiente para crear una nueva transacción.</p>
                     <form>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <input type="number" placeholder="Usuario ID" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                            <select class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                            <input type="number" v-model="this.transaccionData.Usuario_ID" placeholder="Usuario ID" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                            <select v-model="this.transaccionData.Metodo_Pago" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                                 <option value="">Método de Pago</option>
-                                <option value="tarjeta_credito">Tarjeta de Crédito</option>
-                                <option value="tarjeta_debito">Tarjeta de Débito</option>
-                                <option value="efectivo">Efectivo</option>
-                                <option value="transferencia">Transferencia Bancaria</option>
+                                <option value="TarjetaCredito">Tarjeta de Crédito</option>
+                                <option value="TarjetaDebito">Tarjeta de Débito</option>
                             </select>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <input type="text" placeholder="Número de Tarjeta" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                            <input type="number" placeholder="CVC" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                            <input type="text" v-model="this.transaccionData.Numero_Tarjeta" placeholder="Número de Tarjeta" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                            <input type="number" v-model="this.transaccionData.CVC" placeholder="CVC" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <input type="date" placeholder="Fecha de Expiración" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                            <input type="number" placeholder="Monto" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                            <input type="date" v-model="this.transaccionData.Fecha_Expiracion" placeholder="Fecha de Expiración" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                            <input type="number" v-model="this.transaccionData.Monto" placeholder="Monto" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <select class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                            <select v-model="this.transaccionData.Estatus" class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                                 <option value="">Estatus</option>
-                                <option value="activo">Activo</option>
-                                <option value="inactivo">Inactivo</option>
+                                <option value="true">Activo</option>
+                                <option value="false">Inactivo</option>
                             </select>
-                            <input type="date" placeholder="Fecha de Registro" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                            <input type="datetime-local" v-model="this.transaccionData.Fecha_Registro" placeholder="Fecha de Registro" class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                         </div>
-                        <button type="button" id="membresia" class="px-4 py-2 w-[20%] rounded bg-red-600 text-white hover:bg-gray-600 focus:outline-none transition-colors">
+                        <button type="button" @click="submitForm" id="transaccion" class="px-4 py-2 w-[20%] rounded bg-red-600 text-white hover:bg-gray-600 focus:outline-none transition-colors">
                             Crear transacción
                         </button>
                     </form>
@@ -95,21 +93,109 @@
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-r-md">Fecha de Actualización</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"  v-for="transaccion in this.transaccionesTable" :key="transaccion.ID">
                     <!-- Filas de datos aquí -->
-                    <tr class="text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="px-6 py-4">1</td>
-                        <td class="px-6 py-4">Tarjeta de Crédito</td>
-                        <td class="px-6 py-4">1234 5678 9012 3456</td>
-                        <td class="px-6 py-4">123</td>
-                        <td class="px-6 py-4">12/24</td>
-                        <td class="px-6 py-4">$1000</td>
-                        <td class="px-6 py-4">Activo</td>
-                        <td class="px-6 py-4">2024-08-19</td>
-                        <td class="px-6 py-4">2024-08-19</td>
+                    <tr >
+                        <td class="px-6 py-4">{{ transaccion.Usuario_ID }}</td>
+                        <td class="px-6 py-4">{{ transaccion.Metodo_Pago }}</td>
+                        <td class="px-6 py-4">{{ transaccion.Numero_Tarjeta }}</td>
+                        <td class="px-6 py-4">{{ transaccion.CVC }}</td>
+                        <td class="px-6 py-4">{{ transaccion.Fecha_Expiracion }}</td>
+                        <td class="px-6 py-4">{{ transaccion.Monto }}</td>
+                        <td class="px-6 py-4">{{ transaccion.Estatus ? 'Activo' : 'Inactivo'}}</td>
+                        <td class="px-6 py-4">{{ transaccion.Fecha_Registro }}</td>
+                        <td class="px-6 py-4">{{ transaccion.Fecha_Actualizacion }}</td>
                     </tr>
                 </tbody>
             </table>
         </section>
     </main>
 </template>
+<script>
+export default {
+    data() {
+        return {
+            transaccionData: {
+                Usuario_ID: null,
+                Metodo_Pago: null,
+                Numero_Tarjeta: null,
+                CVC: null,
+                Fecha_Expiracion: null,
+                Monto: null,
+                Estatus: null,
+                Fecha_Registro: null,
+                Fecha_Actualizacion: (new Date(Date.now())).toISOString()
+            },
+            transaccionesTable:[]
+        }
+    },
+    methods: {
+        clearData() {
+            this.transaccionData = {
+                Usuario_ID: null,
+                Metodo_Pago: null,
+                Numero_Tarjeta: null,
+                CVC: null,
+                Fecha_Expiracion: null,
+                Monto: null,
+                Estatus: null,
+                Fecha_Registro: null,
+                Fecha_Actualizacion: (new Date(Date.now())).toISOString()
+            }
+        },
+        async submitForm() {
+            this.transaccionData.Estatus = this.transaccionData.Estatus === 'true' ? true : false;
+            console.log(JSON.stringify(this.transaccionData))
+            const url = "http://127.0.0.1:8000/transaccion/"
+            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6IkFsZGFpciIsIkNvcnJlb19FbGVjdHJvbmljbyI6InN0cmluZyIsIkNvbnRyYXNlbmEiOiIxMjMiLCJOdW1lcm9fVGVsZWZvbmljb19Nb3ZpbCI6InN0cmluZyJ9.5EsBwNW9FIyMzd3jqJOA-vvdhvFrMvNL2bWhfnliFKQ"
+            await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(this.transaccionData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la solicitud: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    this.clearData()
+                    this.updateTable()
+                    console.log('Respuesta de la API:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        },
+        async updateTable() {
+            const url = "http://127.0.0.1:8000/transacciones/"
+            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6IkFsZGFpciIsIkNvcnJlb19FbGVjdHJvbmljbyI6InN0cmluZyIsIkNvbnRyYXNlbmEiOiIxMjMiLCJOdW1lcm9fVGVsZWZvbmljb19Nb3ZpbCI6InN0cmluZyJ9.5EsBwNW9FIyMzd3jqJOA-vvdhvFrMvNL2bWhfnliFKQ"
+
+            const response = await fetch(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error('Error en la solicitud: ' + response.statusText);
+            }
+
+            const data = await response.json();
+            console.log('Respuesta de la API:', data);
+            
+            this.transaccionesTable = data.map(item => ({ ...item }));
+            console.log('Table:', this.transaccionesTable);
+        }
+    },
+    created() {
+        this.updateTable()
+    }
+}
+   
+</script>

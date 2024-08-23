@@ -13,7 +13,7 @@
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                             <select v-model="this.membresiaData.Tipo"
                                 class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                                <option value="">Tipo</option>
+                                <option selected>Tipo</option>
                                 <option value="Individual">Individual</option>
                                 <option value="Familiar">Familiar</option>
                                 <option value="Empresarial">Empresarial</option>
@@ -22,7 +22,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             <select v-model="this.membresiaData.Tipo_Servicios"
                                 class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                                <option value="">Tipo de servicios</option>
+                                <option value="" selected >Tipo de servicios</option>
                                 <option value="Basicos">Básicos</option>
                                 <option value="Completa">Completa</option>
                                 <option value="Coaching">Coaching</option>
@@ -30,7 +30,7 @@
                             </select>
                             <select v-model="this.membresiaData.Tipo_Plan"
                                 class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                                <option value="">Tipo de plan</option>
+                                <option value="" selected>Tipo de plan</option>
                                 <option value="Anual">Anual</option>
                                 <option value="Semestral">Semestral</option>
                                 <option value="Trimestral">Trimestral</option>
@@ -43,27 +43,27 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             <select v-model="this.membresiaData.Nivel"
                                 class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                                <option value="">Nivel</option>
+                                <option value=""selected>Nivel</option>
                                 <option value="Nuevo">Nuevo</option>
                                 <option value="Plata">Plata</option>
                                 <option value="Oro">Oro</option>
                                 <option value="Diamante">Diamante</option>
                             </select>
-                            <input id="fecha_inicio" type="date" v-model="this.membresiaData.Fecha_Inicio" placeholder="Fecha de Inicio"
+                            <input id="fecha_inicio" type="datetime-local" v-model="this.membresiaData.Fecha_Inicio" placeholder="Fecha de Inicio"
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <input type="date" v-model="this.membresiaData.Fecha_Fin" placeholder="Fecha de Fin"
+                            <input type="datetime-local" v-model="this.membresiaData.Fecha_Fin" placeholder="Fecha de Fin"
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                             <select v-model="this.membresiaData.Estatus"
                                 class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                                <option value="">Estatus</option>
+                                <option value=""selected>Estatus</option>
                                 <option value="true">Activo</option>
                                 <option value="false">Inactivo</option>
                             </select>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <input type="date" v-model="this.membresiaData.Fecha_Registro" placeholder="Fecha de Registro"
+                            <input type="datetime-local" v-model="this.membresiaData.Fecha_Registro" placeholder="Fecha de Registro"
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                         </div>
                         <button type="button" @click="submitForm" id="membresia"
@@ -147,17 +147,17 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="bg-white divide-y divide-gray-200" v-for="membresia in this.membresiasTable" :key="membresia.ID">
                     <tr>
-                        <td class="px-6 py-4 text-center font-medium text-gray-900">1</td>
-                        <td class="px-6 py-4 text-center text-gray-700">MEMB001</td>
-                        <td class="px-6 py-4 text-center text-gray-700">Regular</td>
-                        <td class="px-6 py-4 text-center text-gray-700">Entrenamiento</td>
-                        <td class="px-6 py-4 text-center text-gray-700">Básico</td>
-                        <td class="px-6 py-4 text-center text-gray-700">Avanzado</td>
-                        <td class="px-6 py-4 text-center text-gray-700">2024-01-01</td>
-                        <td class="px-6 py-4 text-center text-gray-700">2024-12-31</td>
-                        <td class="px-6 py-4 text-center text-gray-700">Activo</td>
+                        <td class="px-6 py-4 text-center font-medium text-gray-900">{{ membresia.ID }}</td>
+                        <td class="px-6 py-4 text-center text-gray-700">{{ membresia.Codigo }}</td>
+                        <td class="px-6 py-4 text-center text-gray-700">{{ membresia.Tipo }}</td>
+                        <td class="px-6 py-4 text-center text-gray-700">{{ membresia.Tipo_Servicios }}</td>
+                        <td class="px-6 py-4 text-center text-gray-700">{{ membresia.Tipo_Plan }}</td>
+                        <td class="px-6 py-4 text-center text-gray-700">{{ membresia.Nivel }}</td>
+                        <td class="px-6 py-4 text-center text-gray-700">{{ membresia.Fecha_Inicio }}</td>
+                        <td class="px-6 py-4 text-center text-gray-700">{{ membresia.Fecha_Fin }}</td>
+                        <td class="px-6 py-4 text-center text-gray-700">{{ membresia.Estatus ? 'Activo' : 'Inactivo' }}</td>
                         <td class="px-6 py-4 text-center text-gray-700">
                             <button class="text-blue-600 hover:underline">Editar</button>
                             <button class="text-red-600 hover:underline">Eliminar</button>
@@ -174,24 +174,39 @@ export default {
     data() {
         return {
             membresiaData: {
-                Codigo: "string",
-                Tipo: "string",
-                Tipo_Servicios: "string",
-                Tipo_Plan: "string",
-                Nivel: "string",
-                Fecha_Inicio: "2024-08-20T16:55:28.908Z",
-                Fecha_Fin: "2024-08-20T16:55:28.908Z",
-                Estatus: true,
-                Fecha_Registro: "2024-08-20T16:55:28.908Z",
+                Codigo: null,
+                Tipo: null,
+                Tipo_Servicios: null,
+                Tipo_Plan: null,
+                Nivel: null,
+                Fecha_Inicio: null,
+                Fecha_Fin: null,
+                Estatus: null,
+                Fecha_Registro: null,
                 Fecha_Actualizacion: (new Date(Date.now())).toISOString()
-            }
+            },
+            membresiasTable:[]
         }
     },
     methods: {
+        clearData() {
+            this.membresiaData = {
+                Codigo: null,
+                Tipo: null,
+                Tipo_Servicios: null,
+                Tipo_Plan: null,
+                Nivel: null,
+                Fecha_Inicio: null,
+                Fecha_Fin: null,
+                Estatus: null,
+                Fecha_Registro: null,
+                Fecha_Actualizacion: (new Date(Date.now())).toISOString()
+            }
+        },
         async submitForm() {
             this.membresiaData.Estatus = this.membresiaData.Estatus === 'true' ? true : false;
             console.log(JSON.stringify(this.membresiaData))
-            const url = "https://gimnasio-deploy.onrender.com/membresia/"
+            const url = "http://127.0.0.1:8000/membresia/"
             const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6IkFsZGFpciIsIkNvcnJlb19FbGVjdHJvbmljbyI6InN0cmluZyIsIkNvbnRyYXNlbmEiOiIxMjMiLCJOdW1lcm9fVGVsZWZvbmljb19Nb3ZpbCI6InN0cmluZyJ9.5EsBwNW9FIyMzd3jqJOA-vvdhvFrMvNL2bWhfnliFKQ"
             await fetch(url, {
                 method: 'POST',
@@ -208,12 +223,39 @@ export default {
                     return response.json();
                 })
                 .then(data => {
+                    this.clearData()
+                    this.updateTable()
                     console.log('Respuesta de la API:', data);
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
+        },
+        async updateTable() {
+            const url = "http://127.0.0.1:8000/membresias/"
+            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6IkFsZGFpciIsIkNvcnJlb19FbGVjdHJvbmljbyI6InN0cmluZyIsIkNvbnRyYXNlbmEiOiIxMjMiLCJOdW1lcm9fVGVsZWZvbmljb19Nb3ZpbCI6InN0cmluZyJ9.5EsBwNW9FIyMzd3jqJOA-vvdhvFrMvNL2bWhfnliFKQ"
+
+            const response = await fetch(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error('Error en la solicitud: ' + response.statusText);
+            }
+
+            const data = await response.json();
+            console.log('Respuesta de la API:', data);
+            
+            this.membresiasTable = data.map(item => ({ ...item }));
+            console.log('Table:', this.membresiasTable);
         }
+    },
+    created() {
+        this.updateTable()
     }
 }
+   
 </script>

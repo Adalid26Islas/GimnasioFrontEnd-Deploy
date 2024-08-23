@@ -4,7 +4,7 @@
         <section>
             <div class="mx-auto p-4">
                 <div class="bg-white-900 white:bg-white-700 shadow rounded-lg p-6">
-                    <h1 class="text-xl font-semibold mb-4 text-dark-100 dark:text-dark-100">Crear nueva meimbro</h1>
+                    <h1 class="text-xl font-semibold mb-4 text-dark-100 dark:text-dark-100">Crear nueva miembro</h1>
                     <p class="text-dark-100 dark:text-dark-100 mb-6">Ingresa la información correspondiente para crear
                         una nuevo miembro.</p>
                     <form>
@@ -34,7 +34,8 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             <input type="text" v-model="this.miembroData.Antiguedad" placeholder="Antigüedad"
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                            <input type="datetime-local" v-model="this.miembroData.Fecha_Registro" placeholder="Fecha de Registro"
+                            <input type="datetime-local" v-model="this.miembroData.Fecha_Registro"
+                                placeholder="Fecha de Registro"
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                         </div>
                         <button type="button" @click="submitForm" id="miembro"
@@ -106,8 +107,9 @@
             <table class="w-full bg-white text-left text-sm text-gray-900 rounded ">
                 <thead class="bg-gray-50 text-center">
                     <tr>
-                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-l-md">meimbro ID
+                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-l-md">Miembro ID
                         </th>
+                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Membresia ID</th>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Usuario ID</th>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Tipo</th>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Estatus</th>
@@ -120,27 +122,30 @@
                 </thead>
                 <tbody class="bg-gray-200">
                     <!-- Fila 1 -->
-                    <tr class="hover:bg-gray-500">
+                    <tr class="hover:bg-gray-500" v-for="miembro in this.miembrosTable" :key="miembro.ID">
                         <td class="h-[50px] text-center">
-                            <span>001</span>
+                            <span>{{ miembro.ID }}</span>
                         </td>
                         <td class="text-center">
-                            <span>1001</span>
+                            <span>{{ miembro.Membresia_ID }}</span>
                         </td>
                         <td class="text-center">
-                            <span>Nuevo</span>
+                            <span>{{ miembro.Usuario_ID }}</span>
                         </td>
                         <td class="text-center">
-                            <span>Activo</span>
+                            <span>{{ miembro.Tipo }}</span>
                         </td>
                         <td class="text-center">
-                            <span>6 meses</span>
+                            <span>{{ miembro.Estatus ? 'Activo' : 'Inactivo' }}</span>
                         </td>
                         <td class="text-center">
-                            <span>2024-08-15</span>
+                            <span>{{ miembro.Antiguedad }}</span>
                         </td>
                         <td class="text-center">
-                            <span>2024-08-15</span>
+                            <span>{{ miembro.Fecha_Registro }}</span>
+                        </td>
+                        <td class="text-center">
+                            <span>{{ miembro.Fecha_Actualizacion }}</span>
                         </td>
                         <td class="flex justify-center">
                             <button type="button" id="membresia"
@@ -149,156 +154,7 @@
                             </button>
                         </td>
                     </tr>
-                    <!-- Fila 2 -->
-                    <tr class="hover:bg-gray-500">
-                        <td class="h-[50px] text-center">
-                            <span>002</span>
-                        </td>
-                        <td class="text-center">
-                            <span>1002</span>
-                        </td>
-                        <td class="text-center">
-                            <span>Frecuente</span>
-                        </td>
-                        <td class="text-center">
-                            <span>Inactivo</span>
-                        </td>
-                        <td class="text-center">
-                            <span>12 meses</span>
-                        </td>
-                        <td class="text-center">
-                            <span>2024-01-10</span>
-                        </td>
-                        <td class="text-center">
-                            <span>2024-06-10</span>
-                        </td>
-                        <td class="flex justify-center">
-                            <button type="button" id="membresia"
-                                class="px-4 mt-1 py-2 rounded-md bg-red-600 text-white hover:bg-gray-600">
-                                Editar
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- Fila 3 -->
-                    <tr class="hover:bg-gray-500">
-                        <td class="h-[50px] text-center">
-                            <span>003</span>
-                        </td>
-                        <td class="text-center">
-                            <span>1003</span>
-                        </td>
-                        <td class="text-center">
-                            <span>Ocasional</span>
-                        </td>
-                        <td class="text-center">
-                            <span>Activo</span>
-                        </td>
-                        <td class="text-center">
-                            <span>3 meses</span>
-                        </td>
-                        <td class="text-center">
-                            <span>2024-05-01</span>
-                        </td>
-                        <td class="text-center">
-                            <span>2024-08-01</span>
-                        </td>
-                        <td class="flex justify-center">
-                            <button type="button" id="membresia"
-                                class="px-4 mt-1 py-2 rounded-md bg-red-600 text-white hover:bg-gray-600">
-                                Editar
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- Fila 4 -->
-                    <tr class="hover:bg-gray-500">
-                        <td class="h-[50px] text-center">
-                            <span>004</span>
-                        </td>
-                        <td class="text-center">
-                            <span>1004</span>
-                        </td>
-                        <td class="text-center">
-                            <span>Esporádico</span>
-                        </td>
-                        <td class="text-center">
-                            <span>Activo</span>
-                        </td>
-                        <td class="text-center">
-                            <span>1 año</span>
-                        </td>
-                        <td class="text-center">
-                            <span>2023-08-15</span>
-                        </td>
-                        <td class="text-center">
-                            <span>2024-08-15</span>
-                        </td>
-                        <td class="flex justify-center">
-                            <button type="button" id="membresia"
-                                class="px-4 mt-1 py-2 rounded-md bg-red-600 text-white hover:bg-gray-600">
-                                Editar
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- Fila 5 -->
-                    <tr class="hover:bg-gray-500">
-                        <td class="h-[50px] text-center">
-                            <span>005</span>
-                        </td>
-                        <td class="text-center">
-                            <span>1005</span>
-                        </td>
-                        <td class="text-center">
-                            <span>Visita</span>
-                        </td>
-                        <td class="text-center">
-                            <span>Inactivo</span>
-                        </td>
-                        <td class="text-center">
-                            <span>6 meses</span>
-                        </td>
-                        <td class="text-center">
-                            <span>2024-03-20</span>
-                        </td>
-                        <td class="text-center">
-                            <span>2024-06-20</span>
-                        </td>
-                        <td class="flex justify-center">
-                            <button type="button" id="membresia"
-                                class="px-4 mt-1 py-2 rounded-md bg-red-600 text-white hover:bg-gray-600">
-                                Editar
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- Fila 6 -->
-                    <tr class="hover:bg-gray-500">
-                        <td class="h-[50px] text-center">
-                            <span>006</span>
-                        </td>
-                        <td class="text-center">
-                            <span>1006</span>
-                        </td>
-                        <td class="text-center">
-                            <span>Nuevo</span>
-                        </td>
-                        <td class="text-center">
-                            <span>Activo</span>
-                        </td>
-                        <td class="text-center">
-                            <span>18 meses</span>
-                        </td>
-                        <td class="text-center">
-                            <span>2023-12-01</span>
-                        </td>
-                        <td class="text-center">
-                            <span>2024-06-01</span>
-                        </td>
-                        <td class="flex justify-center">
-                            <button type="button" id="membresia"
-                                class="px-4 mt-1 py-2 rounded-md bg-red-600 text-white hover:bg-gray-600">
-                                Editar
-                            </button>
-                        </td>
-                    </tr>
+
                 </tbody>
             </table>
             <hr class="border-2 mt-4">
@@ -306,6 +162,7 @@
     </main>
 </template>
 <script>
+
 export default {
     data() {
         return {
@@ -317,14 +174,26 @@ export default {
                 Antiguedad: null,
                 Fecha_Registro: null,
                 Fecha_Actualizacion: (new Date(Date.now())).toISOString()
-            }
+            },
+            miembrosTable: []
         }
     },
     methods: {
+        clearData() {
+            this.miembroData = {
+                Membresia_ID: null,
+                Usuario_ID: null,
+                Tipo: null,
+                Estatus: null,
+                Antiguedad: null,
+                Fecha_Registro: null,
+                Fecha_Actualizacion: (new Date(Date.now())).toISOString()
+            }
+        },
         async submitForm() {
             this.miembroData.Estatus = this.miembroData.Estatus === 'true' ? true : false;
             console.log(JSON.stringify(this.miembroData))
-            const url = "https://gimnasio-deploy.onrender.com/miembro/"
+            const url = "http://127.0.0.1:8000/miembro/"
             const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6IkFsZGFpciIsIkNvcnJlb19FbGVjdHJvbmljbyI6InN0cmluZyIsIkNvbnRyYXNlbmEiOiIxMjMiLCJOdW1lcm9fVGVsZWZvbmljb19Nb3ZpbCI6InN0cmluZyJ9.5EsBwNW9FIyMzd3jqJOA-vvdhvFrMvNL2bWhfnliFKQ"
             await fetch(url, {
                 method: 'POST',
@@ -341,12 +210,38 @@ export default {
                     return response.json();
                 })
                 .then(data => {
+                    this.clearData()
+                    this.updateTable()
                     console.log('Respuesta de la API:', data);
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
+        },
+        async updateTable() {
+            const url = "http://127.0.0.1:8000/miembros/"
+            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6IkFsZGFpciIsIkNvcnJlb19FbGVjdHJvbmljbyI6InN0cmluZyIsIkNvbnRyYXNlbmEiOiIxMjMiLCJOdW1lcm9fVGVsZWZvbmljb19Nb3ZpbCI6InN0cmluZyJ9.5EsBwNW9FIyMzd3jqJOA-vvdhvFrMvNL2bWhfnliFKQ"
+
+            const response = await fetch(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error('Error en la solicitud: ' + response.statusText);
+            }
+
+            const data = await response.json();
+            console.log('Respuesta de la API:', data);
+            
+            this.miembrosTable = data.map(item => ({ ...item }));
+            console.log('Table:', this.miembrosTable);
         }
+    },
+    created() {
+        this.updateTable()
     }
 }
 </script>
