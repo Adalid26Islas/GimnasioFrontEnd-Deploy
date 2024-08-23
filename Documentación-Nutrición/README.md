@@ -7,7 +7,7 @@
 ## 9B
 
 # Documentación GymBull
-![Portada](../Imagenes/portada.png)
+![portada](../../gimnasio.deploy/Imagenes/portada.png)
 ## Introducción:
 
 GymBull es una aplicación innovadora diseñada para la gestión integral de gimnasios. Con GymBull, los administradores pueden manejar fácilmente membresías, programar clases, monitorear el progreso de los clientes y mejorar la comunicación con los miembros. Esta herramienta está diseñada para optimizar las operaciones diarias del gimnasio y ofrecer una experiencia superior tanto para los entrenadores como para los clientes.
@@ -17,8 +17,7 @@ GymBull es una aplicación innovadora diseñada para la gestión integral de gim
 En GymBull, nuestro objetivo es integrar la nutrición de manera efectiva en la gestión del gimnasio para mejorar la salud y el rendimiento general de nuestros miembros. Queremos ofrecer un enfoque integral que combine entrenamiento físico con asesoramiento nutricional personalizado, asegurando que cada miembro reciba el apoyo necesario para alcanzar sus metas de bienestar.
 
 # ORGANIGRAMA
-![Organigrama](../Imagenes/organigrama.jpg)
-
+![alt text](../../gimnasio.deploy/Imagenes/organigrama.jpg)
 # PASOS PARA CORRER EL REPOSITORIO
 
 ## Clonar el repositorio
