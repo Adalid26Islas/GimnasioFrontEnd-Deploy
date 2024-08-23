@@ -5,9 +5,8 @@
 ## Ingeniería en desarrollo y gestión de software
 
 ## 9B
-
+![portada](Imagenes/portada.png)
 # Documentación GymBull
-![alt text](../Imagenes/portada.png)
 ## Introducción:
 
 GymBull es una aplicación innovadora diseñada para la gestión integral de gimnasios. Con GymBull, los administradores pueden manejar fácilmente membresías, programar clases, monitorear el progreso de los clientes y mejorar la comunicación con los miembros. Esta herramienta está diseñada para optimizar las operaciones diarias del gimnasio y ofrecer una experiencia superior tanto para los entrenadores como para los clientes.
@@ -18,8 +17,7 @@ El frontend de GymBull tiene como objetivo ofrecer una experiencia de usuario fl
 
 
 # ORGANIGRAMA
-![Organigrama](<../Imagenes/Organigrama (2).jpg>)
-
+![Organigrama](<Imagenes/Organigrama (2).jpg>)
 # ESTRUCTURA DEL PROYECTO
 </div>
 
@@ -61,8 +59,7 @@ El frontend de GymBull tiene como objetivo ofrecer una experiencia de usuario fl
 ```sh
 3.- npm run dev
 ```
-![vista  Cargada](../Imagenes/vista.png)
-
+![vista cargada](Imagenes/vista.png)
 # CONCLUSIÓN
 
 La documentación del frontend de GymBull proporciona una guía completa para el desarrollo y mantenimiento del proyecto, garantizando que todos los miembros del equipo puedan colaborar de manera eficiente. Esta documentación cubre desde la estructura del proyecto hasta los procesos de instalación, configuración y despliegue, ofreciendo un recurso claro y detallado para desarrolladores nuevos y existentes.
