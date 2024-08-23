@@ -14,35 +14,50 @@ GymBull es una aplicación innovadora diseñada para la gestión integral de gim
 
 # Objetivo
 
-En GymBull, nuestro objetivo es integrar la nutrición de manera efectiva en la gestión del gimnasio para mejorar la salud y el rendimiento general de nuestros miembros. Queremos ofrecer un enfoque integral que combine entrenamiento físico con asesoramiento nutricional personalizado, asegurando que cada miembro reciba el apoyo necesario para alcanzar sus metas de bienestar.
+El frontend de GymBull tiene como objetivo ofrecer una experiencia de usuario fluida y eficiente, que integre de manera efectiva la gestión de gimnasio con las funcionalidades de nutrición. Proporciona una plataforma visual y funcional que apoya tanto en la administración del gimnasio como en el seguimiento y planificación nutricional.
 
 # ORGANIGRAMA
-![alt text](../../gimnasio.deploy/Imagenes/organigrama.jpg)
+![Organigrama](../Imagenes/organigrama.jpg)
 # PASOS PARA CORRER EL REPOSITORIO
+
+# ESTRUCTURA DEL PROYECTO
+
+src/: Contiene los archivos fuente de la aplicación, incluyendo componentes, servicios y lógica de negocio.
+
+components/: Componentes reutilizables de React organizados por funcionalidad.
+
+pages/: Vistas principales o páginas de la aplicación.
+
+services/: Servicios para la interacción con APIs y otros recursos externos.
+
+styles/: Archivos de estilo CSS.
+
+utils/: Utilidades y funciones auxiliares.
+
 
 ## Clonar el repositorio
 
 ```sh
-1.- git clone https://github.com/loreasc2003/gimnasio.deploy.git
+1.- git clone https://github.com/Adalid26Islas/GimnasioFrontEnd-Deploy.git
 ```
 
 ![Clonar proyecto](../Imagenes/clon.png)
 
-## Ubicarse en la carpeta de gimnasio.deploy para instalar todas las dependecias
+## Ubicarse en la carpeta de GimnasioFrontend-Deploy para instalar todas las dependecias
 
 ```sh
-2.- pip install -r requirements.txt
+2.- npm i 
 ```
 
 ## Correr el proyecto con el comando
 
 ```sh
-3.- uvicorn app:app --reload
+3.- npm run dev
 ```
-![Api cargada](../Imagenes/api.png)
+![vista  Cargada](../Imagenes/vista.png)
 
 # CONCLUSIÓN
 
-GymBull representa una solución integral para la gestión de gimnasios, destacando por su enfoque innovador en la combinación de entrenamiento físico y nutrición. Al proporcionar una plataforma completa que abarca desde la administración de membresías hasta la planificación nutricional personalizada, GymBull está diseñado para mejorar significativamente la experiencia tanto para los administradores como para los miembros del gimnasio.
+La documentación del frontend de GymBull proporciona una guía completa para el desarrollo y mantenimiento del proyecto, garantizando que todos los miembros del equipo puedan colaborar de manera eficiente. Esta documentación cubre desde la estructura del proyecto hasta los procesos de instalación, configuración y despliegue, ofreciendo un recurso claro y detallado para desarrolladores nuevos y existentes.
 
 </div>
