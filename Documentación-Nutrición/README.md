@@ -16,13 +16,12 @@ GymBull es una aplicación innovadora diseñada para la gestión integral de gim
 
 El frontend de GymBull tiene como objetivo ofrecer una experiencia de usuario fluida y eficiente, que integre de manera efectiva la gestión de gimnasio con las funcionalidades de nutrición. Proporciona una plataforma visual y funcional que apoya tanto en la administración del gimnasio como en el seguimiento y planificación nutricional.
 
-</div>
 
 # ORGANIGRAMA
 ![Organigrama](<../Imagenes/Organigrama (2).jpg>)
-# PASOS PARA CORRER EL REPOSITORIO
 
 # ESTRUCTURA DEL PROYECTO
+</div>
 
 - **.vscode/**: Configuraciones del editor.
 - **dist/**: Archivos de construcción para producción.
@@ -42,6 +41,8 @@ El frontend de GymBull tiene como objetivo ofrecer una experiencia de usuario fl
 - **index.html**: Plantilla HTML principal.
 - **jsconfig.json**: Configuración de JavaScript para el editor.
 
+<div align = "center">
+# PASOS PARA CORRER EL REPOSITORIO
 
 ## Clonar el repositorio
 
@@ -66,3 +67,4 @@ El frontend de GymBull tiene como objetivo ofrecer una experiencia de usuario fl
 
 La documentación del frontend de GymBull proporciona una guía completa para el desarrollo y mantenimiento del proyecto, garantizando que todos los miembros del equipo puedan colaborar de manera eficiente. Esta documentación cubre desde la estructura del proyecto hasta los procesos de instalación, configuración y despliegue, ofreciendo un recurso claro y detallado para desarrolladores nuevos y existentes.
 
+</div>
