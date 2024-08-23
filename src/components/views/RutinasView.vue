@@ -23,48 +23,70 @@
       </p>
 
       <form @submit.prevent="submitForm">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <input
-            v-model="formData.Nombre"
-            type="text"
-            placeholder="Nombre de la Rutina"
-            class="p-2 rounded-lg w-full bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-            required
-          />
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <input
-            v-model="formData.Programa_Saludable_ID"
-            type="number"
-            placeholder="Programa Saludable ID"
-            class="p-2 rounded-lg w-full bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-            required
-          />
-          <input
-            v-model="formData.Tiempo_Aproximado"
-            type="text"
-            placeholder="Tiempo Aproximado"
-            class="p-2 rounded-lg w-full bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-            required
-          />
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <select
-            v-model="formData.Estatus"
-            class="p-2 rounded-lg w-full bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-            required
-          >
-            <option :value="null" disabled>Estatus de la Rutina</option>
-            <option value="Activo">Activo</option>
-            <option value="Inactivo">Inactivo</option>
-          </select>
-          <input
-            v-model="formData.Resultados_Esperados"
-            type="text"
-            placeholder="Resultados Esperados"
-            class="p-2 rounded-lg w-full bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-          />
-        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <input
+                  v-model="formData.ID"
+                  type="text"
+                  placeholder="ID"
+                  class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                  required
+                />
+                <input
+                  v-model="formData.Nombre_Rutina"
+                  type="text"
+                  placeholder="Nombre de la Rutina"
+                  class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                  required
+                />
+                <input
+                  v-model="formData.Programa_Saludable_ID"
+                  type="text"
+                  placeholder="Programa Saludable"
+                  class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                  required
+                />
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <input
+                  v-model="formData.Fecha_Registro"
+                  type="date"
+                  placeholder="Fecha Registro"
+                  class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                  required
+                />
+                <input
+                  v-model="formData.Fecha_Actualizacion"
+                  type="date"
+                  placeholder="Fecha Actualizacion"
+                  class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                  required
+                />
+                <input
+                  v-model="formData.Tiempo_Aproximado"
+                  type="text"
+                  placeholder="Tiempo Aproximado"
+                  class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                  required
+                />
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <select
+                  v-model="formData.Estatus"
+                  class="rounded-lg w-full font-medium bg-gray-100 border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                  required
+                >
+                  <option :value="null">Estatus de la Rutina</option>
+                  <option :value="true">Actual</option>
+                  <option :value="false">Suspendida</option>
+                  <option :value="false">Concluida</option>
+                </select>
+                <input
+                  v-model="formData.Resultados_Esp"
+                  type="text"
+                  placeholder="Resultados Específicos"
+                  class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                />
+              </div>
         <button
           type="submit"
           class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors"
@@ -83,33 +105,44 @@
     </section>
 
     <!-- Sección de la Tabla -->
-    <section v-if="!showForm" class="table-responsive">
-      <table class="w-full bg-white text-left text-sm text-gray-900 rounded shadow">
-        <thead class="bg-gray-50 text-center">
-          <tr>
-            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-l-md">Nombre</th>
-            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Programa Saludable ID</th>
-            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Tiempo Aproximado</th>
-            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Estatus</th>
-            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Resultados Esperados</th>
-            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-r-md">Acciones</th>
-          </tr>
-        </thead>
-        <tbody class="bg-gray-200">
-          <tr v-for="(rutina, i) in rutinas" :key="rutina.ID" class="hover:bg-gray-300">
-            <td class="h-[50px] text-center">{{ rutina.Nombre }}</td>
-            <td class="text-center">{{ rutina.Programa_Saludable_ID }}</td>
-            <td class="text-center">{{ rutina.Tiempo_Aproximado }}</td>
-            <td class="text-center">{{ rutina.Estatus }}</td>
-            <td class="text-center">{{ rutina.Resultados_Esperados }}</td>
-            <td class="flex justify-center space-x-2">
-              <button @click="editRutina(rutina)" class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:outline-none transition-colors flex items-center">Editar</button>
-              <button @click="deleteRutina(rutina.ID)" class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors flex items-center">Eliminar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+    <section class="m-4">
+        <table class="w-full bg-white text-left text-sm text-gray-900 rounded">
+          <thead class="bg-gray-50 text-center">
+            <tr>
+              <!-- Encabezados de la tabla -->
+              <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">ID</th>
+              <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">NOMBRE</th>
+              <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">PROGRAMA</th>
+              <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">FECHA REGISTRO</th>
+              <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">FECHA ACTUALIZACIÓN</th>
+              <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">TIEMPO APROXIMADO</th>
+              <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">ESTATUS</th>
+              <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">RESULTADOS ESPERADOS</th>
+              <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">ACCIONES</th>
+            </tr>
+          </thead>
+          <tbody class="bg-gray-200">
+            <tr v-for="(rutina, i) in rutinas" :key="rutina.ID" class="hover:bg-gray-300">
+              <td class="h-[50px] text-center">{{ rutina.ID }}</td>
+              <td class="text-center">{{ rutina.Nombre }}</td>
+              <td class="text-center">{{ rutina.Programa_Saludable_ID }}</td>
+              <td class="text-center">{{ new Date(rutina.Fecha_Registro).toLocaleDateString() }}</td>
+              <td class="text-center">{{ new Date(rutina.Fecha_Actualizacion).toLocaleDateString() }}</td>
+              <td class="text-center">{{ rutina.Tiempo_Aproximado }}</td>
+              <td class="text-center">{{ rutina.Estatus ? 'Actual' : 'Suspendida' }}</td>
+              <td class="text-center">{{ rutina.Resultados_Esperados }}</td>
+              <td class="flex justify-center space-x-2">
+                <button @click="editEjercicio(ejercicio)" class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:outline-none transition-colors flex items-center">
+                  Editar
+                </button>
+                <button @click="deleteEjercicio(ejercicio.ID, ejercicio.Nombre)" class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors flex items-center">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
   </div>
 </template>
 
@@ -124,8 +157,8 @@ export default {
       formData: {
         Nombre: '',
         Programa_Saludable_ID: 0,
-        Fecha_Registro: new Date().toISOString(),
-        Fecha_Actualizacion: new Date().toISOString(),
+        Fecha_Registro:  new Date().toISOString(),
+        Fecha_Actualizacion: new Date(),
         Tiempo_Aproximado: '',
         Estatus: '',
         Resultados_Esperados: ''
@@ -146,8 +179,7 @@ export default {
       try {
         if (this.isEditing) {
           await axios.put(
-            `https://gimnasio-deploy.onrender.com/rutinas`,
-            this.formData, 
+            `https://gimnasio-deploy.onrender.com/rutinas`,this.formData, 
             {
               headers: {
                 'Content-Type': 'application/json',
@@ -156,13 +188,13 @@ export default {
             }
           );
         } else {
-          const response = await axios.post('https://gimnasio-deploy.onrender.com/rutinas',this.formData, {
+          const response = await axios.post('https://gimnasio-deploy.onrender.com/rutina',this.formData, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${localStorage.getItem('token')}`,
             },
           });
-          this.rutinas.push(response.data);
+          this.formData = response.data;
         }
         this.resetForm();
         this.toggleForm(); // Oculta el formulario después de guardar
@@ -176,8 +208,8 @@ export default {
       this.formData = {
         Nombre: '',
         Programa_Saludable_ID: 0,
-        Fecha_Registro: new Date().toISOString(),
-        Fecha_Actualizacion: new Date().toISOString(),
+        Fecha_Registro: new Date(),
+        Fecha_Actualizacion: new Date(),
         Tiempo_Aproximado: '',
         Estatus: '',
         Resultados_Esperados: ''
