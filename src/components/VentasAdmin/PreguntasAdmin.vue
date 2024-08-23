@@ -17,7 +17,7 @@
       <input
         v-model="newQuestion.Categoria"
         class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="Categoria" required
+        type="text" placeholder="Categoría" required
       />
       <input
         v-model="newQuestion.Persona"
@@ -25,41 +25,40 @@
         type="text" placeholder="Persona" required
       />
       <select v-model="newQuestion.Estatus"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"> 
-        <option value="" disabled selected hidden>Estatus</option>
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+        required>
+        <option value="" disabled hidden>Estatus</option>
         <option value="Cancelada">Cancelada</option>
         <option value="Registrada">Registrada</option>
         <option value="Pendiente">Pendiente</option>
         <option value="Atendida">Atendida</option>
       </select>
       <div class="relative mt-5">
-  <input
-    v-model="newQuestion.FechaCreacion"
-    id="fecha-creacion"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-    type="date"
-    required
-  />
-  <label for="fecha-creacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-    Fecha Creación
-  </label>
-</div>
-
-<div class="relative mt-5">
-  <input
-    v-model="newQuestion.FechaActualizacion"
-    id="fecha-actualizacion"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-    type="date"
-    required
-  />
-  <label for="fecha-actualizacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-    Fecha Actualización
-  </label>
-</div>
-
+        <input
+          v-model="newQuestion.FechaCreacion"
+          id="fecha-creacion"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+          type="date"
+          required
+        />
+        <label for="fecha-creacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
+          Fecha Creación
+        </label>
+      </div>
+      <div class="relative mt-5">
+        <input
+          v-model="newQuestion.FechaActualizacion"
+          id="fecha-actualizacion"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+          type="date"
+          required
+        />
+        <label for="fecha-actualizacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
+          Fecha Actualización
+        </label>
+      </div>
       <button
-        class="mt-5 tracking-wide font-semibold bg-red-700 text-red-100 w-full py-4 rounded-lg hover:bg-red-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none col-span-2"
+        class="mt-5 tracking-wide font-semibold bg-red-700 text-red-100 w-full py-4 rounded-lg hover:bg-red-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
         type="submit"
       >
         Registrar
@@ -74,11 +73,11 @@
           <th class="py-2">ID</th>
           <th class="py-2">Pregunta</th>
           <th class="py-2">Respuesta</th>
-          <th class="py-2">Categoria</th>
+          <th class="py-2">Categoría</th>
           <th class="py-2">Persona</th>
           <th class="py-2">Estatus</th>
-          <th class="py-2">Fecha Creacion</th>
-          <th class="py-2">Fecha Actualizacion</th>
+          <th class="py-2">Fecha Creación</th>
+          <th class="py-2">Fecha Actualización</th>
           <th class="py-2">Acciones</th>
         </tr>
       </thead>
@@ -123,7 +122,7 @@
         <input
           v-model="currentQuestion.Categoria"
           class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="text" placeholder="Categoria" required
+          type="text" placeholder="Categoría" required
         />
         <input
           v-model="currentQuestion.Persona"
@@ -131,96 +130,132 @@
           type="text" placeholder="Persona" required
         />
         <select v-model="currentQuestion.Estatus"
-           class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"> 
-         <option value="" disabled selected hidden>Estatus</option>
-         <option value="Cancelada">Cancelada</option>
-         <option value="Registrada">Registrada</option>
-         <option value="Pendiente">Pendiente</option>
-         <option value="Atendida">Atendida</option>
-      </select>
-      <div class="relative mt-5">
-  <input
-    v-model="currentQuestion.FechaCreacion"
-    id="fecha-creacion"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-    type="date"
-    required
-  />
-  <label for="fecha-creacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-    Fecha Creación
-  </label>
-</div>
-
-<div class="relative mt-5">
-  <input
-    v-model="currentQuestion.FechaActualizacion"
-    id="fecha-actualizacion"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-    type="date"
-    required
-  />
-  <label for="fecha-actualizacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-    Fecha Actualización
-  </label>
-</div>
-
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+          required>
+          <option value="" disabled hidden>Estatus</option>
+          <option value="Cancelada">Cancelada</option>
+          <option value="Registrada">Registrada</option>
+          <option value="Pendiente">Pendiente</option>
+          <option value="Atendida">Atendida</option>
+        </select>
+        <div class="relative mt-5">
+          <input
+            v-model="currentQuestion.FechaCreacion"
+            id="fecha-creacion"
+            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+            type="date"
+            required
+          />
+          <label for="fecha-creacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
+            Fecha Creación
+          </label>
+        </div>
+        <div class="relative mt-5">
+          <input
+            v-model="currentQuestion.FechaActualizacion"
+            id="fecha-actualizacion"
+            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+            type="date"
+            required
+          />
+          <label for="fecha-actualizacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
+            Fecha Actualización
+          </label>
+        </div>
         <button
-          class="mt-5 tracking-wide font-semibold bg-blue-700 text-gray-100 w-full py-4 rounded-lg hover:bg-blue-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none col-span-2"
+          class="mt-5 tracking-wide font-semibold bg-blue-700 text-blue-100 w-full py-4 rounded-lg hover:bg-blue-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
           type="submit"
         >
           Actualizar
         </button>
-        <br>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      questions: [
-        { id: 1, Pregunta: "¿Cuál es su producto más popular?", Respuesta: "Nuestro producto más popular es el X.", Categoria: "Producto", Persona: "Juan Pérez", Estatus: "Respondida", FechaCreacion: "2024-01-20", FechaActualizacion: "2024-08-15" },
-        { id: 2, Pregunta: "¿Cómo puedo realizar una devolución?", Respuesta: "Puede realizar una devolución siguiendo estos pasos...", Categoria: "Devolución", Persona: "Ana López", Estatus: "Pendiente", FechaCreacion: "2024-02-10", FechaActualizacion: "2024-07-30" },
-        { id: 3, Pregunta: "¿Ofrecen descuentos para clientes frecuentes?", Respuesta: "Sí, ofrecemos descuentos para clientes frecuentes.", Categoria: "Descuentos", Persona: "Carlos Rodríguez", Estatus: "Respondida", FechaCreacion: "2024-03-05", FechaActualizacion: "2024-08-05" }
-      ],
+      questions: [],
       newQuestion: {
-        Pregunta: "",
-        Respuesta: "",
-        Categoria: "",
-        Persona: "",
-        Estatus: "",
-        FechaCreacion: "",
-        FechaActualizacion: ""
+        Pregunta: '',
+        Respuesta: '',
+        Categoria: '',
+        Persona: '',
+        Estatus: '',
+        FechaCreacion: '',
+        FechaActualizacion: ''
       },
-      currentQuestion: null,
-      editingQuestion: false
+      editingQuestion: false,
+      currentQuestion: {}
     };
   },
   methods: {
-    addQuestion() {
-      if (this.newQuestion.Pregunta && this.newQuestion.Respuesta && this.newQuestion.Categoria && this.newQuestion.Persona && this.newQuestion.Estatus && this.newQuestion.FechaCreacion && this.newQuestion.FechaActualizacion) {
-        const newId = this.questions.length ? Math.max(...this.questions.map(q => q.id)) + 1 : 1;
-        this.questions.push({ ...this.newQuestion, id: newId });
-        this.newQuestion = { Pregunta: "", Respuesta: "", Categoria: "", Persona: "", Estatus: "", FechaCreacion: "", FechaActualizacion: "" };
+    async fetchQuestions() {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/Pregunta');
+        this.questions = response.data;
+      } catch (error) {
+        console.error('Error fetching questions:', error);
       }
     },
-    editQuestion(id) {
-      this.currentQuestion = { ...this.questions.find(q => q.id === id) };
-      this.editingQuestion = true;
-    },
-    updateQuestion() {
-      const index = this.questions.findIndex(q => q.id === this.currentQuestion.id);
-      if (index !== -1) {
-        this.questions.splice(index, 1, this.currentQuestion);
+    async addQuestion() {
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/Pregunta', this.newQuestion);
+        this.questions.push(response.data);
+        this.newQuestion = {
+          Pregunta: '',
+          Respuesta: '',
+          Categoria: '',
+          Persona: '',
+          Estatus: '',
+          FechaCreacion: '',
+          FechaActualizacion: ''
+        };
+      } catch (error) {
+        console.error('Error adding question:', error);
       }
-      this.currentQuestion = null;
-      this.editingQuestion = false;
     },
-    deleteQuestion(id) {
-      this.questions = this.questions.filter(q => q.id !== id);
+    async editQuestion(id) {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/Pregunta/${id}`);
+        this.currentQuestion = response.data;
+        this.editingQuestion = true;
+      } catch (error) {
+        console.error('Error fetching question for editing:', error);
+      }
+    },
+    async updateQuestion() {
+      try {
+        const response = await axios.put(`http://127.0.0.1:8000/Pregunta/${this.currentQuestion.id}`, this.currentQuestion);
+        const index = this.questions.findIndex(q => q.id === this.currentQuestion.id);
+        if (index !== -1) {
+          this.questions[index] = response.data;
+        }
+        this.editingQuestion = false;
+        this.currentQuestion = {};
+      } catch (error) {
+        console.error('Error updating question:', error);
+      }
+    },
+    async deleteQuestion(id) {
+      try {
+        await axios.delete(`http://127.0.0.1:8000/Pregunta/${id}`);
+        this.questions = this.questions.filter(question => question.id !== id);
+      } catch (error) {
+        console.error('Error deleting question:', error);
+      }
     }
+  },
+  created() {
+    this.fetchQuestions();
   }
 };
 </script>
+
+<style scoped>
+/* Añade estilos específicos si es necesario */
+</style>
