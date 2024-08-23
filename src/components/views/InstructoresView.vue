@@ -1,4 +1,5 @@
 <template>
+  
   <div class="bg-gray-700 text-charcoal font-sans leading-normal overflow-x-hidden lg:overflow-auto">
     <div class="grid sm:grid-cols-2 items-start gap-16 p-4 mx-auto max-w-4xl bg-white">
       <div>

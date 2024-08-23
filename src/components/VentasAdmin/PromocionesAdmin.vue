@@ -25,54 +25,50 @@
         type="number" step="0.01" placeholder="Precio" required
       />
       <select v-model="newPromotion.Tipo"
-         class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"> 
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5">
         <option value="" disabled selected hidden>Tipo</option>
         <option value="Miembro">Miembro</option>
         <option value="Usuario">Usuario</option>
         <option value="Empleado">Empleado</option>
-        </select>  
-        
-      <select v-model="newPromotion.Aplicacion"
-        
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"> 
-       <option value="" disabled selected hidden>Aplicacion en</option>
-       <option value="Tienda Virtual">Tienda Virtual</option>
-       <option value="Tienda presencial">Tienda presencial</option>
       </select>
-
+      <select v-model="newPromotion.Aplicacion"
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5">
+        <option value="" disabled selected hidden>Aplicacion en</option>
+        <option value="Tienda Virtual">Tienda Virtual</option>
+        <option value="Tienda presencial">Tienda presencial</option>
+      </select>
       <select v-model="newPromotion.Estatus"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"> 
+        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5">
         <option value="" disabled selected hidden>Estatus</option>
-        <option value="1">1</option>
-        <option value="0">0</option>
-         </select>
-         <div class="relative mt-5">
-  <input
-    v-model="newPromotion.FechaCreacion"
-    id="fecha-creacion"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-1"
-    type="date"
-    required
-  />
-  <label for="fecha-creacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-    Fecha de Creación
-  </label>
-</div>
-<div class="relative mt-5">
-  <input
-    v-model="newPromotion.FechaActualizacion"
-    id="fecha-Actualizacion"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-1"
-    type="date"
-    required
-  />
-  <label for="fecha-Actualizacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-    Fecha de Actualizacion
-  </label>
-</div>
-
+        <option value="1">Activo</option>
+        <option value="0">Inactivo</option>
+      </select>
+      <div class="relative mt-5">
+        <input
+          v-model="newPromotion.FechaCreacion"
+          id="fecha-creacion"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-1"
+          type="date"
+          required
+        />
+        <label for="fecha-creacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
+          Fecha de Creación
+        </label>
+      </div>
+      <div class="relative mt-5">
+        <input
+          v-model="newPromotion.FechaActualizacion"
+          id="fecha-actualizacion"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-1"
+          type="date"
+          required
+        />
+        <label for="fecha-actualizacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
+          Fecha de Actualización
+        </label>
+      </div>
       <button
-        class="mt-5 tracking-wide font-semibold bg-red-700 text-red-100 w-full py-4 rounded-lg hover:bg-red-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none col-span-2"
+        class="mt-5 tracking-wide font-semibold bg-red-700 text-red-100 w-full py-4 rounded-lg hover:bg-red-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
         type="submit"
       >
         Registrar
@@ -90,10 +86,10 @@
           <th class="py-2">Marca</th>
           <th class="py-2">Precio</th>
           <th class="py-2">Tipo</th>
-          <th class="py-2">Aplicacion en</th>
+          <th class="py-2">Aplicación en</th>
           <th class="py-2">Estatus</th>
           <th class="py-2">Fecha de Creación</th>
-          <th class="py-2">Fecha de Actualizacion</th>
+          <th class="py-2">Fecha de Actualización</th>
           <th class="py-2">Acciones</th>
         </tr>
       </thead>
@@ -143,107 +139,141 @@
           type="number" step="0.01" placeholder="Precio" required
         />
         <select v-model="currentPromotion.Tipo"
-         class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"> 
-        <option value="" disabled selected hidden>Tipo</option>
-        <option value="Miembro">Miembro</option>
-        <option value="Usuario">Usuario</option>
-        <option value="Empleado">Empleado</option>
-        </select>   
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5">
+          <option value="" disabled selected hidden>Tipo</option>
+          <option value="Miembro">Miembro</option>
+          <option value="Usuario">Usuario</option>
+          <option value="Empleado">Empleado</option>
+        </select>
         <select v-model="currentPromotion.Aplicacion"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"> 
-    <option value="" disabled hidden>Aplicacion en</option>
-    <option value="Tienda Virtual">Tienda Virtual</option>
-    <option value="Tienda presencial">Tienda presencial</option>
-</select>
-
-<select v-model="currentPromotion.Estatus"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"> 
-        <option value="" disabled selected hidden>Estatus</option>
-        <option value="1">1</option>
-        <option value="0">0</option>
-         </select>
-         <div class="relative mt-5">
-  <input
-    v-model="currentPromotion.FechaCreacion"
-    id="fecha-creacion"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-1"
-    type="date"
-    required
-  />
-  <label for="fecha-creacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-    Fecha de Creación
-  </label>
-</div>
-         <div class="relative mt-5">
-  <input
-    v-model="currentPromotion.FechaActualizacion"
-    id="fecha-Actualizacion"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-1"
-    type="date"
-    required
-  />
-  <label for="fecha-Actualizacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-    Fecha de Actualizacion
-  </label>
-</div>
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5">
+          <option value="" disabled selected hidden>Aplicacion en</option>
+          <option value="Tienda Virtual">Tienda Virtual</option>
+          <option value="Tienda presencial">Tienda presencial</option>
+        </select>
+        <select v-model="currentPromotion.Estatus"
+          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5">
+          <option value="" disabled selected hidden>Estatus</option>
+          <option value="1">Activo</option>
+          <option value="0">Inactivo</option>
+        </select>
+        <div class="relative mt-5">
+          <input
+            v-model="currentPromotion.FechaCreacion"
+            id="fecha-creacion-edit"
+            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-1"
+            type="date"
+            required
+          />
+          <label for="fecha-creacion-edit" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
+            Fecha de Creación
+          </label>
+        </div>
+        <div class="relative mt-5">
+          <input
+            v-model="currentPromotion.FechaActualizacion"
+            id="fecha-actualizacion-edit"
+            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-1"
+            type="date"
+            required
+          />
+          <label for="fecha-actualizacion-edit" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
+            Fecha de Actualización
+          </label>
+        </div>
         <button
-          class="mt-5 tracking-wide font-semibold bg-blue-700 text-gray-100 w-full py-4 rounded-lg hover:bg-blue-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none col-span-2"
+          class="mt-5 tracking-wide font-semibold bg-red-700 text-red-100 w-full py-4 rounded-lg hover:bg-red-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
           type="submit"
         >
           Actualizar
         </button>
-        <br>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      promotions: [
-        { id: 1, NombreProducto: "Producto A", Marca: "Marca X", Precio: 19.99, Tipo: "Descuento", FechaCreacion: "2024-01-01" },
-        { id: 2, NombreProducto: "Producto B", Marca: "Marca Y", Precio: 29.99, Tipo: "Oferta", FechaCreacion: "2024-02-15" },
-        { id: 3, NombreProducto: "Producto C", Marca: "Marca Z", Precio: 39.99, Tipo: "Descuento", FechaCreacion: "2024-03-20" }
-      ],
       newPromotion: {
-        Aplicacion: "",
-        NombreProducto: "",
-        Marca: "",
-        Precio: "",
-        Tipo: "",
-        FechaCreacion: "",
-        FechaActualizacion: "",
-        Estatus:""
+        Producto_ID: '',
+        NombreProducto: '',
+        Marca: '',
+        Precio: '',
+        Tipo: '',
+        Aplicacion: '',
+        Estatus: '',
+        FechaCreacion: '',
+        FechaActualizacion: ''
       },
-      currentPromotion: null,
-      editingPromotion: false
+      promotions: [],
+      editingPromotion: false,
+      currentPromotion: null
     };
   },
   methods: {
-    addPromotion() {
-      if (this.newPromotion.NombreProducto && this.newPromotion.Marca && this.newPromotion.Precio && this.newPromotion.Tipo && this.newPromotion.FechaCreacion) {
-        const newId = this.promotions.length ? this.promotions[this.promotions.length - 1].id + 1 : 1;
-        this.promotions.push({ ...this.newPromotion, id: newId });
-        this.newPromotion = { NombreProducto: "", Marca: "", Precio: "", Tipo: "", FechaCreacion: "" };
+    async fetchPromotions() {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/promociones');
+        this.promotions = response.data;
+      } catch (error) {
+        console.error('Error fetching promotions:', error);
       }
     },
-    editPromotion(id) {
-      this.currentPromotion = { ...this.promotions.find(p => p.id === id) };
+    async addPromotion() {
+      try {
+        await axios.post('http://127.0.0.1:8000/promociones', this.newPromotion);
+        this.resetNewPromotion();
+        await this.fetchPromotions();
+      } catch (error) {
+        console.error('Error adding promotion:', error);
+      }
+    },
+    async editPromotion(id) {
       this.editingPromotion = true;
+      this.currentPromotion = this.promotions.find(p => p.id === id);
     },
-    updatePromotion() {
-      const index = this.promotions.findIndex(p => p.id === this.currentPromotion.id);
-      if (index !== -1) {
-        this.promotions.splice(index, 1, this.currentPromotion);
+    async updatePromotion() {
+      try {
+        await axios.put(`http://127.0.0.1:8000/promociones/${this.currentPromotion.id}`, this.currentPromotion);
+        this.editingPromotion = false;
+        this.currentPromotion = null;
+        await this.fetchPromotions();
+      } catch (error) {
+        console.error('Error updating promotion:', error);
       }
-      this.currentPromotion = null;
-      this.editingPromotion = false;
     },
-    deletePromotion(id) {
-      this.promotions = this.promotions.filter(p => p.id !== id);
+    async deletePromotion(id) {
+      try {
+        await axios.delete(`http://127.0.0.1:8000/promociones/${id}`);
+        await this.fetchPromotions();
+      } catch (error) {
+        console.error('Error deleting promotion:', error);
+      }
+    },
+    resetNewPromotion() {
+      this.newPromotion = {
+        Producto_ID: '',
+        NombreProducto: '',
+        Marca: '',
+        Precio: '',
+        Tipo: '',
+        Aplicacion: '',
+        Estatus: '',
+        FechaCreacion: '',
+        FechaActualizacion: ''
+      };
     }
+  },
+  mounted() {
+    this.fetchPromotions();
   }
 };
 </script>
+
+<style scoped>
+/* Estilos adicionales si es necesario */
+</style>

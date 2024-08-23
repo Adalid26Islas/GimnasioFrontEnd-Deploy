@@ -182,14 +182,12 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      programs: [
-        { id: 1, Descripcion: "Programa de Nutrición", Tipo: "Activo", Respuesta: "Buena", Estatus: "Activo", Atencion: "Excelente", Registro: "2024-01-15", Actualizacion: "2024-08-01" },
-        { id: 2, Descripcion: "Entrenamiento Funcional", Tipo: "Inactivo", Respuesta: "Moderada", Estatus: "Inactivo", Atencion: "Adecuada", Registro: "2024-03-10", Actualizacion: "2024-07-25" },
-        { id: 3, Descripcion: "Yoga Avanzado", Tipo: "Activo", Respuesta: "Excelente", Estatus: "Activo", Atencion: "Muy Buena", Registro: "2024-02-05", Actualizacion: "2024-08-10" }
-      ],
+      programs: [],
       newProgram: {
         Descripcion: "",
         Tipo: "",
@@ -204,28 +202,57 @@ export default {
     };
   },
   methods: {
-    addProgram() {
-      if (this.newProgram.Descripcion && this.newProgram.Tipo && this.newProgram.Respuesta && this.newProgram.Estatus && this.newProgram.Registro && this.newProgram.Actualizacion && this.newProgram.Atencion) {
-        const newId = this.programs.length ? this.programs[this.programs.length - 1].id + 1 : 1;
-        this.programs.push({ ...this.newProgram, id: newId });
+    async fetchPrograms() {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/OpinionCliente');
+        this.programs = response.data;
+      } catch (error) {
+        console.error('Error fetching programs:', error);
+      }
+    },
+    async addProgram() {
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/OpinionCliente', this.newProgram);
+        this.programs.push(response.data);
         this.newProgram = { Descripcion: "", Tipo: "", Respuesta: "", Estatus: "", Registro: "", Actualizacion: "", Atencion: "" };
+      } catch (error) {
+        console.error('Error adding program:', error);
       }
     },
-    editProgram(id) {
-      this.currentProgram = { ...this.programs.find(p => p.id === id) };
-      this.editingProgram = true;
-    },
-    updateProgram() {
-      const index = this.programs.findIndex(p => p.id === this.currentProgram.id);
-      if (index !== -1) {
-        this.programs.splice(index, 1, this.currentProgram);
+    async editProgram(id) {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/OpinionCliente${id}`);
+        this.currentProgram = response.data;
+        this.editingProgram = true;
+      } catch (error) {
+        console.error('Error fetching program for editing:', error);
       }
-      this.currentProgram = null;
-      this.editingProgram = false;
     },
-    deleteProgram(id) {
-      this.programs = this.programs.filter(p => p.id !== id);
+    async updateProgram() {
+      try {
+        const response = await axios.put(`http://127.0.0.1:8000/OpinionCliente${this.currentProgram.id}`, this.currentProgram);
+        const index = this.programs.findIndex(p => p.id === this.currentProgram.id);
+        if (index !== -1) {
+          this.programs.splice(index, 1, response.data);
+        }
+        this.currentProgram = null;
+        this.editingProgram = false;
+      } catch (error) {
+        console.error('Error updating program:', error);
+      }
+    },
+    async deleteProgram(id) {
+      try {
+        await axios.delete(`http://127.0.0.1:8000/OpinionCliente/${id}`);
+        this.programs = this.programs.filter(p => p.id !== id);
+      } catch (error) {
+        console.error('Error deleting program:', error);
+      }
     }
+  },
+  created() {
+    this.fetchPrograms();
   }
 };
 </script>
+
