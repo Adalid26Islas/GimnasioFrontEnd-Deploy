@@ -1,5 +1,5 @@
 <template>
-    <footer class="bg-gray-400 ml-2 bottom-0 w-[100%]">
+    <footer class="bg-gray-500 ml-2 bottom-0 w-[100%]">
         <div class="container flex flex-col items-center justify-between px-8 py-8 mx-auto lg:flex-row">
             <a href="#">
                 <img class="w-auto h-7" src="https://merakiui.com/images/full-logo.svg" alt="">

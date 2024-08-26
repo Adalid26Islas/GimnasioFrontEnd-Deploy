@@ -1,9 +1,9 @@
 <template>
-    <table class="w-full mt-8 bg-white shadow-md rounded-lg overflow-hidden">
-        <thead class="bg-gray-800 text-white">
+    <table class="w-full mt-8 bg-white shadow-md rounded-lg overflow-hidden ">
+        <thead class="bg-gray-800 text-white ">
             <tr>
                 <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Fotografía</th>
-                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">ID</th>
+                <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Persona_id</th>
                 <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Años de Experiencia</th>
                 <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Especialidad</th>
                 <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Clientes Atendidos</th>
@@ -17,7 +17,7 @@
                 <td class="px-6 py-4 whitespace-nowrap">
                     <img :src="instructor.fotografia" alt="Foto del instructor" class="w-12 h-12 rounded-full object-cover">
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap">{{ instructor.id }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ instructor.Persona_id }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">{{ instructor.total_anios_experiencia }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">{{ instructor.especialidad }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">{{ instructor.total_clientes_atendidos }}</td>
