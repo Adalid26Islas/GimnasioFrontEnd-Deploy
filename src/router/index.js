@@ -11,7 +11,8 @@ import RutinasEjerciciosView from '@/components/views/RutinasEjerciciosView.vue'
 import RutinasView from '@/components/views/RutinasView.vue'
 import ProgramaSaludableView from '@/components/views/ProgramaSaludableView.vue'
 import DetalleProgramaView from '@/components/views/DetalleProgramaView.vue'
-import PrestamosView from '@/components/views/PrestamosView.vue'
+import EquipamientoView from '@/components/views/EquipamientoView.vue'
+import AdeudoView from '@/components/views/AdeudosView.vue'
 import MembresiasView from '@/components/views/MembresiasView.vue'
 import MiembrosView from '@/components/views/MiembrosView.vue'
 import PersonasView from '@/components/views/PersonasView.vue'
@@ -27,6 +28,7 @@ import DetallePedidosView from '@/components/views/DetallePedidosView.vue'
 import PagosView from '@/components/views/PagosView.vue'
 import PromocionesView from '@/components/views/PromocionesView.vue'
 import DetalleProductosView from '@/components/views/DetalleProductosView.vue'
+import SucursalesView from  '@/components/views/Sucursales.vue'
 
 import AdeudoView from '@/components/RecursosMateriales/AdeudosView.vue'
 import EquipamientoView from '@/components/RecursosMateriales/EquipamientoView.vue'
@@ -139,6 +141,9 @@ const router = createRouter({
           {
             path:'/pagos', name:'pagos', component: PagosView
           },
+         {
+          path:'/sucursales', name:'sucursales', component: SucursalesView
+         },
         ]
     },
   ]
