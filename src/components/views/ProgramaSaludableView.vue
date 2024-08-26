@@ -1,5 +1,6 @@
 <template>
   <div class="mx-auto p-4">
+    <h1 class="title-gym">BULL'S GYM</h1>
     <!-- Botón para mostrar el formulario -->
     <button
       v-if="!showForm"
@@ -160,18 +161,17 @@ export default {
         Nombre: '',
         Usuario_ID: '',
         Instructor_ID: '',
-        Fecha_Creacion: new Date(),
+        Fecha_Creacion: new Date().toISOString().split('T')[0],
         Estatus: '',
         Duracion: '',
         Porcentaje_Avance: '',
-        Fecha_Ultima_Actualizacion: new Date()
+        Fecha_Ultima_Actualizacion: new Date().toISOString().split('T')[0]
       },
       programas: [],
       errorMessage: '',
       editingID: null,
       statusOptions: [
-        'Registrado', 'Sugerido', 'Aprobado por el Médico', 'Aprobado por el Usuario',
-        'Rechazado por el Médico', 'Rechazado por el Usuario', 'Terminado', 'Suspendido', 'Cancelado'
+        'Registrado', 'Sugerido', 'Iniciado', 'En Proceso', 'Finalizado'
       ]
     };
   },
@@ -182,64 +182,77 @@ export default {
         this.resetForm();
       }
     },
-    async submitForm() {
-      try {
-        if (this.isEditing) {
-          await axios.put(`https://api.example.com/programas/${this.editingID}`, this.formData);
-          this.programas = this.programas.map(programa =>
-            programa.ID === this.editingID ? { ...programa, ...this.formData } : programa
-          );
-        } else {
-          const { data } = await axios.post('https://api.example.com/programas', this.formData);
-          this.programas.push(data);
-        }
-        this.resetForm();
-        this.toggleForm();
-      } catch (error) {
-        this.errorMessage = 'Hubo un error al procesar la solicitud. Por favor, intenta de nuevo.';
-      }
-    },
-    editPrograma(programa) {
-      this.isEditing = true;
-      this.editingID = programa.ID;
-      this.formData = { ...programa };
-      this.showForm = true;
-    },
-    async deletePrograma(id) {
-      try {
-        await axios.delete(`https://api.example.com/programas/${id}`);
-        this.programas = this.programas.filter(programa => programa.ID !== id);
-      } catch (error) {
-        this.errorMessage = 'Hubo un error al eliminar el programa. Por favor, intenta de nuevo.';
-      }
-    },
     resetForm() {
+      this.isEditing = false;
+      this.editingID = null;
       this.formData = {
         Nombre: '',
         Usuario_ID: '',
         Instructor_ID: '',
-        Fecha_Creacion: new Date(),
+        Fecha_Creacion: new Date().toISOString().split('T')[0],
         Estatus: '',
         Duracion: '',
         Porcentaje_Avance: '',
-        Fecha_Ultima_Actualizacion: new Date()
+        Fecha_Ultima_Actualizacion: new Date().toISOString().split('T')[0]
       };
-      this.isEditing = false;
-      this.editingID = null;
+      this.showForm = false;
       this.errorMessage = '';
+    },
+    async submitForm() {
+      try {
+        if (this.isEditing && this.editingID) {
+          const response = await axios.put(`https://api.example.com/programas_saludables/${this.editingID}`, this.formData);
+          this.programas = this.programas.map((programa) =>
+            programa.ID === this.editingID ? response.data : programa
+          );
+        } else {
+          const response = await axios.post('https://api.example.com/programas_saludables/', this.formData);
+          this.programas.push(response.data);
+        }
+        this.resetForm();
+        this.fetchProgramas();
+      } catch (error) {
+        console.error('Error al enviar el formulario:', error);
+        this.errorMessage = 'Hubo un error al enviar el formulario. Por favor, intente de nuevo.';
+      }
+    },
+    async fetchProgramas() {
+      try {
+        const response = await axios.get('https://api.example.com/programas_saludables/');
+        this.programas = response.data;
+      } catch (error) {
+        console.error('Error al obtener programas:', error);
+        this.errorMessage = 'Hubo un error al obtener los programas. Por favor, intente de nuevo.';
+      }
+    },
+    editPrograma(programa) {
+      this.isEditing = true;
+      this.showForm = true;
+      this.editingID = programa.ID;
+      this.formData = { ...programa };
+    },
+    async deletePrograma(programaID) {
+      try {
+        await axios.delete(`https://api.example.com/programas_saludables/${programaID}`);
+        this.programas = this.programas.filter((programa) => programa.ID !== programaID);
+      } catch (error) {
+        console.error('Error al eliminar el programa:', error);
+        this.errorMessage = 'Hubo un error al eliminar el programa. Por favor, intente de nuevo.';
+      }
     }
   },
-  async mounted() {
-    try {
-      const { data } = await axios.get('https://api.example.com/programas');
-      this.programas = data;
-    } catch (error) {
-      this.errorMessage = 'Hubo un error al cargar los programas. Por favor, intenta de nuevo.';
-    }
+  mounted() {
+    this.fetchProgramas();
   }
 };
 </script>
 
 <style scoped>
-/* Puedes personalizar aún más los estilos aquí */
+.title-gym {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  color: #1a202c;
+  margin-bottom: 20px;
+}
 </style>
