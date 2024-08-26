@@ -13,7 +13,7 @@ import RutinasView from '@/components/views/RutinasView.vue'
 import ProgramaSaludableView from '@/components/views/ProgramaSaludableView.vue'
 import DetalleProgramaView from '@/components/views/DetalleProgramaView.vue'
 import EquipamientoView from '@/components/RecursosMateriales/EquipamientoView.vue' // Recursos Materiales
-import AdeudosView from '@/components/RecursosMateriales/AdeudosView' // Recursos Materiales
+import AdeudosView from '@/components/RecursosMateriales/AdeudosView.vue' // Recursos Materiales
 import MembresiasView from '@/components/views/MembresiaMiembros/MembresiasView.vue'
 import MiembrosView from '@/components/views/MembresiaMiembros/MiembrosView.vue'
 import TransaccionesView from '@/components/views/MembresiaMiembros/TransaccionesView.vue'
