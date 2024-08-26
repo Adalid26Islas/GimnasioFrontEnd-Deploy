@@ -132,10 +132,10 @@
               <td class="text-center">{{ rutina.Estatus ? 'Actual' : 'Suspendida' }}</td>
               <td class="text-center">{{ rutina.Resultados_Esperados }}</td>
               <td class="flex justify-center space-x-2">
-                <button @click="editEjercicio(ejercicio)" class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:outline-none transition-colors flex items-center">
+                <button @click="editRutina(rutina)" class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:outline-none transition-colors flex items-center">
                   Editar
                 </button>
-                <button @click="deleteEjercicio(ejercicio.ID, ejercicio.Nombre)" class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors flex items-center">
+                <button @click="deleteRutina(rutina.ID, rutina.Nombre)" class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors flex items-center">
                   Eliminar
                 </button>
               </td>
@@ -188,7 +188,7 @@ export default {
             }
           );
         } else {
-          const response = await axios.post('https://gimnasio-deploy.onrender.com/rutina',this.formData, {
+          const response = await axios.post('https://gimnasio-deploy.onrender.com/rutinas',this.formData, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -220,7 +220,7 @@ export default {
     },
     async fetchRutinas() {
       try {
-        const response = await axios.get('https://gimnasio-deploy.onrender.com/rutinas', {
+        const response = await axios.get('https://gimnasio-deploy.onrender.com/rutinas/', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
           },
@@ -238,7 +238,7 @@ export default {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
           },
         });
-        this.rutinas = this.rutinas.filter(rutina => rutina.ID !== id);
+        this.formData = this.formData.filter(rutina => rutina.ID !== id);
       } catch (error) {
         console.error(error);
         this.errorMessage = 'No se pudo eliminar la rutina. Inténtalo de nuevo.';
