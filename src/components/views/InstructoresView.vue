@@ -5,10 +5,10 @@
         <h1 class="text-xl font-semibold mb-4 text-gray-900">Registro de Instructores</h1>
         <p class="text-sm text-gray-500 mt-4">Complete el formulario para registrar un nuevo instructor en el sistema.</p>
 
-        <!-- <div class="mt-8">
+        <div class="mt-8">
           <img src="https://c8.alamy.com/comp/DRRP55/young-fitness-instructor-gym-people-spinning-DRRP55.jpg" alt="Imagen del Instructor"
             class="w-full h-auto rounded-lg shadow-md" />
-        </div> -->
+        </div>
       </div>
       <div class="mb-8 p-4 bg-white rounded shadow">
       <Stepper :steps="['Datos Básicos', 'Experiencia y Contratación', 'Detalles del Instructor']" @submit="handleSubmit">
