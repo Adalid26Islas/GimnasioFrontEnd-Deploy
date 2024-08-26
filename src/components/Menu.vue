@@ -100,15 +100,15 @@
                      </RouterLink>
                      </li>
                     <li>
-                     <RouterLink to="/rutinasEjercicios">
-                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Rutinas Ejercicios</a>
+                     <RouterLink to="/Intructores">
+                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Instructores2</a>
                      </RouterLink>
                     </li>
-                    <li>
+                    <!-- <li>
                      <RouterLink to="/detalleProgramas">
                        <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Detalle Programas</a>
                      </RouterLink>                    
-                  </li>
+                  </li> -->
                   
               </ul>
            </li>

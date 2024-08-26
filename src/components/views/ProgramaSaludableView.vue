@@ -176,27 +176,11 @@ export default {
     };
   },
   methods: {
-    toggleForm() {
-      this.showForm = !this.showForm;
-      if (!this.showForm) {
-        this.resetForm();
-      }
-    },
-    async submitForm() {
-      try {
-        if (this.isEditing) {
-          await axios.put(`https://api.example.com/programas/${this.editingID}`, this.formData);
-          this.programas = this.programas.map(programa =>
-            programa.ID === this.editingID ? { ...programa, ...this.formData } : programa
-          );
-        } else {
-          const { data } = await axios.post('https://api.example.com/programas', this.formData);
-          this.programas.push(data);
-        }
-        this.resetForm();
-        this.toggleForm();
-      } catch (error) {
-        this.errorMessage = 'Hubo un error al procesar la solicitud. Por favor, intenta de nuevo.';
+    addProgram() {
+      if (this.newProgram.name && this.newProgram.status && this.newProgram.duration && this.newProgram.progress) {
+        const newId = this.programs.length + 1;
+        this.programs.push({ ...this.newProgram, id: newId });
+        this.newProgram = { name: "", status: "", duration: "", progress: 0 };
       }
     },
     editPrograma(programa) {
@@ -205,36 +189,16 @@ export default {
       this.formData = { ...programa };
       this.showForm = true;
     },
-    async deletePrograma(id) {
-      try {
-        await axios.delete(`https://api.example.com/programas/${id}`);
-        this.programas = this.programas.filter(programa => programa.ID !== id);
-      } catch (error) {
-        this.errorMessage = 'Hubo un error al eliminar el programa. Por favor, intenta de nuevo.';
+    updateProgram() {
+      const index = this.programs.findIndex(p => p.id === this.currentProgram.id);
+      if (index !== -1) {
+        this.programs.splice(index, 1, this.currentProgram);
       }
+      this.currentProgram = null;
+      this.editingProgram = false;
     },
-    resetForm() {
-      this.formData = {
-        Nombre: '',
-        Usuario_ID: '',
-        Instructor_ID: '',
-        Fecha_Creacion: new Date(),
-        Estatus: '',
-        Duracion: '',
-        Porcentaje_Avance: '',
-        Fecha_Ultima_Actualizacion: new Date()
-      };
-      this.isEditing = false;
-      this.editingID = null;
-      this.errorMessage = '';
-    }
-  },
-  async mounted() {
-    try {
-      const { data } = await axios.get('https://api.example.com/programas');
-      this.programas = data;
-    } catch (error) {
-      this.errorMessage = 'Hubo un error al cargar los programas. Por favor, intenta de nuevo.';
+    deleteProgram(id) {
+      this.programs = this.programs.filter(p => p.id !== id);
     }
   }
 };
