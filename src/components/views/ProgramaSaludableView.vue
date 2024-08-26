@@ -1,158 +1,245 @@
 <template>
-  <div>
-    <h1 class="text-2xl xl:text-3xl font-extrabold mb-6 text-gray-100 dark:text-gray-100">Programas Saludables</h1>
+  <div class="mx-auto p-4">
+    <!-- Botón para mostrar el formulario -->
+    <button
+      v-if="!showForm"
+      @click="toggleForm"
+      class="px-4 py-2 mb-4 rounded bg-blue-600 text-white hover:bg-blue-700 focus:outline-none transition-colors"
+    >
+      Crear Programa Saludable
+    </button>
 
-    <!-- Formulario para añadir un nuevo programa -->
-    <form @submit.prevent="addProgram">
-      <input
-        v-model="newProgram.name"
-        class="w-full px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-4"
-        type="text" placeholder="Nombre del Programa Saludable" required
-      />
-      <input
-        v-model="newProgram.status"
-        class="w-full px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-4"
-        type="text" placeholder="Estatus" required
-      />
-      <input
-        v-model="newProgram.duration"
-        class="w-full px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-4"
-        type="text" placeholder="Duración" required
-      />
-      <input
-        v-model="newProgram.progress"
-        class="w-full px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-4"
-        type="number" placeholder="Porcentaje de Avance" required
-      />
-      <button
-        class="w-full px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors mb-6"
-        type="submit"
-      >
-        Registrar
-      </button>
-    </form>
+    <!-- Sección del Formulario -->
+    <section v-if="showForm" class="mb-8 p-4 bg-white rounded shadow">
+      <h1 class="text-xl font-semibold mb-4 text-gray-900">
+        {{ isEditing ? "Actualizar Programa Saludable" : "Crear nuevo Programa Saludable" }}
+      </h1>
+      <p class="text-gray-700 mb-6">
+        {{
+          isEditing
+            ? "Actualiza la información del programa seleccionado."
+            : "Ingresa la información correspondiente para crear un nuevo programa."
+        }}
+      </p>
 
-    <!-- Listado de programas -->
-    <h2 class="text-xl font-bold mt-10 text-gray-100 dark:text-gray-100">Lista de Programas Saludables</h2>
-    <table class="w-full bg-white text-left text-sm text-gray-900 rounded mt-4">
-      <thead class="bg-gray-900 text-gray-100">
-        <tr>
-          <th class="px-6 py-4">ID</th>
-          <th class="px-6 py-4">Nombre</th>
-          <th class="px-6 py-4">Estatus</th>
-          <th class="px-6 py-4">Duración</th>
-          <th class="px-6 py-4">Porcentaje de Avance</th>
-          <th class="px-6 py-4">Acciones</th>
-        </tr>
-      </thead>
-      <tbody class="bg-gray-200">
-        <tr v-for="program in programs" :key="program.id" class="hover:bg-gray-300">
-          <td class="px-4 py-2">{{ program.id }}</td>
-          <td class="px-4 py-2">{{ program.name }}</td>
-          <td class="px-4 py-2">{{ program.status }}</td>
-          <td class="px-4 py-2">{{ program.duration }}</td>
-          <td class="px-4 py-2">{{ program.progress }}%</td>
-          <td class="px-4 py-2">
-            <button @click="editProgram(program.id)" class="bg-yellow-500 text-white px-4 py-2 rounded">
-              Editar
-            </button>
-            <button @click="deleteProgram(program.id)" class="bg-red-600 text-white px-4 py-2 rounded ml-2">
-              Eliminar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Formulario para editar un programa -->
-    <div v-if="editingProgram" class="mt-10">
-      <h2 class="text-xl font-bold text-gray-100 dark:text-gray-100">Editar Programa</h2>
-      <form @submit.prevent="updateProgram">
-        <input
-          v-model="currentProgram.name"
-          class="w-full px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-4"
-          type="text" placeholder="Nombre del Programa Saludable" required
-        />
-        <input
-          v-model="currentProgram.status"
-          class="w-full px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-4"
-          type="text" placeholder="Estatus" required
-        />
-        <input
-          v-model="currentProgram.duration"
-          class="w-full px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-4"
-          type="text" placeholder="Duración" required
-        />
-        <input
-          v-model="currentProgram.progress"
-          class="w-full px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mb-4"
-          type="number" placeholder="Porcentaje de Avance" required
-        />
+      <form @submit.prevent="submitForm">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <input
+            v-model="formData.Nombre"
+            type="text"
+            placeholder="Nombre del Programa"
+            class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+            required
+          />
+          <input
+            v-model="formData.Usuario_ID"
+            type="text"
+            placeholder="ID del Usuario"
+            class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+            required
+          />
+          <input
+            v-model="formData.Instructor_ID"
+            type="text"
+            placeholder="ID del Instructor"
+            class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+            required
+          />
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <input
+            v-model="formData.Fecha_Creacion"
+            type="date"
+            placeholder="Fecha de Creación"
+            class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+            required
+          />
+          <select
+            v-model="formData.Estatus"
+            class="rounded-lg w-full font-medium bg-gray-100 border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+            required
+            placeholder="Estatus"
+          >
+            <option :value="null">Selecciona el Estatus</option>
+            <option v-for="status in statusOptions" :key="status" :value="status">{{ status }}</option>
+          </select>
+          <input
+            v-model="formData.Duracion"
+            type="text"
+            placeholder="Duración"
+            class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+            required
+          />
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <input
+            v-model="formData.Porcentaje_Avance"
+            type="number"
+            placeholder="Porcentaje de Avance"
+            class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+            step="0.01"
+            required
+          />
+          <input
+            v-model="formData.Fecha_Ultima_Actualizacion"
+            type="date"
+            placeholder="Fecha de Última Actualización"
+            class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+            required
+          />
+        </div>
         <button
-          class="w-full px-4 py-2 rounded bg-blue-700 text-gray-100 hover:bg-blue-800 focus:outline-none transition-colors"
           type="submit"
+          class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors"
         >
-          Actualizar
+          {{ isEditing ? "Actualizar Programa" : "Crear Programa" }}
+        </button>
+        <button
+          type="button"
+          @click="resetForm"
+          class="ml-4 px-4 py-2 rounded bg-gray-400 text-white hover:bg-gray-500 focus:outline-none transition-colors"
+        >
+          Cancelar
         </button>
       </form>
-    </div>
+      <div v-if="errorMessage" class="text-red-600 mt-4">{{ errorMessage }}</div>
+    </section>
+
+    <!-- Sección de la Tabla -->
+    <section class="m-4">
+      <table class="w-full bg-white text-left text-sm text-gray-900 rounded">
+        <thead class="bg-gray-50 text-center">
+          <tr>
+            <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">ID</th>
+            <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">NOMBRE</th>
+            <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">USUARIO</th>
+            <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">INSTRUCTOR</th>
+            <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">FECHA CREACIÓN</th>
+            <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">ESTATUS</th>
+            <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">DURACIÓN</th>
+            <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">PORCENTAJE AVANCE</th>
+            <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100">FECHA ÚLTIMA ACTUALIZACIÓN</th>
+            <th scope="col" class="px-6 py-4 bg-red-900 font-medium text-gray-100 rounded-r-md">ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody class="bg-gray-200">
+          <tr v-for="(programa, i) in programas" :key="programa.ID" class="hover:bg-gray-300">
+            <td class="h-[50px] text-center">{{ programa.ID }}</td>
+            <td class="text-center">{{ programa.Nombre }}</td>
+            <td class="text-center">{{ programa.Usuario_ID }}</td>
+            <td class="text-center">{{ programa.Instructor_ID }}</td>
+            <td class="text-center">{{ new Date(programa.Fecha_Creacion).toLocaleDateString() }}</td>
+            <td class="text-center">{{ programa.Estatus }}</td>
+            <td class="text-center">{{ programa.Duracion }}</td>
+            <td class="text-center">{{ programa.Porcentaje_Avance }}%</td>
+            <td class="text-center">{{ new Date(programa.Fecha_Ultima_Actualizacion).toLocaleDateString() }}</td>
+            <td class="flex justify-center space-x-2">
+              <button @click="editPrograma(programa)" class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:outline-none transition-colors flex items-center">
+                Editar
+              </button>
+              <button @click="deletePrograma(programa.ID)" class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors flex items-center">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      programs: [
-        { id: 1, name: "Programa de Nutrición", status: "Activo", duration: "3 meses", progress: 75 },
-        { id: 2, name: "Entrenamiento Funcional", status: "Inactivo", duration: "6 meses", progress: 40 },
-        { id: 3, name: "Yoga Avanzado", status: "Activo", duration: "1 mes", progress: 100 }
-      ],
-      newProgram: {
-        name: "",
-        status: "",
-        duration: "",
-        progress: 0
+      showForm: false,
+      isEditing: false,
+      formData: {
+        Nombre: '',
+        Usuario_ID: '',
+        Instructor_ID: '',
+        Fecha_Creacion: new Date(),
+        Estatus: '',
+        Duracion: '',
+        Porcentaje_Avance: '',
+        Fecha_Ultima_Actualizacion: new Date()
       },
-      currentProgram: null,
-      editingProgram: false
+      programas: [],
+      errorMessage: '',
+      editingID: null,
+      statusOptions: [
+        'Registrado', 'Sugerido', 'Aprobado por el Médico', 'Aprobado por el Usuario',
+        'Rechazado por el Médico', 'Rechazado por el Usuario', 'Terminado', 'Suspendido', 'Cancelado'
+      ]
     };
   },
   methods: {
-    addProgram() {
-      if (this.newProgram.name && this.newProgram.status && this.newProgram.duration && this.newProgram.progress) {
-        const newId = this.programs.length + 1;
-        this.programs.push({ ...this.newProgram, id: newId });
-        this.newProgram = { name: "", status: "", duration: "", progress: 0 };
+    toggleForm() {
+      this.showForm = !this.showForm;
+      if (!this.showForm) {
+        this.resetForm();
       }
     },
-    editProgram(id) {
-      this.currentProgram = { ...this.programs.find(p => p.id === id) };
-      this.editingProgram = true;
-    },
-    updateProgram() {
-      const index = this.programs.findIndex(p => p.id === this.currentProgram.id);
-      if (index !== -1) {
-        this.programs.splice(index, 1, this.currentProgram);
+    async submitForm() {
+      try {
+        if (this.isEditing) {
+          await axios.put(`https://api.example.com/programas_saludables/${this.editingID}`, this.formData);
+          this.programas = this.programas.map(programa =>
+            programa.ID === this.editingID ? { ...programa, ...this.formData } : programa
+          );
+        } else {
+          const { data } = await axios.post('https://api.example.com/programas_saludables', this.formData);
+          this.programas.push(data);
+        }
+        this.resetForm();
+        this.toggleForm();
+      } catch (error) {
+        this.errorMessage = 'Hubo un error al procesar la solicitud. Por favor, intenta de nuevo.';
       }
-      this.currentProgram = null;
-      this.editingProgram = false;
     },
-    deleteProgram(id) {
-      this.programs = this.programs.filter(p => p.id !== id);
+    editPrograma(programa) {
+      this.isEditing = true;
+      this.editingID = programa.ID;
+      this.formData = { ...programa };
+      this.showForm = true;
+    },
+    async deletePrograma(id) {
+      try {
+        await axios.delete(`https://api.example.com/programa/${id}`);
+        this.programas = this.programas.filter(programa => programa.ID !== id);
+      } catch (error) {
+        this.errorMessage = 'Hubo un error al eliminar el programa. Por favor, intenta de nuevo.';
+      }
+    },
+    resetForm() {
+      this.formData = {
+        Nombre: '',
+        Usuario_ID: '',
+        Instructor_ID: '',
+        Fecha_Creacion: new Date(),
+        Estatus: '',
+        Duracion: '',
+        Porcentaje_Avance: '',
+        Fecha_Ultima_Actualizacion: new Date()
+      };
+      this.isEditing = false;
+      this.editingID = null;
+      this.errorMessage = '';
+    }
+  },
+  async mounted() {
+    try {
+      const { data } = await axios.get('https://api.example.com/programa');
+      this.programas = data;
+    } catch (error) {
+      this.errorMessage = 'Hubo un error al cargar los programas. Por favor, intenta de nuevo.';
     }
   }
 };
 </script>
 
 <style scoped>
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th, td {
-  border: 1px solid #ddd;
-  text-align: left;
-  padding: 8px;
-}
+/* Puedes personalizar aún más los estilos aquí */
 </style>

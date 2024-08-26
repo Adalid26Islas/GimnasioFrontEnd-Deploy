@@ -103,7 +103,7 @@ const router = createRouter({
             path:'/programaSaludable', name:'programaSaludable', component: ProgramaSaludableView
           },
           {
-            path:'/rutinasEjercicios', name:'rutinasEjercicios', component: RutinasEjerciciosView
+            path:'/Intructores', name:'rutinasEjercicios', component: RutinasEjerciciosView
           },
           {
             path:'/detalleProgramas', name:'detalleProgramas', component: DetalleProgramaView
