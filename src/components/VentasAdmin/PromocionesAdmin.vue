@@ -34,8 +34,8 @@
             class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
             required>
             <option :value="null">Selecciona Aplicación</option>
-            <option value="Tienda virtual">Tienda virtual</option>
-            <option value="Tienda presencial">Tienda presencial</option>
+            <option value="Tienda_virtual">Tienda virtual</option>
+            <option value="Tienda_presencial">Tienda presencial</option>
           </select>
           <input 
             v-model="formData.Fecha_Registro" 
