@@ -38,7 +38,7 @@ export default {
     },
     data() {
         return {
-            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6ImNhcmxvc19sb3BleiIsIkNvcnJlb19FbGVjdHJvbmljbyI6InN0cmluZyIsIkNvbnRyYXNlbmEiOiJwYXNzMTIzIiwiTnVtZXJvX1RlbGVmb25pY29fTW92aWwiOiJzdHJpbmcifQ.mkM3kJ1pgTiwRtBay2WZdtBDH3JDveAW15pMBrMdXnw",
+            token: localStorage.getItem("token"),
             instanciaFecha: new Date(),
             tipoMembresias: {
                 labels: [],
