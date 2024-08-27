@@ -23,7 +23,7 @@
             required>
           <input 
             v-model="formData.Programa_Saludable_ID" 
-            type="text" 
+            type="number" 
             placeholder="Programa Saludable" 
             class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
             required>
