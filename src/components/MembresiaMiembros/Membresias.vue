@@ -256,7 +256,7 @@ export default {
         async submitForm() {
             this.membresiaData.Estatus = this.membresiaData.Estatus === 'true' ? true : false;
             console.log(JSON.stringify(this.membresiaData))
-            const url = "http://127.0.0.1:8000/membresia/"
+            const url = "https://gimnasio-deploy.onrender.com/membresia/"
 
             await fetch(url, {
                 method: 'POST',
@@ -298,7 +298,7 @@ export default {
                         'El registro ha sido eliminado.',
                         'success'
                     )
-                    const url = `http://127.0.0.1:8000/membresia/${membresia_id}`
+                    const url = `https://gimnasio-deploy.onrender.com/${membresia_id}`
 
                     await fetch(url, {
                         method: 'DELETE',
@@ -358,7 +358,7 @@ export default {
         async updateMembresia(id, membresiaData) {
             membresiaData.Estatus = membresiaData.Estatus === 'true' ? true : false;
             console.log(JSON.stringify(membresiaData))
-            const url = `http://127.0.0.1:8000/membresia/${id}`
+            const url = `https://gimnasio-deploy.onrender.com/${id}`
 
             await fetch(url, {
                 method: 'PUT',
@@ -383,7 +383,7 @@ export default {
                 });
         },
         async updateTable(skip = 0, limit = 20) {
-            const url = `http://127.0.0.1:8000/membresias/?skip=${skip}&limit=${limit}`
+            const url = `https://gimnasio-deploy.onrender.com/?skip=${skip}&limit=${limit}`
             // this.skip = skip
             // this.limit = limit
 

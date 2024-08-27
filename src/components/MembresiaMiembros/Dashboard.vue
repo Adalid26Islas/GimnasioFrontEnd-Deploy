@@ -136,7 +136,7 @@ export default {
     },
     methods: {
         async getMembresiasCountByType() {
-            const url = "http://127.0.0.1:8000/tipo_membresias/"
+            const url = "https://gimnasio-deploy.onrender.com/tipo_membresias/"
 
             const response = await fetch(url, {
                 headers: {
@@ -167,7 +167,7 @@ export default {
             };
         },
         async getMiembrosCount() {
-            const url = "http://127.0.0.1:8000/miembros_count/"
+            const url = "https://gimnasio-deploy.onrender.com/miembros_count/"
 
             const response = await fetch(url, {
                 headers: {
