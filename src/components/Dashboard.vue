@@ -16,6 +16,18 @@
           <Grafica4 />
         </div>
         <div class="chart-item">
+          <Grafica5 />
+        </div>
+        <div class="chart-item">
+          <Grafica6 />
+        </div>
+        <div class="chart-item">
+          <Grafica7 />
+        </div>
+        <div class="chart-item">
+          <Grafica8 />
+        </div>
+        <div class="chart-item">
           <AreasChart />
         </div>
         <div class="chart-item">
@@ -33,6 +45,10 @@
   import Grafica2 from '@/components/Grafica2.vue';
   import Grafica3 from '@/components/Grafica3.vue';
   import Grafica4 from '@/components/Grafica4.vue';
+  import Grafica5 from './Grafica5.vue';
+  import Grafica6 from './Grafica6.vue';
+  import Grafica7 from './Grafica7.vue';
+  import Grafica8 from './Grafica8.vue';
   import AreasChart from '@/components/AreasChart.vue';
   import HorariosChart from '@/components/HorariosChart.vue';
   import EmpleadosChart from '@/components/EmpleadosChart.vue';
@@ -43,6 +59,10 @@
       Grafica2,
       Grafica3,
       Grafica4,
+      Grafica5,
+      Grafica6,
+      Grafica7,
+      Grafica8,
       AreasChart,
       HorariosChart,
       EmpleadosChart

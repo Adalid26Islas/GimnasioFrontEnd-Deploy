@@ -1,5 +1,6 @@
 <template>
     <div class="mx-auto p-4">
+      <h1 class="title-gym">BULL'S GYM</h1>
       <!-- Botón para agregar nuevo Instructor -->
       <section class="mb-4">
         <button @click="toggleForm" class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors">
