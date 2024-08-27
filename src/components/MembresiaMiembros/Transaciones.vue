@@ -19,26 +19,16 @@
                             </select>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <input type="text" v-model="this.transaccionData.Numero_Tarjeta"
-                                placeholder="Número de Tarjeta"
-                                class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                            <input type="number" v-model="this.transaccionData.CVC" placeholder="CVC"
-                                class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <input type="date" v-model="this.transaccionData.Fecha_Expiracion"
-                                placeholder="Fecha de Expiración"
-                                class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                             <input type="number" v-model="this.transaccionData.Monto" placeholder="Monto"
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             <select v-model="this.transaccionData.Estatus"
                                 class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
                                 <option value="">Estatus</option>
                                 <option value="true">Activo</option>
                                 <option value="false">Inactivo</option>
                             </select>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             <input type="datetime-local" v-model="this.transaccionData.Fecha_Registro"
                                 placeholder="Fecha de Registro"
                                 class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
@@ -114,14 +104,13 @@
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-l-md">Usuario ID
                         </th>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Método de Pago</th>
-                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Número de Tarjeta</th>
-                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">CVC</th>
-                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Fecha de Expiración</th>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Monto</th>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Estatus</th>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Fecha de Registro</th>
-                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-r-md">Fecha de
+                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Fecha de
                             Actualización</th>
+                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-r-md">Acciones
+                        </th>
                     </tr>
                 </thead>
                 <tbody
@@ -131,13 +120,20 @@
                     <tr>
                         <td class="px-6 py-4">{{ transaccion.Usuario_ID }}</td>
                         <td class="px-6 py-4">{{ transaccion.Metodo_Pago }}</td>
-                        <td class="px-6 py-4">{{ transaccion.Numero_Tarjeta }}</td>
-                        <td class="px-6 py-4">{{ transaccion.CVC }}</td>
-                        <td class="px-6 py-4">{{ transaccion.Fecha_Expiracion }}</td>
                         <td class="px-6 py-4">{{ transaccion.Monto }}</td>
                         <td class="px-6 py-4">{{ transaccion.Estatus ? 'Activo' : 'Inactivo' }}</td>
                         <td class="px-6 py-4">{{ transaccion.Fecha_Registro }}</td>
                         <td class="px-6 py-4">{{ transaccion.Fecha_Actualizacion }}</td>
+                        <td class="flex justify-center">
+                            <button type="button" @click="openModalUpdate(transaccion)" id="transaccion"
+                                class="px-4 mt-1 py-2 rounded-md bg-blue-600 text-white hover:bg-gray-600">
+                                Editar
+                            </button>
+                            <button type="button" @click="deleteTransaccion(transaccion.ID)" id="transaccion"
+                                class="px-4 ml-2 mt-1 py-2 rounded-md bg-red-600 text-white hover:bg-gray-600">
+                                Eliminar
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -145,15 +141,15 @@
     </main>
 </template>
 <script>
+import Swal from 'sweetalert2';
+
 export default {
     data() {
         return {
+            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6ImNhcmxvc19sb3BleiIsIkNvcnJlb19FbGVjdHJvbmljbyI6InN0cmluZyIsIkNvbnRyYXNlbmEiOiJwYXNzMTIzIiwiTnVtZXJvX1RlbGVmb25pY29fTW92aWwiOiJzdHJpbmcifQ.mkM3kJ1pgTiwRtBay2WZdtBDH3JDveAW15pMBrMdXnw",
             transaccionData: {
                 Usuario_ID: null,
                 Metodo_Pago: null,
-                Numero_Tarjeta: null,
-                CVC: null,
-                Fecha_Expiracion: null,
                 Monto: null,
                 Estatus: null,
                 Fecha_Registro: null,
@@ -167,9 +163,6 @@ export default {
             this.transaccionData = {
                 Usuario_ID: null,
                 Metodo_Pago: null,
-                Numero_Tarjeta: null,
-                CVC: null,
-                Fecha_Expiracion: null,
                 Monto: null,
                 Estatus: null,
                 Fecha_Registro: null,
@@ -180,12 +173,12 @@ export default {
             this.transaccionData.Estatus = this.transaccionData.Estatus === 'true' ? true : false;
             console.log(JSON.stringify(this.transaccionData))
             const url = "http://127.0.0.1:8000/transaccion/"
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6Ikh1Z28iLCJDb3JyZW9fRWxlY3Ryb25pY28iOiJzdHJpbmciLCJDb250cmFzZW5hIjoiMTIzIiwiTnVtZXJvX1RlbGVmb25pY29fTW92aWwiOiJzdHJpbmcifQ.YMBusRBKyHAWmwUSlgTr8c1_qOuU-lf9hp1en5O_CF8"
+
             await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${this.token}`
                 },
                 body: JSON.stringify(this.transaccionData)
             })
@@ -204,14 +197,111 @@ export default {
                     console.error('Error:', error);
                 });
         },
+        async deleteTransaccion(transaccion_id) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminarlo!',
+                cancelButtonText: 'Cancelar'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Eliminado!',
+                        'El registro ha sido eliminado.',
+                        'success'
+                    )
+                    const url = `http://127.0.0.1:8000/transaccion/${transaccion_id}`
+
+                    await fetch(url, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${this.token}`
+                        }
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Error en la solicitud: ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            this.updateTable()
+                            console.log('Respuesta de la API:', data);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }
+            })
+        },
+        async openModalUpdate(transaccion) {
+            this.transaccionData = { ...transaccion };
+
+            const { value: formValues } = await Swal.fire({
+                title: 'Actualizar Transaccion',
+                html: this.createFormHtml(),
+                focusConfirm: false,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Actualizar',
+                cancelButtonText: 'Cancelar',
+                preConfirm: () => {
+                    return {
+                        Usuario_ID: document.getElementById('swal-input1').value,
+                        Metodo_Pago: document.getElementById('swal-input2').value,
+                        Monto: document.getElementById('swal-input3').value,
+                        Estatus: document.getElementById('swal-input4').value,
+                        Fecha_Registro: document.getElementById('swal-input5').value,
+                        Fecha_Actualizacion: (new Date(Date.now())).toISOString()
+                    }
+                }
+            });
+
+            if (formValues) {
+                // Lógica para actualizar el miembro con los nuevos valores
+                this.updateTransaccion(transaccion.ID, formValues);
+            }
+        },
+        async updateTransaccion(id, transaccionData) {
+            transaccionData.Estatus = transaccionData.Estatus === 'true' ? true : false;
+            console.log(JSON.stringify(transaccionData))
+            const url = `http://127.0.0.1:8000/transaccion/${id}`
+
+            await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.token}`
+                },
+                body: JSON.stringify(transaccionData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la solicitud: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    this.updateTable()
+                    console.log('Respuesta de la API:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        },
         async updateTable() {
             const url = "http://127.0.0.1:8000/transacciones/"
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6Ikh1Z28iLCJDb3JyZW9fRWxlY3Ryb25pY28iOiJzdHJpbmciLCJDb250cmFzZW5hIjoiMTIzIiwiTnVtZXJvX1RlbGVmb25pY29fTW92aWwiOiJzdHJpbmcifQ.YMBusRBKyHAWmwUSlgTr8c1_qOuU-lf9hp1en5O_CF8"
 
             const response = await fetch(url, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${this.token}`
                 }
             });
 
@@ -224,7 +314,36 @@ export default {
 
             this.transaccionesTable = data.map(item => ({ ...item }));
             console.log('Table:', this.transaccionesTable);
-        }
+        },
+        createFormHtml() {
+            return `
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <input id="swal-input1" type="number" value="${this.transaccionData.Usuario_ID}" placeholder="Usuario ID"
+                                class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                            <select id="swal-input2" 
+                                class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                                <option value=""  ${this.transaccionData.Metodo_Pago === '' ? 'selected' : ''}>Método de Pago</option>
+                                <option value="TarjetaCredito" ${this.transaccionData.Metodo_Pago === 'TarjetaCredito' ? 'selected' : ''}>Tarjeta de Crédito</option>
+                                <option value="TarjetaDebito" ${this.transaccionData.Metodo_Pago === 'TarjetaDebito' ? 'selected' : ''}>Tarjeta de Débito</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <input id="swal-input3" type="number" value="${this.transaccionData.Monto}" placeholder="Monto"
+                                class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                            <select id="swal-input4"
+                                class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                                <option value="" ${this.transaccionData.Estatus} === '' ? 'selected' : ''}>Estatus</option>
+                                <option value="true" ${this.transaccionData.Estatus === 'true' ? 'selected' : ''}>Activo</option>
+                                <option value="false" ${this.transaccionData.Estatus === 'false' ? 'selected' : ''}>Inactivo</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <input id="swal-input5" type="datetime-local" value="${this.transaccionData.Fecha_Registro}"
+                                placeholder="Fecha de Registro"
+                                class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                        </div>
+            `;
+        },
     },
     created() {
         this.updateTable()

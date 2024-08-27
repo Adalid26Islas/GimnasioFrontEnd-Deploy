@@ -117,7 +117,8 @@
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Fecha de Registro</th>
                         <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">Fecha de Actualización
                         </th>
-                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-r-md"></th>
+                        <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-r-md">Acciones
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="bg-gray-200">
@@ -148,9 +149,13 @@
                             <span>{{ miembro.Fecha_Actualizacion }}</span>
                         </td>
                         <td class="flex justify-center">
-                            <button type="button" id="membresia"
-                                class="px-4 mt-1 py-2 rounded-md bg-red-600 text-white hover:bg-gray-600">
+                            <button type="button" @click="openModalUpdate(miembro)" id="membresia"
+                                class="px-4 mt-1 py-2 rounded-md bg-blue-600 text-white hover:bg-gray-600">
                                 Editar
+                            </button>
+                            <button type="button" @click="deleteMiembro(miembro.ID)" id="membresia"
+                                class="px-4 ml-2 mt-1 py-2 rounded-md bg-red-600 text-white hover:bg-gray-600">
+                                Eliminar
                             </button>
                         </td>
                     </tr>
@@ -162,10 +167,12 @@
     </main>
 </template>
 <script>
+import Swal from 'sweetalert2';
 
 export default {
     data() {
         return {
+            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6ImNhcmxvc19sb3BleiIsIkNvcnJlb19FbGVjdHJvbmljbyI6InN0cmluZyIsIkNvbnRyYXNlbmEiOiJwYXNzMTIzIiwiTnVtZXJvX1RlbGVmb25pY29fTW92aWwiOiJzdHJpbmcifQ.mkM3kJ1pgTiwRtBay2WZdtBDH3JDveAW15pMBrMdXnw",
             miembroData: {
                 Membresia_ID: null,
                 Usuario_ID: null,
@@ -194,12 +201,12 @@ export default {
             this.miembroData.Estatus = this.miembroData.Estatus === 'true' ? true : false;
             console.log(JSON.stringify(this.miembroData))
             const url = "http://127.0.0.1:8000/miembro/"
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6Ikh1Z28iLCJDb3JyZW9fRWxlY3Ryb25pY28iOiJzdHJpbmciLCJDb250cmFzZW5hIjoiMTIzIiwiTnVtZXJvX1RlbGVmb25pY29fTW92aWwiOiJzdHJpbmcifQ.YMBusRBKyHAWmwUSlgTr8c1_qOuU-lf9hp1en5O_CF8"
+            
             await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${this.token}`
                 },
                 body: JSON.stringify(this.miembroData)
             })
@@ -218,27 +225,158 @@ export default {
                     console.error('Error:', error);
                 });
         },
+        async deleteMiembro(miembro_id) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminarlo!',
+                cancelButtonText: 'Cancelar'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Eliminado!',
+                        'El registro ha sido eliminado.',
+                        'success'
+                    )
+                    const url = `http://127.0.0.1:8000/miembro/${miembro_id}`
+                    
+                    await fetch(url, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${this.token}`
+                        }
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Error en la solicitud: ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            this.updateTable()
+                            console.log('Respuesta de la API:', data);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }
+            })
+        },
+        async openModalUpdate(miembro) {
+            this.miembroData = { ...miembro };
+
+            const { value: formValues } = await Swal.fire({
+                title: 'Actualizar Miembro',
+                html: this.createFormHtml(),
+                focusConfirm: false,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Actualizar',
+                cancelButtonText: 'Cancelar',
+                preConfirm: () => {
+                    return {
+                        Membresia_ID: document.getElementById('swal-input1').value,
+                        Usuario_ID: document.getElementById('swal-input2').value,
+                        Tipo: document.getElementById('swal-input3').value,
+                        Estatus: document.getElementById('swal-input4').value,
+                        Antiguedad: document.getElementById('swal-input5').value,
+                        Fecha_Registro: document.getElementById('swal-input6').value,
+                        Fecha_Actualizacion: (new Date(Date.now())).toISOString()
+                    }
+                }
+            });
+
+            if (formValues) {
+                // Lógica para actualizar el miembro con los nuevos valores
+                this.updateMiembro(miembro.ID, formValues);
+            }
+        },
+        async updateMiembro(id, miembroData) {
+            miembroData.Estatus = miembroData.Estatus === 'true' ? true : false;
+            console.log(JSON.stringify(miembroData))
+            const url = `http://127.0.0.1:8000/miembro/${id}`
+            
+            await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.token}`
+                },
+                body: JSON.stringify(miembroData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la solicitud: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    this.updateTable()
+                    console.log('Respuesta de la API:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        },
         async updateTable() {
             const url = "http://127.0.0.1:8000/miembros/"
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6Ikh1Z28iLCJDb3JyZW9fRWxlY3Ryb25pY28iOiJzdHJpbmciLCJDb250cmFzZW5hIjoiMTIzIiwiTnVtZXJvX1RlbGVmb25pY29fTW92aWwiOiJzdHJpbmcifQ.YMBusRBKyHAWmwUSlgTr8c1_qOuU-lf9hp1en5O_CF8"
 
             const response = await fetch(url, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${this.token}`
                 }
             });
-            
+
             if (!response.ok) {
                 throw new Error('Error en la solicitud: ' + response.statusText);
             }
 
             const data = await response.json();
             console.log('Respuesta de la API:', data);
-            
+
             this.miembrosTable = data.map(item => ({ ...item }));
             console.log('Table:', this.miembrosTable);
-        }
+        },
+        createFormHtml() {
+            return `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <input id="swal-input1" type="number" placeholder="Membresia ID" value="${this.miembroData.Membresia_ID}"
+                        class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                    <input id="swal-input2" type="number" placeholder="Usuario ID" value="${this.miembroData.Usuario_ID}"
+                        class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <select id="swal-input3"
+                        class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                        <option value="" ${this.miembroData.Tipo === '' ? 'selected' : ''}>Tipo de miembro</option>
+                        <option value="Nuevo" ${this.miembroData.Tipo === 'Nuevo' ? 'selected' : ''}>Nuevo</option>
+                        <option value="Frecuente" ${this.miembroData.Tipo === 'Frecuente' ? 'selected' : ''}>Frecuente</option>
+                        <option value="Ocasional" ${this.miembroData.Tipo === 'Ocasional' ? 'selected' : ''}>Ocasional</option>
+                        <option value="Esporadico" ${this.miembroData.Tipo === 'Esporadico' ? 'selected' : ''}>Esporádico</option>
+                        <option value="Visita" ${this.miembroData.Tipo === 'Visita' ? 'selected' : ''}>Visita</option>
+                    </select>
+                    <select id="swal-input4"
+                        class="rounded-lg w-full font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                        <option value=""}>Estatus</option>
+                        <option value="true" ${this.miembroData.Estatus ? 'selected' : ''}>Activo</option>
+                        <option value="false" ${!this.miembroData.Estatus? 'selected' : ''}>Inactivo</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <input id="swal-input5" type="text" placeholder="Antigüedad" value="${this.miembroData.Antiguedad}"
+                        class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                    <input id="swal-input6" type="datetime-local" placeholder="Fecha de Registro" value="${this.miembroData.Fecha_Registro}"
+                        class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                </div>
+            `;
+        },
     },
     created() {
         this.updateTable()
