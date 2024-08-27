@@ -1,225 +1,96 @@
 <template>
-  <div>
-    <h1 class="text-2xl xl:text-3xl font-extrabold mb-6">Gestión de Pedidos</h1>
-
-    <!-- Formulario para añadir un nuevo pedido -->
-    <form @submit.prevent="addOrder">
-      <input
-        v-model="newOrder.ProductoID"
-        name="ProductoID"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="Producto ID" required
-      />
-      <input
-        v-model="newOrder.PersonaID"
-        name="PersonaID"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="Persona ID" required
-      />
-      <select
-        v-model="newOrder.Tipo"
-        name="Tipo"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        required
-      >
-        <option value="" disabled>Selecciona un tipo</option>
-        <option value="Promoción">Promoción</option>
-        <option value="Descuento">Descuento</option>
-        <option value="Precio Tienda">Precio Tienda</option>
-      </select>
-      <div class="relative mt-5">
-        <input
-          v-model="newOrder.FechaRegistro"
-          name="FechaRegistro"
-          id="fecha-registro"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white peer"
-          type="date"
-          required
-        />
-        <label
-          for="fecha-registro"
-          class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs transition-all duration-300 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-placeholder-shown:left-3 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-blue-600"
-        >
-          Fecha Registro
-        </label>
-      </div>
-      <div class="relative mt-5">
-        <input
-          v-model="newOrder.FechaActualizacion"
-          name="FechaActualizacion"
-          id="fecha-actualizacion"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white peer"
-          type="date"
-          required
-        />
-        <label
-          for="fecha-actualizacion"
-          class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs transition-all duration-300 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-placeholder-shown:left-3 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-blue-600"
-        >
-          Fecha Actualización
-        </label>
-      </div>
-      <select
-        v-model="newOrder.Estatus"
-        name="Estatus"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        required
-      >
-        <option value="" disabled>Selecciona un estatus</option>
-        <option value="Activo">Activo</option>
-        <option value="Inactivo">Inactivo</option>
-      </select>
-      <input
-        v-model="newOrder.TotalProductos"
-        name="TotalProductos"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="number" placeholder="Total de Productos" required
-      />
-      <input
-        v-model="newOrder.CostoTotal"
-        name="CostoTotal"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="number" step="0.01" placeholder="Costo Total" required
-      />
-      <button
-        class="mt-5 tracking-wide font-semibold bg-red-700 text-red-100 w-full py-4 rounded-lg hover:bg-red-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
-        type="submit"
-      >
-        Registrar
+  <div class="mb-8 p-4 bg-white rounded shadow">
+    <h1 class="title-gym">BULL'S GYM</h1>
+    <!-- Botón para agregar nuevo Pedido -->
+    <section class="mb-4">
+      <button @click="toggleForm" class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors">
+        {{ showForm ? 'Cerrar Formulario' : 'Agregar Nuevo Pedido' }}
       </button>
-    </form>
+    </section>
 
-    <!-- Listado de pedidos -->
-    <h2 class="text-xl font-bold mt-10">Lista de Pedidos</h2>
-    <table class="min-w-full bg-white mt-5">
-      <thead>
-        <tr>
-          <th class="py-2">ID</th>
-          <th class="py-2">Producto ID</th>
-          <th class="py-2">Persona ID</th>
-          <th class="py-2">Tipo</th>
-          <th class="py-2">Fecha de Registro</th>
-          <th class="py-2">Fecha de Actualización</th>
-          <th class="py-2">Estatus</th>
-          <th class="py-2">Total de Productos</th>
-          <th class="py-2">Costo Total</th>
-          <th class="py-2">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="order in orders" :key="order.ID">
-          <td class="border px-4 py-2">{{ order.ID }}</td>
-          <td class="border px-4 py-2">{{ order.ProductoID }}</td>
-          <td class="border px-4 py-2">{{ order.PersonaID }}</td>
-          <td class="border px-4 py-2">{{ order.Tipo }}</td>
-          <td class="border px-4 py-2">{{ order.FechaRegistro }}</td>
-          <td class="border px-4 py-2">{{ order.FechaActualizacion }}</td>
-          <td class="border px-4 py-2">{{ order.Estatus }}</td>
-          <td class="border px-4 py-2">{{ order.TotalProductos }}</td>
-          <td class="border px-4 py-2">{{ order.CostoTotal }}</td>
-          <td class="border px-4 py-2 text-center">
-            <div class="flex justify-center gap-2">
-              <button @click="editOrder(order.ID)" class="bg-yellow-500 text-white px-4 py-2 rounded-lg w-24">
-                Editar
-              </button>
-              <button @click="deleteOrder(order.ID)" class="bg-red-500 text-white px-4 py-2 rounded-lg w-24">
-                Eliminar
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Formulario para editar un pedido -->
-    <div v-if="editingOrder">
-      <h2 class="text-xl font-bold mt-10">Editar Pedido</h2>
-      <form @submit.prevent="updateOrder">
-        <input
-          v-model="currentOrder.ProductoID"
-          name="ProductoID"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="text" placeholder="Producto ID" required
-        />
-        <input
-          v-model="currentOrder.PersonaID"
-          name="PersonaID"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="text" placeholder="Persona ID" required
-        />
-        <select
-          v-model="currentOrder.Tipo"
-          name="Tipo"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          required
-        >
-          <option value="" disabled>Selecciona un tipo</option>
-          <option value="Promoción">Promoción</option>
-          <option value="Descuento">Descuento</option>
-          <option value="Precio Tienda">Precio Tienda</option>
-        </select>
-        <div class="relative mt-5">
-          <input
-            v-model="currentOrder.FechaRegistro"
-            name="FechaRegistro"
-            id="fecha-registro-edit"
-            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white peer"
-            type="date"
-            required
-          />
-          <label
-            for="fecha-registro-edit"
-            class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs transition-all duration-300 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-placeholder-shown:left-3 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-blue-600"
-          >
-            Fecha Registro
-          </label>
+    <!-- Formulario para agregar nuevo Pedido (se muestra/oculta al hacer clic en el botón) -->
+    <section v-if="showForm" class="mb-8 p-4 bg-white rounded shadow">
+      <h1 class="text-xl font-semibold mb-4 text-gray-900">{{ isEditing ? 'Editar Pedido' : 'Crear nuevo Pedido' }}</h1>
+      
+      <form @submit.prevent="submitForm">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <select 
+            v-model="formData.Tipo" 
+            class="rounded-lg w-full font-medium bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
+            required>
+            <option :value="null">Tipo de Pedido</option>
+            <option value="Promocion">Promoción</option>
+            <option value="Descuento">Descuento</option>
+            <option value="Precio_Tienda">Precio Tienda</option>
+          </select>
+          <input 
+            v-model="formData.Total_Productos" 
+            type="number" 
+            placeholder="Total de Productos" 
+            class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
+            required>
         </div>
-        <div class="relative mt-5">
-          <input
-            v-model="currentOrder.FechaActualizacion"
-            name="FechaActualizacion"
-            id="fecha-actualizacion-edit"
-            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white peer"
-            type="date"
-            required
-          />
-          <label
-            for="fecha-actualizacion-edit"
-            class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs transition-all duration-300 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-500 peer-placeholder-shown:left-3 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-blue-600"
-          >
-            Fecha Actualización
-          </label>
+        <div class="grid grid-cols-1 gap-4 mb-6">
+          <input 
+            v-model="formData.Costo_Total" 
+            type="number" 
+            placeholder="Costo Total" 
+            class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
+            required>
         </div>
-        <select
-          v-model="currentOrder.Estatus"
-          name="Estatus"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          required
-        >
-          <option value="" disabled>Selecciona un estatus</option>
-          <option value="Activo">Activo</option>
-          <option value="Inactivo">Inactivo</option>
-        </select>
-        <input
-          v-model="currentOrder.TotalProductos"
-          name="TotalProductos"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="number" placeholder="Total de Productos" required
-        />
-        <input
-          v-model="currentOrder.CostoTotal"
-          name="CostoTotal"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="number" step="0.01" placeholder="Costo Total" required
-        />
-        <button
-          class="mt-5 tracking-wide font-semibold bg-blue-700 text-blue-100 w-full py-4 rounded-lg hover:bg-blue-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
-          type="submit"
-        >
-          Actualizar
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <select 
+            v-model="formData.Estatus" 
+            class="rounded-lg w-full font-medium bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
+            required>
+            <option :value="null">Estatus del Pedido</option>
+            <option :value="false">Inactivo</option>
+            <option :value="true">Activo</option>
+          </select>
+        </div>
+        <button type="submit" class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors">
+          {{ isEditing ? 'Actualizar Pedido' : 'Crear Pedido' }}
         </button>
       </form>
-    </div>
+      <div v-if="errorMessage" class="text-red-600 mt-4">{{ errorMessage }}</div>
+    </section>
+
+    <!-- Sección de la Tabla -->
+    <section class="table-responsive">
+      <table class="w-full bg-white text-left text-sm text-gray-900 rounded">
+        <thead class="bg-gray-50 text-center">
+          <tr>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-l-md">ID</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">TIPO</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">TOTAL PRODUCTOS</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">COSTO TOTAL</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">ESTATUS</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">FECHA REGISTRO</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">FECHA ACTUALIZACIÓN</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-r-md">ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody class="bg-gray-200">
+          <tr v-for="(pedido, i) in pedidos" :key="pedido.ID" class="hover:bg-gray-300">
+            <td class="h-[50px] text-center">{{ pedido.ID }}</td>
+            <td class="text-center">{{ pedido.Tipo }}</td>
+            <td class="text-center">{{ pedido.Total_Productos }}</td>
+            <td class="text-center">{{ pedido.Costo_Total }}</td>
+            <td class="text-center">{{ pedido.Estatus ? 'Activo' : 'Inactivo' }}</td>
+            <td class="text-center">{{ new Date(pedido.Fecha_Registro).toLocaleDateString() }}</td>
+            <td class="text-center">{{ new Date(pedido.Fecha_Actualizacion).toLocaleDateString() }}</td>
+            <td class="flex justify-center space-x-2">
+              <button @click="editPedido(pedido)" class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:outline-none transition-colors flex items-center">
+                Editar
+              </button>
+              <button @click="deletePedido(pedido.ID, pedido.Tipo)" class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors flex items-center">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </div>
 </template>
 
@@ -229,77 +100,107 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      orders: [],
-      newOrder: {
-        ProductoID: '',
-        PersonaID: '',
+      showForm: false, // Controla la visibilidad del formulario
+      isEditing: false, // Indica si estamos en modo de edición
+      formData: {
+        ID: null,
         Tipo: '',
-        FechaRegistro: '',
-        FechaActualizacion: '',
-        Estatus: '',
-        TotalProductos: '',
-        CostoTotal: ''
+        Total_Productos: '',
+        Costo_Total: '',
+        Estatus: false,
+        Fecha_Registro: new Date().toISOString(),
+        Fecha_Actualizacion: new Date().toISOString()
       },
-      editingOrder: null,
-      currentOrder: null
+      pedidos: [], // Lista de pedidos
+      errorMessage: ''
     };
   },
-  created() {
-    this.fetchOrders();
-  },
   methods: {
-    async fetchOrders() {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/pedidos');
-        this.orders = response.data;
-      } catch (error) {
-        console.error("Error fetching orders:", error);
+    toggleForm() {
+      this.showForm = !this.showForm; // Muestra o oculta el formulario
+      if (!this.showForm) {
+        this.resetForm(); // Resetea el formulario al cerrar
       }
     },
-    async addOrder() {
+    async submitForm() {
       try {
-        await axios.post('http://127.0.0.1:8000/pedidos', this.newOrder);
-        this.newOrder = {
-          ProductoID: '',
-          PersonaID: '',
-          Tipo: '',
-          FechaRegistro: '',
-          FechaActualizacion: '',
-          Estatus: '',
-          TotalProductos: '',
-          CostoTotal: ''
-        };
-        this.fetchOrders();
+        if (this.isEditing) {
+          const response = await axios.put(`https://gimnasio-deploy.onrender.com/pedidos/${this.formData.ID}`, this.formData, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+          });
+          const index = this.pedidos.findIndex(p => p.ID === this.formData.ID);
+          this.pedidos.splice(index, 1, response.data); // Actualiza el pedido en la lista
+        } else {
+          const response = await axios.post('https://gimnasio-deploy.onrender.com/pedidos/', this.formData, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+          });
+          this.pedidos.push(response.data); // Añade el nuevo pedido a la lista
+        }
+        this.resetForm(); // Resetea el formulario después de guardar
+        this.toggleForm(); // Cierra el formulario
       } catch (error) {
-        console.error("Error adding order:", error);
+        if (error.response && error.response.status === 422) {
+          this.errorMessage = 'Datos no válidos. Verifique los campos del formulario.';
+        } else {
+          this.errorMessage = 'Ocurrió un error inesperado.';
+        }
       }
     },
-    async editOrder(id) {
-      this.currentOrder = this.orders.find(order => order.ID === id);
-      this.editingOrder = true;
-    },
-    async updateOrder() {
-      try {
-        await axios.put(`http://127.0.0.1:8000/pedidos${this.currentOrder.ID}`, this.currentOrder);
-        this.currentOrder = null;
-        this.editingOrder = false;
-        this.fetchOrders();
-      } catch (error) {
-        console.error("Error updating order:", error);
+    async deletePedido(id, tipo) {
+      if (confirm(`¿Estás seguro de que deseas eliminar el pedido de tipo "${tipo}"?`)) {
+        try {
+          await axios.delete(`https://gimnasio-deploy.onrender.com/pedidos/${id}`, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+          });
+          this.getPedidos(); // Recargar la lista de pedidos después de eliminar
+        } catch (error) {
+          console.error("Hubo un error al eliminar el pedido:", error);
+        }
       }
     },
-    async deleteOrder(id) {
+    editPedido(pedido) {
+      this.formData = { ...pedido }; // Carga los datos del pedido en el formulario
+      this.isEditing = true; // Cambia a modo de edición
+      this.showForm = true; // Muestra el formulario
+    },
+    resetForm() {
+      this.formData = {
+        ID: null,
+        Tipo: '',
+        Total_Productos: '',
+        Costo_Total: '',
+        Estatus: false,
+        Fecha_Registro: new Date().toISOString(),
+        Fecha_Actualizacion: new Date().toISOString()
+      };
+      this.isEditing = false; // Resetea el estado de edición
+      this.errorMessage = '';
+    },
+    async getPedidos() {
       try {
-        await axios.delete(`http://127.0.0.1:8000/pedidos${id}`);
-        this.fetchOrders();
+        const response = await axios.get('https://gimnasio-deploy.onrender.com/pedidos', {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
+        });
+        this.pedidos = response.data; // Carga los pedidos en la lista
       } catch (error) {
-        console.error("Error deleting order:", error);
+        console.error("Hubo un error al cargar los pedidos:", error);
       }
-    }
+    },
+  },
+  mounted() {
+    this.getPedidos(); // Cargar la lista de pedidos al montar el componente
   }
 };
 </script>
-
-<style scoped>
-/* Estilos personalizados */
-</style>

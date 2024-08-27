@@ -3,7 +3,7 @@ import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
 import Menu from '@/components/Menu.vue'
 import DashboardView from '@/components/views/DashboardView.vue'
-import SucursalView from '@/components/views/SucursalView.vue'
+import SucursalView from '@/components/RecursosMateriales/SucursalView.vue' // Recursos Materiales
 import DietasView from '@/components/NutricionAdmin/Dietas.vue'
 import PreguntaNutricionalView from '@/components/views/NutricionAdmin/PreguntaNutricionalView.vue'
 import ValoracionNutricionalView from '@/components/views/NutricionAdmin/ValoracionNutricionalView.vue'
@@ -12,8 +12,8 @@ import RutinasEjerciciosView from '@/components/views/RutinasEjerciciosView.vue'
 import RutinasView from '@/components/views/RutinasView.vue'
 import ProgramaSaludableView from '@/components/views/ProgramaSaludableView.vue'
 import DetalleProgramaView from '@/components/views/DetalleProgramaView.vue'
-import EquipamientoView from '@/components/views/EquipamientoView.vue'
-import PrestamosView from '@/components/views/PrestamosView.vue'
+import EquipamientoView from '@/components/RecursosMateriales/EquipamientoView.vue' // Recursos Materiales
+import AdeudosView from '@/components/RecursosMateriales/AdeudosView.vue' // Recursos Materiales
 import MembresiasView from '@/components/views/MembresiaMiembros/MembresiasView.vue'
 import MiembrosView from '@/components/views/MembresiaMiembros/MiembrosView.vue'
 import TransaccionesView from '@/components/views/MembresiaMiembros/TransaccionesView.vue'
@@ -23,8 +23,8 @@ import PuestosView from '@/components/RH/Puestos.vue'
 import EmpleadosView from '@/components/RH/Empleados.vue'
 import InstructoresView from '@/components/views/InstructoresView.vue'
 import HorariosView from '@/components/RH/Horarios.vue' 
-import InstalacionesView from '@/components/views/InstalacionesView.vue'
-import MantenimientoView from '@/components/views/MantenimientoView.vue'
+import InstalacionesView from '@/components/RecursosMateriales/InstalacionesView.vue' // Recursos Materiales
+import MantenimientoView from '@/components/RecursosMateriales/MantenimientoView.vue' // Recursos Materiales
 
 
 import ProductosAdmin from '@/components/VentasAdmin/ProductosAdmin.vue'
@@ -112,7 +112,7 @@ const router = createRouter({
             path:'/equipamiento', name:'equipamiento', component: EquipamientoView
           },
           {
-            path:'/prestamos', name:'prestamos', component: PrestamosView
+            path:'/adeudo', name:'prestamos', component: AdeudosView
           },
           {
             path:'/membresias', name:'membresias', component: MembresiasView

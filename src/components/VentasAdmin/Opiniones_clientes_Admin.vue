@@ -1,183 +1,91 @@
 <template>
-  <div>
-    <h1 class="text-2xl xl:text-3xl font-extrabold mb-6">Opiniones Clientes</h1>
-
-    <!-- Formulario para añadir un nuevo programa -->
-    <form @submit.prevent="addProgram">
-      <input
-        v-model="newProgram.Descripcion"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="Descripcion" required
-      />
-      <input
-        v-model="newProgram.id_usuario"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="ID Usuario" required
-      />
-      <input
-        v-model="newProgram.Tipo"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="Tipo" required
-      />
-      <input
-        v-model="newProgram.Respuesta"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="Respuesta" required
-      />
-      <select v-model="newProgram.Estatus"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"> 
-        <option value="" disabled selected hidden>Estatus</option>
-        <option value="Cancelado">Cancelado</option>
-        <option value="Registrado">Registrado</option>
-        <option value="Abierto">Abierto</option>
-        <option value="Atendida">Atendida</option>
-      </select>
-
-      <div class="relative mt-5">
-  <input
-    v-model="newProgram.Registro"
-    id="fecha-registro"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-    type="date"
-    required
-  />
-  <label for="fecha-registro" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-    Fecha Registro
-  </label>
-</div>
-
-<div class="relative mt-5">
-  <input
-    v-model="newProgram.Actualizacion"
-    id="fecha-actualizacion"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-    type="date"
-    required
-  />
-  <label for="fecha-actualizacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-    Fecha Actualización
-  </label>
-</div>
-
-      <input
-        v-model="newProgram.Atencion"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="Atencion Personal" required
-      />
-      <button
-        class="mt-5 tracking-wide font-semibold bg-red-700 text-red-100 w-full py-4 rounded-lg hover:bg-red-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none col-span-2"
-        type="submit"
-      >
-        Registrar
+  <div class="mb-8 p-4 bg-white rounded shadow">
+    <h1 class="title-gym">BULL'S GYM</h1>
+    <!-- Botón para agregar nueva Opinión -->
+    <section class="mb-4">
+      <button @click="toggleForm" class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors">
+        {{ showForm ? 'Cerrar Formulario' : 'Agregar Nueva Opinión' }}
       </button>
-    </form>
+    </section>
 
-    <!-- Listado de programas -->
-    <h2 class="text-xl font-bold mt-10">Lista de Opiniones Clientes</h2>
-    <table class="min-w-full bg-white mt-5">
-      <thead>
-        <tr>
-          <th class="py-2">ID</th>
-          <th class="py-2">ID usuario</th>
-          <th class="py-2">Descripcion</th>
-          <th class="py-2">Tipo</th>
-          <th class="py-2">Respuesta</th>
-          <th class="py-2">Estatus</th>
-          <th class="py-2">Atencion Personal</th>
-          <th class="py-2">Fecha Registro</th>
-          <th class="py-2">Fecha Actualizacion</th>
-          <th class="py-2">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="program in programs" :key="program.id">
-          <td class="border px-4 py-2">{{ program.id }}</td>
-          <td class="border px-4 py-2">{{ program.id_usuario }}</td>
-          <td class="border px-4 py-2">{{ program.Descripcion }}</td>
-          <td class="border px-4 py-2">{{ program.Tipo }}</td>
-          <td class="border px-4 py-2">{{ program.Respuesta }}</td>
-          <td class="border px-4 py-2">{{ program.Estatus }}</td>
-          <td class="border px-4 py-2">{{ program.Atencion }}</td>
-          <td class="border px-4 py-2">{{ program.Registro }}</td>
-          <td class="border px-4 py-2">{{ program.Actualizacion }}</td>
-          <td class="border px-4 py-2">
-            <button @click="editProgram(program.id)" class="bg-yellow-500 text-white px-4 py-2 rounded">
-              Editar
-            </button>
-            <button @click="deleteProgram(program.id)" class="bg-red-500 text-white px-4 py-2 rounded ml-2">
-              Eliminar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Formulario para editar un programa -->
-    <div v-if="editingProgram">
-      <h2 class="text-xl font-bold mt-10">Editar Opinion</h2>
-      <form @submit.prevent="updateProgram">
-        <input
-          v-model="currentProgram.Descripcion"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="text" placeholder="Descripcion" required
-        />
-        <input
-          v-model="currentProgram.Tipo"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="text" placeholder="Tipo" required
-        />
-        <input
-          v-model="currentProgram.Respuesta"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="text" placeholder="Respuesta" required
-        />
-        <select v-model="currentProgram.Estatus"
-           class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5">
-            <option selected>Estatus</option>
-            <option value="Cancelado">Cancelado</option>
-            <option value="Regsitrado">Regsitrado</option>
-            <option value="Abierto">Abierto</option>
-            <option value="Atendida">Atendida</option>
-        </select>
-        <input
-          v-model="currentProgram.Atencion"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="text" placeholder="Atencion Personal" required
-        />
-        <div class="relative mt-5">
-  <input
-    v-model="currentProgram.Registro"
-    id="fecha-registro"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-    type="date"
-    required
-  />
-  <label for="fecha-registro" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-    Fecha Registro
-  </label>
-</div>
-
-<div class="relative mt-5">
-  <input
-    v-model="currentProgram.Actualizacion"
-    id="fecha-actualizacion"
-    class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-    type="date"
-    required
-  />
-  <label for="fecha-actualizacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-    Fecha Actualización
-  </label>
-</div>
-        <button
-          class="mt-5 tracking-wide font-semibold bg-blue-700 text-gray-100 w-full py-4 rounded-lg hover:bg-blue-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none col-span-2"
-          type="submit"
-        >
-          Actualizar
+    <!-- Formulario para agregar nueva Opinión (se muestra/oculta al hacer clic en el botón) -->
+    <section v-if="showForm" class="mb-8 p-4 bg-white rounded shadow">
+      <h1 class="text-xl font-semibold mb-4 text-gray-900">{{ isEditing ? 'Editar Opinión' : 'Crear nueva Opinión' }}</h1>
+      
+      <form @submit.prevent="submitForm">
+        <div class="grid grid-cols-1 gap-4 mb-6">
+          <textarea 
+            v-model="formData.descripcion" 
+            placeholder="Descripción" 
+            class="w-full p-2 rounded-lg font-medium bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
+            required></textarea>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <input 
+            v-model="formData.tipo" 
+            type="text" 
+            placeholder="Tipo" 
+            class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
+            required>
+          <input 
+            v-model="formData.atencion_personal" 
+            type="text" 
+            placeholder="Atención Personal" 
+            class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+        </div>
+        <div class="grid grid-cols-1 mb-6">
+          <select 
+            v-model="formData.estatus" 
+            class="rounded-lg w-full font-medium bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
+            required>
+            <option :value="null">Estatus</option>
+            <option :value="false">Inactivo</option>
+            <option :value="true">Activo</option>
+          </select>
+        </div>
+        <button type="submit" class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors">
+          {{ isEditing ? 'Actualizar Opinión' : 'Crear Opinión' }}
         </button>
-        <br>
       </form>
-    </div>
+      <div v-if="errorMessage" class="text-red-600 mt-4">{{ errorMessage }}</div>
+    </section>
+
+    <!-- Sección de la Tabla -->
+    <section class="table-responsive">
+      <table class="w-full bg-white text-left text-sm text-gray-900 rounded">
+        <thead class="bg-gray-50 text-center">
+          <tr>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-l-md">ID</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">DESCRIPCIÓN</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">TIPO</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">ATENCIÓN PERSONAL</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">ESTATUS</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">FECHA REGISTRO</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">FECHA ACTUALIZACIÓN</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-r-md">ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody class="bg-gray-200">
+          <tr v-for="(opinion, i) in opiniones" :key="opinion.id" class="hover:bg-gray-300">
+            <td class="h-[50px] text-center">{{ opinion.id }}</td>
+            <td class="text-center">{{ opinion.descripcion }}</td>
+            <td class="text-center">{{ opinion.tipo }}</td>
+            <td class="text-center">{{ opinion.atencion_personal }}</td>
+            <td class="text-center">{{ opinion.estatus ? 'Activo' : 'Inactivo' }}</td>
+            <td class="text-center">{{ new Date(opinion.fecha_registro).toLocaleDateString() }}</td>
+            <td class="text-center">{{ new Date(opinion.fecha_actualizacion).toLocaleDateString() }}</td>
+            <td class="flex justify-center space-x-2">
+              <button @click="editOpinion(opinion)" class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:outline-none transition-colors flex items-center">
+                Editar
+              </button>
+              <button @click="deleteOpinion(opinion.id, opinion.descripcion)" class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors flex items-center">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </div>
 </template>
 
@@ -187,72 +95,120 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      programs: [],
-      newProgram: {
-        Descripcion: "",
-        Tipo: "",
-        Respuesta: "",
-        Estatus: "",
-        Registro: "",
-        Actualizacion: "",
-        Atencion: ""
+      showForm: false,
+      isEditing: false,
+      formData: {
+        id: null,
+        descripcion: '',
+        tipo: '',
+        respuesta: '',
+        estatus: false,
+        fecha_registro: new Date().toISOString(),
+        fecha_actualizacion: new Date().toISOString(),
+        atencion_personal: ''
       },
-      currentProgram: null,
-      editingProgram: false
+      opiniones: [],
+      errorMessage: ''
     };
   },
   methods: {
-    async fetchPrograms() {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/OpinionCliente');
-        this.programs = response.data;
-      } catch (error) {
-        console.error('Error fetching programs:', error);
+    toggleForm() {
+      this.showForm = !this.showForm;
+      if (!this.showForm) {
+        this.resetForm();
       }
     },
-    async addProgram() {
+    async submitForm() {
       try {
-        const response = await axios.post('http://127.0.0.1:8000/OpinionCliente', this.newProgram);
-        this.programs.push(response.data);
-        this.newProgram = { Descripcion: "", Tipo: "", Respuesta: "", Estatus: "", Registro: "", Actualizacion: "", Atencion: "" };
-      } catch (error) {
-        console.error('Error adding program:', error);
-      }
-    },
-    async editProgram(id) {
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/OpinionCliente${id}`);
-        this.currentProgram = response.data;
-        this.editingProgram = true;
-      } catch (error) {
-        console.error('Error fetching program for editing:', error);
-      }
-    },
-    async updateProgram() {
-      try {
-        const response = await axios.put(`http://127.0.0.1:8000/OpinionCliente${this.currentProgram.id}`, this.currentProgram);
-        const index = this.programs.findIndex(p => p.id === this.currentProgram.id);
-        if (index !== -1) {
-          this.programs.splice(index, 1, response.data);
+        // Validar que el ID sea un entero válido antes de enviar
+        if (this.isEditing && !Number.isInteger(this.formData.id)) {
+          this.errorMessage = 'ID inválido para la edición.';
+          return;
         }
-        this.currentProgram = null;
-        this.editingProgram = false;
+
+        if (this.isEditing) {
+          const response = await axios.put(`https://gimnasio-deploy.onrender.com/opiniones_clientes/${this.formData.id}`, this.formData, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+          });
+          const index = this.opiniones.findIndex(o => o.id === this.formData.id);
+          if (index !== -1) {
+            this.opiniones.splice(index, 1, response.data);
+          }
+        } else {
+          const response = await axios.post('https://gimnasio-deploy.onrender.com/opiniones_clientes/', this.formData, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+          });
+          this.opiniones.push(response.data);
+        }
+        this.resetForm();
+        this.toggleForm();
       } catch (error) {
-        console.error('Error updating program:', error);
+        if (error.response && error.response.status === 422) {
+          this.errorMessage = error.response.data.detail || 'Los datos proporcionados son inválidos.';
+        } else {
+          this.errorMessage = 'Ocurrió un error inesperado al intentar guardar.';
+        }
       }
     },
-    async deleteProgram(id) {
-      try {
-        await axios.delete(`http://127.0.0.1:8000/OpinionCliente/${id}`);
-        this.programs = this.programs.filter(p => p.id !== id);
-      } catch (error) {
-        console.error('Error deleting program:', error);
+    async deleteOpinion(id, descripcion) {
+      if (confirm(`¿Estás seguro de que quieres eliminar la opinión "${descripcion}"?`)) {
+        try {
+          await axios.delete(`https://gimnasio-deploy.onrender.com/opiniones_clientes/${id}`, {
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          });
+          this.opiniones = this.opiniones.filter(opinion => opinion.id !== id);
+        } catch (error) {
+          this.errorMessage = 'Ocurrió un error inesperado al intentar eliminar.';
+        }
       }
+    },
+    async getOpiniones() {
+      try {
+        const response = await axios.get('https://gimnasio-deploy.onrender.com/opiniones_clientes/', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        this.opiniones = response.data;
+      } catch (error) {
+        this.errorMessage = 'Ocurrió un error al cargar las opiniones.';
+      }
+    },
+    editOpinion(opinion) {
+      this.formData = { ...opinion };
+      this.showForm = true;
+      this.isEditing = true;
+      this.errorMessage = '';
+    },
+    resetForm() {
+      this.formData = {
+        id: null,
+        descripcion: '',
+        tipo: '',
+        respuesta: '',
+        estatus: false,
+        fecha_registro: new Date().toISOString(),
+        fecha_actualizacion: new Date().toISOString(),
+        atencion_personal: ''
+      };
+      this.isEditing = false;
+      this.errorMessage = '';
     }
   },
-  created() {
-    this.fetchPrograms();
+  mounted() {
+    this.getOpiniones();
   }
 };
 </script>
 
+<style scoped>
+/* Aquí puedes añadir tus estilos personalizados */
+</style>

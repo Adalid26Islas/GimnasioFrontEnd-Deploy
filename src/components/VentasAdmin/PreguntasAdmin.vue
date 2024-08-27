@@ -1,175 +1,96 @@
 <template>
-  <div>
-    <h1 class="text-2xl xl:text-3xl font-extrabold mb-6">Preguntas de Clientes</h1>
-
-    <!-- Formulario para añadir una nueva pregunta -->
-    <form @submit.prevent="addQuestion">
-      <input
-        v-model="newQuestion.Pregunta"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="Pregunta" required
-      />
-      <input
-        v-model="newQuestion.Respuesta"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="Respuesta" required
-      />
-      <input
-        v-model="newQuestion.Categoria"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="Categoría" required
-      />
-      <input
-        v-model="newQuestion.Persona"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        type="text" placeholder="Persona" required
-      />
-      <select v-model="newQuestion.Estatus"
-        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-        required>
-        <option value="" disabled hidden>Estatus</option>
-        <option value="Cancelada">Cancelada</option>
-        <option value="Registrada">Registrada</option>
-        <option value="Pendiente">Pendiente</option>
-        <option value="Atendida">Atendida</option>
-      </select>
-      <div class="relative mt-5">
-        <input
-          v-model="newQuestion.FechaCreacion"
-          id="fecha-creacion"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-          type="date"
-          required
-        />
-        <label for="fecha-creacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-          Fecha Creación
-        </label>
-      </div>
-      <div class="relative mt-5">
-        <input
-          v-model="newQuestion.FechaActualizacion"
-          id="fecha-actualizacion"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-          type="date"
-          required
-        />
-        <label for="fecha-actualizacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-          Fecha Actualización
-        </label>
-      </div>
-      <button
-        class="mt-5 tracking-wide font-semibold bg-red-700 text-red-100 w-full py-4 rounded-lg hover:bg-red-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
-        type="submit"
-      >
-        Registrar
+  <div class="mb-8 p-4 bg-white rounded shadow">
+    <h1 class="title-gym">BULL'S GYM</h1>
+    <!-- Botón para agregar nueva Pregunta -->
+    <section class="mb-4">
+      <button @click="toggleForm" class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors">
+        {{ showForm ? 'Cerrar Formulario' : 'Agregar Nueva Pregunta' }}
       </button>
-    </form>
+    </section>
 
-    <!-- Listado de preguntas -->
-    <h2 class="text-xl font-bold mt-10">Lista de Preguntas de Clientes</h2>
-    <table class="min-w-full bg-white mt-5">
-      <thead>
-        <tr>
-          <th class="py-2">ID</th>
-          <th class="py-2">Pregunta</th>
-          <th class="py-2">Respuesta</th>
-          <th class="py-2">Categoría</th>
-          <th class="py-2">Persona</th>
-          <th class="py-2">Estatus</th>
-          <th class="py-2">Fecha Creación</th>
-          <th class="py-2">Fecha Actualización</th>
-          <th class="py-2">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="question in questions" :key="question.id">
-          <td class="border px-4 py-2">{{ question.id }}</td>
-          <td class="border px-4 py-2">{{ question.Pregunta }}</td>
-          <td class="border px-4 py-2">{{ question.Respuesta }}</td>
-          <td class="border px-4 py-2">{{ question.Categoria }}</td>
-          <td class="border px-4 py-2">{{ question.Persona }}</td>
-          <td class="border px-4 py-2">{{ question.Estatus }}</td>
-          <td class="border px-4 py-2">{{ question.FechaCreacion }}</td>
-          <td class="border px-4 py-2">{{ question.FechaActualizacion }}</td>
-          <td class="border px-4 py-2 text-center">
-            <div class="flex justify-center gap-2">
-              <button @click="editQuestion(question.id)" class="bg-yellow-500 text-white px-4 py-2 rounded-lg w-24">
-                Editar
-              </button>
-              <button @click="deleteQuestion(question.id)" class="bg-red-500 text-white px-4 py-2 rounded-lg w-24">
-                Eliminar
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Formulario para editar una pregunta -->
-    <div v-if="editingQuestion">
-      <h2 class="text-xl font-bold mt-10">Editar Pregunta</h2>
-      <form @submit.prevent="updateQuestion">
-        <input
-          v-model="currentQuestion.Pregunta"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="text" placeholder="Pregunta" required
-        />
-        <input
-          v-model="currentQuestion.Respuesta"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="text" placeholder="Respuesta" required
-        />
-        <input
-          v-model="currentQuestion.Categoria"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="text" placeholder="Categoría" required
-        />
-        <input
-          v-model="currentQuestion.Persona"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          type="text" placeholder="Persona" required
-        />
-        <select v-model="currentQuestion.Estatus"
-          class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-          required>
-          <option value="" disabled hidden>Estatus</option>
-          <option value="Cancelada">Cancelada</option>
-          <option value="Registrada">Registrada</option>
-          <option value="Pendiente">Pendiente</option>
-          <option value="Atendida">Atendida</option>
-        </select>
-        <div class="relative mt-5">
-          <input
-            v-model="currentQuestion.FechaCreacion"
-            id="fecha-creacion"
-            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-            type="date"
-            required
-          />
-          <label for="fecha-creacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-            Fecha Creación
-          </label>
+    <!-- Formulario para agregar nueva Pregunta (se muestra/oculta al hacer clic en el botón) -->
+    <section v-if="showForm" class="mb-8 p-4 bg-white rounded shadow">
+      <h1 class="text-xl font-semibold mb-4 text-gray-900">{{ isEditing ? 'Editar Pregunta' : 'Crear nueva Pregunta' }}</h1>
+      
+      <form @submit.prevent="submitForm">
+        <div class="grid grid-cols-1 gap-4 mb-6">
+          <input 
+            v-model="formData.pregunta" 
+            type="text" 
+            placeholder="Pregunta" 
+            class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
+            required>
+          <textarea 
+            v-model="formData.respuesta" 
+            placeholder="Respuesta" 
+            class="w-full p-2 rounded-lg font-medium bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
+            required></textarea>
+          <input 
+            v-model="formData.categoria" 
+            type="text" 
+            placeholder="Categoría" 
+            class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+          <input 
+            v-model="formData.persona" 
+            type="text" 
+            placeholder="Persona" 
+            class="p-2 rounded-lg w-full font-medium bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
         </div>
-        <div class="relative mt-5">
-          <input
-            v-model="currentQuestion.FechaActualizacion"
-            id="fecha-actualizacion"
-            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-            type="date"
-            required
-          />
-          <label for="fecha-actualizacion" class="absolute left-3 top-0 -translate-y-1/2 transform bg-white px-1 text-gray-500 text-xs">
-            Fecha Actualización
-          </label>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <select 
+            v-model="formData.estatus" 
+            class="rounded-lg w-full font-medium bg-gray-100 border border-gray-300 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
+            required>
+            <option :value="null">Estatus de la Pregunta</option>
+            <option :value="false">Inactivo</option>
+            <option :value="true">Activo</option>
+          </select>
         </div>
-        <button
-          class="mt-5 tracking-wide font-semibold bg-blue-700 text-blue-100 w-full py-4 rounded-lg hover:bg-blue-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
-          type="submit"
-        >
-          Actualizar
+        <button type="submit" class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors">
+          {{ isEditing ? 'Actualizar Pregunta' : 'Crear Pregunta' }}
         </button>
       </form>
-    </div>
+      <div v-if="errorMessage" class="text-red-600 mt-4">{{ errorMessage }}</div>
+    </section>
+
+    <!-- Sección de la Tabla -->
+    <section class="table-responsive">
+      <table class="w-full bg-white text-left text-sm text-gray-900 rounded">
+        <thead class="bg-gray-50 text-center">
+          <tr>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-l-md">ID</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">PREGUNTA</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">RESPUESTA</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">CATEGORÍA</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">PERSONA</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">ESTATUS</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">FECHA CREACIÓN</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100">FECHA ACTUALIZACIÓN</th>
+            <th scope="col" class="px-6 py-4 bg-gray-900 font-medium text-gray-100 rounded-r-md">ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody class="bg-gray-200">
+          <tr v-for="(pregunta, i) in preguntas" :key="pregunta.id" class="hover:bg-gray-300">
+            <td class="h-[50px] text-center">{{ pregunta.id }}</td>
+            <td class="text-center">{{ pregunta.pregunta }}</td>
+            <td class="text-center">{{ pregunta.respuesta }}</td>
+            <td class="text-center">{{ pregunta.categoria }}</td>
+            <td class="text-center">{{ pregunta.persona }}</td>
+            <td class="text-center">{{ pregunta.estatus ? 'Activo' : 'Inactivo' }}</td>
+            <td class="text-center">{{ new Date(pregunta.fecha_creacion).toLocaleDateString() }}</td>
+            <td class="text-center">{{ new Date(pregunta.fecha_actualizacion).toLocaleDateString() }}</td>
+            <td class="flex justify-center space-x-2">
+              <button @click="editPregunta(pregunta)" class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 focus:outline-none transition-colors flex items-center">
+                Editar
+              </button>
+              <button @click="deletePregunta(pregunta.id, pregunta.pregunta)" class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors flex items-center">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </div>
 </template>
 
@@ -179,83 +100,115 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      questions: [],
-      newQuestion: {
-        Pregunta: '',
-        Respuesta: '',
-        Categoria: '',
-        Persona: '',
-        Estatus: '',
-        FechaCreacion: '',
-        FechaActualizacion: ''
+      showForm: false, // Controla la visibilidad del formulario
+      isEditing: false, // Indica si estamos en modo de edición
+      formData: {
+        id: null,
+        pregunta: '',
+        respuesta: '',
+        categoria: '',
+        persona: '',
+        estatus: true,
+        fecha_creacion: new Date().toISOString(),
+        fecha_actualizacion: new Date().toISOString()
       },
-      editingQuestion: false,
-      currentQuestion: {}
+      preguntas: [], // Lista de preguntas
+      errorMessage: ''
     };
   },
   methods: {
-    async fetchQuestions() {
-      try {
-        const response = await axios.get('http://127.0.0.1:8000/Pregunta');
-        this.questions = response.data;
-      } catch (error) {
-        console.error('Error fetching questions:', error);
+    toggleForm() {
+      this.showForm = !this.showForm; // Muestra o oculta el formulario
+      if (!this.showForm) {
+        this.resetForm(); // Resetea el formulario al cerrar
       }
     },
-    async addQuestion() {
+    async submitForm() {
       try {
-        const response = await axios.post('http://127.0.0.1:8000/Pregunta', this.newQuestion);
-        this.questions.push(response.data);
-        this.newQuestion = {
-          Pregunta: '',
-          Respuesta: '',
-          Categoria: '',
-          Persona: '',
-          Estatus: '',
-          FechaCreacion: '',
-          FechaActualizacion: ''
-        };
-      } catch (error) {
-        console.error('Error adding question:', error);
-      }
-    },
-    async editQuestion(id) {
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/Pregunta/${id}`);
-        this.currentQuestion = response.data;
-        this.editingQuestion = true;
-      } catch (error) {
-        console.error('Error fetching question for editing:', error);
-      }
-    },
-    async updateQuestion() {
-      try {
-        const response = await axios.put(`http://127.0.0.1:8000/Pregunta/${this.currentQuestion.id}`, this.currentQuestion);
-        const index = this.questions.findIndex(q => q.id === this.currentQuestion.id);
-        if (index !== -1) {
-          this.questions[index] = response.data;
+        if (this.isEditing) {
+          const response = await axios.put(`https://gimnasio-deploy.onrender.com/preguntas/${this.formData.id}`, this.formData, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+          });
+          const index = this.preguntas.findIndex(p => p.id === this.formData.id);
+          this.preguntas.splice(index, 1, response.data); // Actualiza la pregunta en la lista
+        } else {
+          const response = await axios.post('https://gimnasio-deploy.onrender.com/preguntas/', this.formData, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+          });
+          this.preguntas.push(response.data); // Añade la nueva pregunta a la lista
         }
-        this.editingQuestion = false;
-        this.currentQuestion = {};
+        this.resetForm(); // Resetea el formulario después de guardar
+        this.toggleForm(); // Cierra el formulario
       } catch (error) {
-        console.error('Error updating question:', error);
+        if (error.response && error.response.status === 422) {
+          this.errorMessage = 'Datos no válidos. Verifique los campos del formulario.';
+        } else {
+          this.errorMessage = 'Ocurrió un error inesperado.';
+        }
       }
     },
-    async deleteQuestion(id) {
-      try {
-        await axios.delete(`http://127.0.0.1:8000/Pregunta/${id}`);
-        this.questions = this.questions.filter(question => question.id !== id);
-      } catch (error) {
-        console.error('Error deleting question:', error);
+    async deletePregunta(id, pregunta) {
+      if (confirm(`¿Estás seguro de que deseas eliminar la pregunta "${pregunta}"?`)) {
+        try {
+          await axios.delete(`https://gimnasio-deploy.onrender.com/preguntas/${id}`, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+          });
+          this.getPreguntas(); // Recargar la lista de preguntas después de la eliminación
+        } catch (error) {
+          this.errorMessage = 'Ocurrió un error al eliminar la pregunta.';
+        }
       }
+    },
+    editPregunta(pregunta) {
+      this.formData = { ...pregunta };
+      this.formData.fecha_creacion = new Date(pregunta.fecha_creacion).toISOString();
+      this.formData.fecha_actualizacion = new Date(pregunta.fecha_actualizacion).toISOString();
+      this.isEditing = true;
+      this.showForm = true;
+    },
+    async getPreguntas() {
+      try {
+        const response = await axios.get('https://gimnasio-deploy.onrender.com/preguntas/', {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
+        });
+        this.preguntas = response.data;
+      } catch (error) {
+        this.errorMessage = 'Ocurrió un error al obtener las preguntas.';
+      }
+    },
+    resetForm() {
+      this.formData = {
+        id: null,
+        pregunta: '',
+        respuesta: '',
+        categoria: '',
+        persona: '',
+        estatus: true,
+        fecha_creacion: new Date().toISOString(),
+        fecha_actualizacion: new Date().toISOString()
+      };
+      this.isEditing = false;
+      this.errorMessage = '';
     }
   },
-  created() {
-    this.fetchQuestions();
+  mounted() {
+    this.getPreguntas(); // Carga las preguntas cuando se monta el componente
   }
 };
 </script>
 
 <style scoped>
-/* Añade estilos específicos si es necesario */
+/* Agrega estilos específicos si es necesario */
 </style>
