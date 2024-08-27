@@ -146,7 +146,7 @@ import Swal from 'sweetalert2';
 export default {
     data() {
         return {
-            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6ImNhcmxvc19sb3BleiIsIkNvcnJlb19FbGVjdHJvbmljbyI6InN0cmluZyIsIkNvbnRyYXNlbmEiOiJwYXNzMTIzIiwiTnVtZXJvX1RlbGVmb25pY29fTW92aWwiOiJzdHJpbmcifQ.mkM3kJ1pgTiwRtBay2WZdtBDH3JDveAW15pMBrMdXnw",
+            token: localStorage.getItem("token"),
             transaccionData: {
                 Usuario_ID: null,
                 Metodo_Pago: null,
@@ -172,7 +172,7 @@ export default {
         async submitForm() {
             this.transaccionData.Estatus = this.transaccionData.Estatus === 'true' ? true : false;
             console.log(JSON.stringify(this.transaccionData))
-            const url = "http://127.0.0.1:8000/transaccion/"
+            const url = "https://gimnasio-deploy.onrender.com/transaccion/"
 
             await fetch(url, {
                 method: 'POST',
@@ -214,7 +214,7 @@ export default {
                         'El registro ha sido eliminado.',
                         'success'
                     )
-                    const url = `http://127.0.0.1:8000/transaccion/${transaccion_id}`
+                    const url = `https://gimnasio-deploy.onrender.com/${transaccion_id}`
 
                     await fetch(url, {
                         method: 'DELETE',
@@ -271,7 +271,7 @@ export default {
         async updateTransaccion(id, transaccionData) {
             transaccionData.Estatus = transaccionData.Estatus === 'true' ? true : false;
             console.log(JSON.stringify(transaccionData))
-            const url = `http://127.0.0.1:8000/transaccion/${id}`
+            const url = `https://gimnasio-deploy.onrender.com/${id}`
 
             await fetch(url, {
                 method: 'PUT',
@@ -296,7 +296,7 @@ export default {
                 });
         },
         async updateTable() {
-            const url = "http://127.0.0.1:8000/transacciones/"
+            const url = "https://gimnasio-deploy.onrender.com/transacciones/"
 
             const response = await fetch(url, {
                 headers: {
