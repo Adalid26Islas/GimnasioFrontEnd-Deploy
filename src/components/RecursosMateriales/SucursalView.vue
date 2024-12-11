@@ -161,11 +161,14 @@ export default {
             };
             console.log(sucursalesInformacion);
 
-            const url = "https://gimnasio-deploy.onrender.com/sucursales/";
-            const headers = {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            };
+            const url = "http://192.168.1.89:8000/sucursales/";
+            const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6Ikplc3VzIiwiQ29ycmVvX0VsZWN0cm9uaWNvIjoic3RyaW5nIiwiQ29udHJhc2VuYSI6IjEyMyIsIk51bWVyb19UZWxlZm9uaWNvX01vdmlsIjoic3RyaW5nIn0.lSmpsABjrZfQmr1r-mNbQr89uS6IMly8kitq_wK2boc';
+
+// Construye los encabezados con el token
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${TOKEN}`
+};
             axios
                 .post(url, sucursalesInformacion, { headers })
                 .then((response) => {
