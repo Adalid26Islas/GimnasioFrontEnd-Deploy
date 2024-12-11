@@ -180,22 +180,31 @@ const headers = {
                 .catch((error) => { console.error(error) });
         },
 
-        fetchSucursales() {
-                 const url = "http://192.168.1.89:8000/sucursales";
-            const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6Ikplc3VzIiwiQ29ycmVvX0VsZWN0cm9uaWNvIjoic3RyaW5nIiwiQ29udHJhc2VuYSI6IjEyMyIsIk51bWVyb19UZWxlZm9uaWNvX01vdmlsIjoic3RyaW5nIn0.lSmpsABjrZfQmr1r-mNbQr89uS6IMly8kitq_wK2boc';
+      fetchSucursales() {
+    const url = `http://192.168.1.89:8000/sucursales/`;
+    
+    // Define el token como una constante separada
+    const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJOb21icmVfVXN1YXJpbyI6Ikplc3VzIiwiQ29ycmVvX0VsZWN0cm9uaWNvIjoic3RyaW5nIiwiQ29udHJhc2VuYSI6IjEyMyIsIk51bWVyb19UZWxlZm9uaWNvX01vdmlsIjoic3RyaW5nIn0.lSmpsABjrZfQmr1r-mNbQr89uS6IMly8kitq_wK2boc';
 
-// Construye los encabezados con el token
-const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${TOKEN}`
-};
-            axios
-                .get(url, { headers })
-                .then((response) => {
-                    this.sucursales = response.data;
-                })
-                .catch((error) => { console.error(error) });
-        },
+    // Configura los encabezados
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${TOKEN}`
+    };
+
+    // Realiza la solicitud con Axios
+    axios
+        .get(url, { headers })
+        .then((response) => {
+            // Imprime los datos de la respuesta para depuración
+            console.log(response.data);
+            this.sucursales = response.data; // Asigna los datos a 'this.sucursales'
+        })
+        .catch((error) => {
+            // Maneja los errores y los imprime en la consola
+            console.error('Error al obtener las sucursales:', error);
+        });
+}
 
         editSucursal(sucursal) {
             this.isEditing = true;
