@@ -204,7 +204,7 @@ const headers = {
             // Maneja los errores y los imprime en la consola
             console.error('Error al obtener las sucursales:', error);
         });
-}
+},
 
         editSucursal(sucursal) {
             this.isEditing = true;
